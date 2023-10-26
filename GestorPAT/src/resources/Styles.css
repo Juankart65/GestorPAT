@@ -1,0 +1,82 @@
+.root {
+	-fx-background-radius: 30;
+	-fx-background-color: #0d5b6e;
+	-fx-effect: dropshadow(gaussian, rgb(0, 255, 255, 0.4), 12, 0.5, 0.0,
+		0.0);
+	-fx-padding: 12;
+}
+
+#main {
+	-fx-background-color: transparent;
+}
+
+.button {
+	-fx-background-radius: 40;
+	-fx-text-fill: #dee1ed;
+	-fx-background-color: rgb(20, 25, 45);
+}
+
+.button:hover {
+	-fx-background-color: #be0034;
+	-fx-border-with: 2px;
+}
+
+.label {
+	-fx-text-fill: #14a7d0;
+	-fx-font-size: 14px;
+	-fx-font-weight: bold;
+}
+
+.txtPrincipal {
+	-fx-text-fill: #fff;
+	-fx-font-size: 17px;
+}
+
+.TextField {
+	-fx-border-color: #81407b;
+}
+
+.dialogs{
+	-fx-background-color: #0d5b6e;
+	-fx-background-radius: 0;
+}
+
+.dialogs:header *.header-panel {
+	-fx-background-color: #378497;
+}
+
+.dialogs:title *.title-panel {
+	-fx-background-color: transparent;
+}
+
+.table-view:row-selection .table-row-cell:filled:selected { 
+    -fx-background-color: #be0034;
+}
+
+.tableView .column-header .label {
+	-fx-text-fill: #0d5b6e;
+}
+
+.tableView {
+	-fx-background-color: transparent;
+	-fx-background-radius: 30;
+	-fx-effect: dropshadow(gaussian, rgb(46, 64, 83,1), 14, 0.7, 0.3,
+		0.6);
+}
+
+.table-row-cell:empty .table-cell {
+	-fx-border-width: 0px;
+    -fx-background-color: #6a7f8f;
+
+}
+
+.table-view .column-header, .table-view .filler {
+    -fx-background-color: #222b2f;
+   
+}
+
+.table-cell{
+	-fx-background-color: transparent;
+	
+}
+
