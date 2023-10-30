@@ -5,11 +5,14 @@ package controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import application.Aplicacion;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
+import model.User;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -19,7 +22,7 @@ import javafx.scene.control.TextField;
  *
  * @author Juanes Cardona
  */
-public class InicioSesionController {
+public class LoginController {
 
 	@FXML
 	private ResourceBundle resources;
@@ -92,7 +95,7 @@ public class InicioSesionController {
 			if (usuarioValido) {
 				User usuarioActual = aplicacion.getUsuario(usuario, contrasenia);
 				Aplicacion.setUserActual(usuarioActual);
-				Aplicacion.userActual.getListaFincas();
+//				Aplicacion.userActual.getListaFincas();
 				aplicacion.mostrarVentanaMisFincas(Aplicacion.getUserActual());
 			} else {
 				txtUsuario.setText("");

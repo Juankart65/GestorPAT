@@ -8,7 +8,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
 
-public class MisFincasController {
+public class ProcessViewController {
 
 	@FXML
 	private TableView<Finca> fincasTabla;
