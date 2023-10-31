@@ -258,7 +258,7 @@ public class VistaPrincipalController {
 
 	@FXML
 	void CerrarSesionEvent(ActionEvent event) {
-		aplicacion.mostrarVentanaInicioSesion();
+		aplicacion.showLogin();
 	}
 
 	@FXML

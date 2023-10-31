@@ -1,5 +1,6 @@
 package application;
 
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.User;
@@ -7,6 +8,7 @@ import model.User;
 import java.io.IOException;
 
 import controller.LoginController;
+import controller.SignUpController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,49 +23,82 @@ import javafx.scene.paint.Color;
  * @author Juanes Cardona
  */
 public class Aplicacion extends Application {
+	
+	//Variable declaration
 
 	private Stage primaryStage;
-	public static User userActual;
+	public static User currentUser;
 
-	private ObservableList<User> listaUsuarios = FXCollections.observableArrayList();
+	private ObservableList<User> userList = FXCollections.observableArrayList();
 
-	public ObservableList<User> getListaUsuarios() {
-		return listaUsuarios;
+	public ObservableList<User> getUserList() {
+		return userList;
 	}
 
-	public void setListaUsuarios(ObservableList<User> listaUsuarios) {
-		this.listaUsuarios = listaUsuarios;
+	public void setUserList(ObservableList<User> userList) {
+		this.userList = userList;
 	}
 
+	/**
+	 * @return
+	**/
 	@Override
 	public String toString() {
-		return "Aplicacion [listaUsuarios=" + listaUsuarios + "]";
+		return "Aplicacion [userList=" + userList + "]";
 	}
 
-//	public boolean verificarUsuario(String user, String pw) {
-//		for (User usuario : listaUsuarios) {
-//			if (usuario.getUsuario().equals(user) && usuario.getPw().equals(pw)) {
-//				return true;
-//			}
-//		}
-//		return false;
-//	}
-//
-//	public User getUsuario(String user, String pw) {
-//		for (User usuario : listaUsuarios) {
-//			if (usuario.getUsuario().equals(user) && usuario.getPw().equals(pw)) {
-//				return usuario;
-//			}
-//		}
-//		return null;
-//	}
+	/**
+	 * 
+	 * Method that 
+	 *
+	 * @param user
+	 * @param pw
+	 * @return
+	 */
+	public boolean verifyUser(String user, String pw) {
+		for (User user1 : userList) {
+			if (user1.getName().equals(user1) && user1.getPassword().equals(pw)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
+	/**
+	 * 
+	 * Method that 
+	 *
+	 * @param user
+	 * @param pw
+	 * @return
+	 */
+	public User getUser(String user, String pw) {
+		for (User user1 : userList) {
+			if (user1.getName().equals(user) && user1.getPassword().equals(pw)) {
+				return user1;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * 
+	 * Method that 
+	 *
+	 * @return
+	 */
 	public static User getUserActual() {
-		return userActual;
+		return currentUser;
 	}
 
-	public static void setUserActual(User userActual) {
-		Aplicacion.userActual = userActual;
+	/**
+	 * 
+	 * Method that 
+	 *
+	 * @param userActual
+	 */
+	public static void setCurrentUser(User userActual) {
+		Aplicacion.currentUser = userActual;
 	}
 
 	/*
@@ -76,14 +111,14 @@ public class Aplicacion extends Application {
 		this.primaryStage = primaryStage;
 		this.primaryStage.initStyle(StageStyle.TRANSPARENT);
 		this.primaryStage.centerOnScreen();
-		this.primaryStage.setTitle("CAMP");
-		mostrarVentanaInicioSesion();
+		this.primaryStage.setTitle("GestorPAT");
+		showLogin();
 //		getListaUsuarios();
 
 	}
 
 	/**
-	 * Obtiene la escenario principal
+	 * Gets the main stage
 	 * 
 	 * @return
 	 */
@@ -92,7 +127,7 @@ public class Aplicacion extends Application {
 	}
 
 	/**
-	 * Cambia el escenario principal
+	 * Change the main scenario
 	 * 
 	 * @param primaryStage
 	 */
@@ -103,7 +138,7 @@ public class Aplicacion extends Application {
 	/**
 	 * Muestra la ventana para que el usuario inicie sesion
 	 */
-	public void mostrarVentanaInicioSesion() {
+	public void showLogin() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Aplicacion.class.getResource("../view/LoginView.fxml"));
@@ -126,6 +161,48 @@ public class Aplicacion extends Application {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Shows the window to register a user
+	 * 
+	 * @param user
+	 * @return
+	 */
+	public boolean showSignUp(User user) {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Aplicacion.class.getResource("../view/SignUpView.fxml"));
+
+			AnchorPane page = (AnchorPane) loader.load();
+
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Sign Up User");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			dialogStage.initStyle(StageStyle.TRANSPARENT);
+			dialogStage.centerOnScreen();
+
+			Scene scene = new Scene(page);
+			// Establecer el color de relleno del Scene a transparente
+	        scene.setFill(Color.TRANSPARENT);
+	        // Agregar el archivo de estilos style.css
+	        scene.getStylesheets().add(getClass().getResource("../resources/Styles.css").toString());
+			dialogStage.setScene(scene);
+
+			SignUpController signUpController = loader.getController();
+			signUpController.showDialogStage(dialogStage);
+			signUpController.showUser(user);
+
+			dialogStage.showAndWait();
+
+			return signUpController.isOkClicked();
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
 		}
 	}
 
@@ -266,7 +343,7 @@ public class Aplicacion extends Application {
 //	}
 
 	/**
-	 * Metodo principal del proyecto
+	 * Main method of the project
 	 * 
 	 * @param args
 	 */
@@ -316,47 +393,7 @@ public class Aplicacion extends Application {
 //		}
 //	}
 //
-//	/**
-//	 * Muestra la ventana para registrar un usuario
-//	 * 
-//	 * @param user
-//	 * @return
-//	 */
-//	public boolean mostrarVentanaRegistrarUsuario(User user) {
-//		try {
-//			FXMLLoader loader = new FXMLLoader();
-//			loader.setLocation(Aplicacion.class.getResource("../views/RegistrarUsuario.fxml"));
-//
-//			AnchorPane page = (AnchorPane) loader.load();
-//
-//			Stage dialogStage = new Stage();
-//			dialogStage.setTitle("Registrar Usuario");
-//			dialogStage.initModality(Modality.WINDOW_MODAL);
-//			dialogStage.initOwner(primaryStage);
-//			dialogStage.initStyle(StageStyle.TRANSPARENT);
-//			dialogStage.centerOnScreen();
-//
-//			Scene scene = new Scene(page);
-//			// Establecer el color de relleno del Scene a transparente
-//	        scene.setFill(Color.TRANSPARENT);
-//	        // Agregar el archivo de estilos style.css
-//	        scene.getStylesheets().add(getClass().getResource("../resource/Styles.css").toString());
-//			dialogStage.setScene(scene);
-//
-//			RegistrarUsuarioController registrarUsuarioController = loader.getController();
-//			registrarUsuarioController.mostrarDialogStage(dialogStage);
-//			registrarUsuarioController.mostrarUser(user);
-//
-//			dialogStage.showAndWait();
-//
-//			return registrarUsuarioController.isOkClicked();
-//
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//			return false;
-//		}
-//	}
+
 //
 //	public boolean mostrarVentanaCrearFinca(Finca finca) {
 //		try {

@@ -117,7 +117,7 @@ public class ProcessViewController {
 
 	@FXML
 	void cerrarSesionEvent(ActionEvent event) {
-		aplicacion.mostrarVentanaInicioSesion();
+		aplicacion.showLogin();
 	}
 
 	public void setAplicacion(Aplicacion aplicacion) {

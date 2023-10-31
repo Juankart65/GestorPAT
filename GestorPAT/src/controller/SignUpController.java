@@ -8,36 +8,38 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import model.User;
 
-public class RegistrarUsuarioController {
+public class SignUpController {
 
-	@FXML
-    private PasswordField txtContrase�a;
+    @FXML
+    private Button btnCancelUser;
 
-	@FXML
-	private Button btnAceptarUsuario;
+    @FXML
+    private TextField txtCreateUser;
 
-	@FXML
-	private TextField txtCrearUsuario;
+    @FXML
+    private Button btnAcceptUser;
 
-	@FXML
-	private Button btnCancelarUsuario;
+    @FXML
+    private PasswordField txtPassword;
+
 
 	private Stage dialogStage;
 	private User user = new User("", "");
 	private boolean okClicked = false;
 
 	@FXML
-    void aceptarUsuarioEvent(ActionEvent event) {
+    void acceptUserEvent(ActionEvent event) {
     	if(isInputValid()) {
-    		user.setUsuario(txtCrearUsuario.getText());
-    		user.setPw(txtContrase�a.getText());
+    		user.setName(txtCreateUser.getText());
+    		user.setPassword(txtPassword.getText());
     		
     		Alert alert = new Alert(AlertType.INFORMATION);
     		alert.initOwner(dialogStage);
-    		alert.setTitle("Creado Correctamente");
-    		alert.setHeaderText("Usuario creado correctamente");
-    		alert.setContentText("El usuario fue creado con exito, inicie sesion nuevamente");
+    		alert.setTitle("Created Successfully");
+    		alert.setHeaderText("Successfully created user");
+    		alert.setContentText("The user was created successfully, log in again");
     		
     		alert.showAndWait();
     		
@@ -48,7 +50,7 @@ public class RegistrarUsuarioController {
     }
 
 	@FXML
-	void cancelarUsuarioEvent(ActionEvent event) {
+	void cancelUserEvent(ActionEvent event) {
 		dialogStage.close();
 	}
 
@@ -60,12 +62,12 @@ public class RegistrarUsuarioController {
 	private boolean isInputValid() {
     	String errorMensaje = "";
     	
-    	if(txtCrearUsuario == null || txtCrearUsuario.getText().length() == 0) {
-    			errorMensaje += "No es valido el usuario!\n";
+    	if(txtCreateUser == null || txtCreateUser.getText().length() == 0) {
+    			errorMensaje += "The user is not valid!\n";
     	}
     	
-    	if(txtContrase�a == null || txtContrase�a.getText().length() == 0) {
-			errorMensaje += "No es valida la contrase�a!\n";
+    	if(txtPassword == null || txtPassword.getText().length() == 0) {
+			errorMensaje += "The password is not valid!\n";
     	}
     	
     	if(errorMensaje.length() == 0) {
@@ -73,8 +75,8 @@ public class RegistrarUsuarioController {
     	} else {
     		Alert alert = new Alert(AlertType.ERROR);
     		alert.initOwner(dialogStage);
-    		alert.setTitle("Campos Invalidos");
-    		alert.setHeaderText("Por favor corrija los campos incorrectos");
+    		alert.setTitle("Invalid fields");
+    		alert.setHeaderText("Please correct the incorrect fields");
     		alert.setContentText(errorMensaje);
     		
     		alert.showAndWait();
@@ -83,15 +85,15 @@ public class RegistrarUsuarioController {
     	}
     }
 
-	public void mostrarDialogStage(Stage dialogStage) {
+	public void showDialogStage(Stage dialogStage) {
 		this.dialogStage = dialogStage;
 	}
 
-	public void mostrarUser(User user) {
+	public void showUser(User user) {
     	this.user = user;
     	
-    	txtCrearUsuario.setText(user.getUsuario());
-    	txtContrase�a.setText(user.getPw());
+    	txtCreateUser.setText(user.getName());
+    	txtPassword.setText(user.getPassword());
     }
 
 	public boolean isOkClicked() {

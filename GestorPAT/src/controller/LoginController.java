@@ -27,85 +27,82 @@ public class LoginController {
 	@FXML
 	private ResourceBundle resources;
 
-	@FXML
-	private URL location;
+    @FXML
+    private Button btnBack;
 
-	@FXML
-	private Button btnIniciarSesion;
+    @FXML
+    private Button btnLogin;
 
-	@FXML
-	private TextField txtUsuario;
+    @FXML
+    private Button btnSignUp;
 
-	@FXML
-	private Button btnRegistrarse;
+    @FXML
+    private TextField txtUser;
 
-	@FXML
-	private PasswordField txtContrasenia;
-
-	@FXML
-	private Button btnSalir;
+    @FXML
+    private PasswordField txtPassword;
 
 	private Aplicacion aplicacion;
 	private Stage dialogStage;
-	int cont = 0;
+	int robin = 0;
 
 	@FXML
-	void salirEvent(ActionEvent event) {
+	void backEvent(ActionEvent event) {
 		System.exit(0);
 	}
 
 	@FXML
-	void iniciarSesionEvent(ActionEvent event) {
-		iniciarSesionAction();
+	void loginEvent(ActionEvent event) {
+		loginAction();
 	}
 
 	@FXML
-	void registrarseEvent(ActionEvent event) {
-		registrarseAction();
+	void signUpEvent(ActionEvent event) {
+		signUpAction();
 	}
 
 	/**
 	 * 
 	 */
-	private void registrarseAction() {
+	private void signUpAction() {
 		User tempUser = new User("", "");
-		boolean okClicked = aplicacion.mostrarVentanaRegistrarUsuario(tempUser);
+		boolean okClicked = aplicacion.showSignUp(tempUser);
 
 		if (okClicked) {
-			aplicacion.getListaUsuarios().add(tempUser);
-			btnIniciarSesion.setDisable(false);
+			aplicacion.getUserList().add(tempUser);
+			btnLogin.setDisable(false);
 		}
 	}
 
 	/**
 	 * 
 	 */
-	private void iniciarSesionAction() {
-		cont++;
-		String usuario = txtUsuario.getText();
-		String contrasenia = txtContrasenia.getText();
+	private void loginAction() {
+		robin++;
+		String user = txtUser.getText();
+		String password = txtPassword.getText();
 
-		if (cont >= 3) {
-			btnIniciarSesion.setDisable(true);
+		if (robin >= 3) {
+			btnLogin.setDisable(true);
 		}
 
 		if (isInputValid()) {
-			boolean usuarioValido = aplicacion.verificarUsuario(usuario, contrasenia);
+			boolean validUser = aplicacion.verifyUser(user, password);
 
-			if (usuarioValido) {
-				User usuarioActual = aplicacion.getUsuario(usuario, contrasenia);
-				Aplicacion.setUserActual(usuarioActual);
+			if (validUser) {
+				User currentUser = aplicacion.getUser(user, password);
+				Aplicacion.setCurrentUser(currentUser);
 //				Aplicacion.userActual.getListaFincas();
-				aplicacion.mostrarVentanaMisFincas(Aplicacion.getUserActual());
+//				aplicacion.mostrarVentanaMisFincas(Aplicacion.getUserActual());
 			} else {
-				txtUsuario.setText("");
-				txtContrasenia.setText("");
+				txtUser.setText("");
+				txtPassword.setText("");
 
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.initOwner(dialogStage);
-				alert.setTitle("Usuario no existe");
-				alert.setHeaderText("Por favor ingrese un usuario y una contraseña validos");
-				alert.setContentText("Despues de 3 intentos incorrectos el usuario se bloqueará");
+				alert.setTitle("User does not exist");
+				alert.setHeaderText("Please enter a valid username and password");
+				alert.setContentText("After 3 incorrect attempts the user will be blocked");
 
 				alert.showAndWait();
 			}
@@ -120,12 +117,12 @@ public class LoginController {
 	private boolean isInputValid() {
 		String errorMensaje = "";
 
-		if (txtUsuario == null || txtUsuario.getText().length() == 0) {
-			errorMensaje += "No es valido el usuario!\n";
+		if (txtUser == null || txtUser.getText().length() == 0) {
+			errorMensaje += "The user is not valid!\n";
 		}
 
-		if (txtContrasenia == null || txtContrasenia.getText().length() == 0) {
-			errorMensaje += "No es valida la contraseña!\n";
+		if (txtPassword == null || txtPassword.getText().length() == 0) {
+			errorMensaje += "The password is not valid!\n";
 		}
 
 		if (errorMensaje.length() == 0) {
@@ -133,8 +130,8 @@ public class LoginController {
 		} else {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.initOwner(dialogStage);
-			alert.setTitle("Campos Invalidos");
-			alert.setHeaderText("Por favor corrija los campos incorrectos");
+			alert.setTitle("Invalid fields");
+			alert.setHeaderText("Please correct the incorrect fields");
 			alert.setContentText(errorMensaje);
 
 			alert.showAndWait();

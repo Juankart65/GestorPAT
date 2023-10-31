@@ -1,7 +1,7 @@
 .root {
 	-fx-background-radius: 30;
-	-fx-background-color: #0d5b6e;
-	-fx-effect: dropshadow(gaussian, rgb(0, 255, 255, 0.4), 12, 0.5, 0.0,
+	-fx-background-color: #170132;
+	-fx-effect: dropshadow(gaussian, #85ae72, 12, 0.5, 0.0,
 		0.0);
 	-fx-padding: 12;
 }
@@ -13,7 +13,7 @@
 .button {
 	-fx-background-radius: 40;
 	-fx-text-fill: #dee1ed;
-	-fx-background-color: rgb(20, 25, 45);
+	-fx-background-color:#573e54;
 }
 
 .button:hover {
@@ -22,7 +22,7 @@
 }
 
 .label {
-	-fx-text-fill: #14a7d0;
+	-fx-text-fill: #fbfffb;
 	-fx-font-size: 14px;
 	-fx-font-weight: bold;
 }

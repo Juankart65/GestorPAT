@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
@@ -7,47 +8,52 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane id="main" prefHeight="510.0" prefWidth="514.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.axm.personal.adminstrarfinca.controllers.RegistrarUsuarioController">
+<AnchorPane id="main" prefHeight="291.0" prefWidth="531.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SignUpController">
 	<children>
-      <AnchorPane layoutX="54.0" layoutY="40.0" prefHeight="431.0" prefWidth="423.0" styleClass="root" stylesheets="@../resource/Styles.css" AnchorPane.bottomAnchor="39.0" AnchorPane.leftAnchor="54.0" AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="40.0">
+      <AnchorPane layoutX="54.0" layoutY="40.0" prefHeight="331.0" prefWidth="423.0" styleClass="root" stylesheets="@../resources/Styles.css" AnchorPane.bottomAnchor="144.0" AnchorPane.leftAnchor="54.0" AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="40.0">
          <children>
-            <GridPane layoutX="21.0" layoutY="69.0" prefHeight="274.0" prefWidth="372.0">
+            <GridPane layoutX="19.0" layoutY="96.0" prefHeight="99.0" prefWidth="372.0">
                <children>
-                  <Label alignment="CENTER" prefHeight="55.0" prefWidth="140.0" text="Usuario" textFill="#14a7d0" underline="true">
+                  <Label alignment="CENTER" prefHeight="55.0" prefWidth="140.0" text="User" textFill="#14a7d0" underline="true">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <Label alignment="CENTER" prefHeight="55.0" prefWidth="140.0" text="Contraseña" textFill="#14a7d0" underline="true" GridPane.rowIndex="1">
+                  <Label alignment="CENTER" prefHeight="55.0" prefWidth="140.0" text="Password" textFill="#14a7d0" underline="true" GridPane.rowIndex="1">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="txtCrearUsuario" layoutX="133.0" layoutY="138.0" GridPane.columnIndex="1" />
-                  <PasswordField fx:id="txtContraseña" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="txtCreateUser" layoutX="133.0" layoutY="138.0" GridPane.columnIndex="1" />
+                  <PasswordField fx:id="txtPassword" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="188.0" minWidth="10.0" prefWidth="123.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="263.0" minWidth="10.0" prefWidth="263.0" />
                </columnConstraints>
                <rowConstraints>
-                  <RowConstraints maxHeight="189.0" minHeight="10.0" prefHeight="147.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="183.0" minHeight="10.0" prefHeight="127.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="189.0" minHeight="10.0" prefHeight="49.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="219.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
                </rowConstraints>
             </GridPane>
-            <Label layoutX="161.0" layoutY="23.0" text="Registrar Usuario" textFill="#14a7d0">
+            <Label layoutX="213.0" layoutY="26.0" styleClass="txtPrincipal" stylesheets="@../resources/Styles.css" text="Sign Up" textFill="#14a7d0">
                <font>
                   <Font name="System Bold Italic" size="18.0" />
                </font>
             </Label>
-            <Separator layoutX="27.0" layoutY="348.0" prefHeight="0.0" prefWidth="372.0" />
+            <Separator layoutX="27.0" layoutY="205.0" prefHeight="0.0" prefWidth="372.0" />
             <Separator layoutX="27.0" layoutY="68.0" prefHeight="0.0" prefWidth="372.0" />
-            <HBox alignment="CENTER" layoutX="84.0" layoutY="366.0" spacing="90.0">
+            <HBox alignment="CENTER" layoutX="103.0" layoutY="227.0" spacing="90.0">
                <children>
-                  <Button fx:id="btnAceptarUsuario" layoutX="226.0" layoutY="311.0" mnemonicParsing="false" onAction="#aceptarUsuarioEvent" text="Aceptar" textFill="#14a7d0" />
-                  <Button fx:id="btnCancelarUsuario" layoutX="292.0" layoutY="311.0" mnemonicParsing="false" onAction="#cancelarUsuarioEvent" text="Cancelar" textFill="#14a7d0" />
+                  <Button fx:id="btnAcceptUser" layoutX="226.0" layoutY="311.0" mnemonicParsing="false" onAction="#acceptUserEvent" text="Accept" textFill="#14a7d0" />
+                  <Button fx:id="btnCancelUser" layoutX="292.0" layoutY="311.0" mnemonicParsing="false" onAction="#cancelUserEvent" text="Cancel" textFill="#14a7d0" />
                </children>
             </HBox>
+            <ImageView fitHeight="40.0" fitWidth="43.0" layoutX="159.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../resources/person.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
 		
