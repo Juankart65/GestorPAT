@@ -3,12 +3,17 @@ package application;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import model.Process;
 import model.User;
 
 import java.io.IOException;
 
+import controller.CreateProcessController;
 import controller.LoginController;
+import controller.ActivitiesViewController;
+import controller.ProcessViewController;
 import controller.SignUpController;
+import dataStructures.ListaSimple;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,14 +27,15 @@ import javafx.scene.paint.Color;
  *
  * @author Juanes Cardona
  */
-public class Aplicacion extends Application {
-	
-	//Variable declaration
+public class App extends Application {
+
+	// Variable declaration
 
 	private Stage primaryStage;
 	public static User currentUser;
 
 	private ObservableList<User> userList = FXCollections.observableArrayList();
+	private ListaSimple<Process> processList = new ListaSimple<Process>();
 
 	public ObservableList<User> getUserList() {
 		return userList;
@@ -41,15 +47,15 @@ public class Aplicacion extends Application {
 
 	/**
 	 * @return
-	**/
+	 **/
 	@Override
 	public String toString() {
-		return "Aplicacion [userList=" + userList + "]";
+		return "App [userList=" + userList + "]";
 	}
 
 	/**
 	 * 
-	 * Method that 
+	 * Method that verifies if a user exists on the platform
 	 *
 	 * @param user
 	 * @param pw
@@ -57,7 +63,7 @@ public class Aplicacion extends Application {
 	 */
 	public boolean verifyUser(String user, String pw) {
 		for (User user1 : userList) {
-			if (user1.getName().equals(user1) && user1.getPassword().equals(pw)) {
+			if (user1.getName().equals(user) && user1.getPassword().equals(pw)) {
 				return true;
 			}
 		}
@@ -66,7 +72,7 @@ public class Aplicacion extends Application {
 
 	/**
 	 * 
-	 * Method that 
+	 * Method that obtains a user from the platform
 	 *
 	 * @param user
 	 * @param pw
@@ -83,22 +89,40 @@ public class Aplicacion extends Application {
 
 	/**
 	 * 
-	 * Method that 
+	 * Method that gets the current user
 	 *
 	 * @return
 	 */
-	public static User getUserActual() {
+	public static User getCurrentUser() {
 		return currentUser;
 	}
 
 	/**
 	 * 
-	 * Method that 
+	 * Method that changes the current user
 	 *
 	 * @param userActual
 	 */
 	public static void setCurrentUser(User userActual) {
-		Aplicacion.currentUser = userActual;
+		App.currentUser = userActual;
+	}
+
+	/**
+	 * Getter of processList
+	 *
+	 * @return the processList
+	 */
+	public ListaSimple<Process> getProcessList() {
+		return processList;
+	}
+
+	/**
+	 * Setter of processList
+	 *
+	 * @param processList the processList to set
+	 */
+	public void setProcessList(ListaSimple<Process> processList) {
+		this.processList = processList;
 	}
 
 	/*
@@ -113,8 +137,8 @@ public class Aplicacion extends Application {
 		this.primaryStage.centerOnScreen();
 		this.primaryStage.setTitle("GestorPAT");
 		showLogin();
-//		getListaUsuarios();
-
+		getUserList();
+		getProcessList();
 	}
 
 	/**
@@ -136,12 +160,12 @@ public class Aplicacion extends Application {
 	}
 
 	/**
-	 * Muestra la ventana para que el usuario inicie sesion
+	 * Shows the window for the user to log in
 	 */
 	public void showLogin() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Aplicacion.class.getResource("../view/LoginView.fxml"));
+			loader.setLocation(App.class.getResource("../view/LoginView.fxml"));
 
 			AnchorPane rootLayout = (AnchorPane) loader.load();
 
@@ -163,7 +187,7 @@ public class Aplicacion extends Application {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Shows the window to register a user
 	 * 
@@ -173,7 +197,7 @@ public class Aplicacion extends Application {
 	public boolean showSignUp(User user) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Aplicacion.class.getResource("../view/SignUpView.fxml"));
+			loader.setLocation(App.class.getResource("../view/SignUpView.fxml"));
 
 			AnchorPane page = (AnchorPane) loader.load();
 
@@ -186,9 +210,9 @@ public class Aplicacion extends Application {
 
 			Scene scene = new Scene(page);
 			// Establecer el color de relleno del Scene a transparente
-	        scene.setFill(Color.TRANSPARENT);
-	        // Agregar el archivo de estilos style.css
-	        scene.getStylesheets().add(getClass().getResource("../resources/Styles.css").toString());
+			scene.setFill(Color.TRANSPARENT);
+			// Agregar el archivo de estilos style.css
+			scene.getStylesheets().add(getClass().getResource("../resources/Styles.css").toString());
 			dialogStage.setScene(scene);
 
 			SignUpController signUpController = loader.getController();
@@ -206,69 +230,120 @@ public class Aplicacion extends Application {
 		}
 	}
 
-//	public boolean mostrarVentanaMisFincas(User usuarios) {
-//		try {
-//			FXMLLoader loader = new FXMLLoader();
-//			loader.setLocation(Aplicacion.class.getResource("../views/MisFincas.fxml"));
+	/**
+	 * 
+	 * Method that
+	 *
+	 * @param usuarios
+	 * @return
+	 */
+	public boolean showProcessView(User usuarios) {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(App.class.getResource("../view/ProcessView.fxml"));
+
+			AnchorPane rootLayout = (AnchorPane) loader.load();
+
+			ProcessViewController processViewController = loader.getController();
+			processViewController.setAplicacion(this);
+
+			Scene scene = new Scene(rootLayout);
+
+			// Establecer el color de relleno del Scene a transparente
+			scene.setFill(Color.TRANSPARENT);
+			// Agregar el archivo de estilos style.css
+			scene.getStylesheets().add(getClass().getResource("../resources/Styles.css").toString());
+
+			primaryStage.setScene(scene);
+			primaryStage.centerOnScreen();
+			primaryStage.show();
+
+			return processViewController.isOkClicked();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	/**
+	 * 
+	 * Method that
+	 *
+	 * @param process
+	 * @return
+	 */
+	public boolean showCreateProcess(Process process) {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(App.class.getResource("../view/CreateProcess.fxml"));
+
+			AnchorPane page = (AnchorPane) loader.load();
+
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Create Process");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			dialogStage.initStyle(StageStyle.TRANSPARENT);
+			dialogStage.centerOnScreen();
+
+			Scene scene = new Scene(page);
+			// Establecer el color de relleno del Scene a transparente
+			scene.setFill(Color.TRANSPARENT);
+			// Agregar el archivo de estilos style.css
+			scene.getStylesheets().add(getClass().getResource("../resources/Styles.css").toString());
+			dialogStage.setScene(scene);
+
+			CreateProcessController createProcessController = loader.getController();
+			createProcessController.mostrarDialogStage(dialogStage);
+			createProcessController.showProcess(process);
+
+			dialogStage.showAndWait();
+
+			return createProcessController.isOkClicked();
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
+
 //
-//			AnchorPane rootLayout = (AnchorPane) loader.load();
-//
-//			ProcessViewController misFincasController = loader.getController();
-//			misFincasController.setAplicacion(this);
-//
-//			Scene scene = new Scene(rootLayout);
-//			
-//			// Establecer el color de relleno del Scene a transparente
-//	        scene.setFill(Color.TRANSPARENT);
-//	        // Agregar el archivo de estilos style.css
-//	        scene.getStylesheets().add(getClass().getResource("../resource/Styles.css").toString());
-//	        
-//			primaryStage.setScene(scene);
-//			primaryStage.centerOnScreen();
-//			primaryStage.show();
-//
-//			return misFincasController.isOkClicked();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//			return false;
-//		}
-//	}
-//
-//	/**
-//	 * Muestra la ventana principal
-//	 * 
-//	 * @return
-//	 */
-//	public boolean mostrarVentanaPrincipal(Finca finca) {
-//		try {
-//			FXMLLoader loader = new FXMLLoader();
-//			loader.setLocation(Aplicacion.class.getResource("../views/VistaPrincipal.fxml"));
-//
-//			AnchorPane rootLayout = (AnchorPane) loader.load();
-//
-//			VistaPrincipalController vistaPrincipalController = loader.getController();
-//			vistaPrincipalController.setAplicacion(this);
-//			vistaPrincipalController.mostrarDetallesFinca(User.getFincaActual());
-//
-//			Scene scene = new Scene(rootLayout);
-//			
-//			// Establecer el color de relleno del Scene a transparente
-//	        scene.setFill(Color.TRANSPARENT);
-//	        // Agregar el archivo de estilos Styles.css
-//	        scene.getStylesheets().add(getClass().getResource("../resource/Styles.css").toString());
-//			primaryStage.setScene(scene);
-//			primaryStage.centerOnScreen();
-//			primaryStage.show();
-//
-//			return vistaPrincipalController.isOkClicked();
-//
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//			return false;
-//		}
-//	}
+	/**
+	 * Muestra la ventana principal
+	 * 
+	 * @return
+	 */
+	public boolean showActiviitiesView(Process process) {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(App.class.getResource("../view/ActivitiesView.fxml"));
+
+			AnchorPane rootLayout = (AnchorPane) loader.load();
+
+			ActivitiesViewController activitiesViewController = loader.getController();
+			activitiesViewController.setAplicacion(this);
+			activitiesViewController.showDetailProcess(User.getCurrentProcess());
+
+			Scene scene = new Scene(rootLayout);
+
+			// Establecer el color de relleno del Scene a transparente
+			scene.setFill(Color.TRANSPARENT);
+			// Agregar el archivo de estilos Styles.css
+			scene.getStylesheets().add(getClass().getResource("../resources/Styles.css").toString());
+			primaryStage.setScene(scene);
+			primaryStage.centerOnScreen();
+			primaryStage.show();
+
+			return activitiesViewController.isOkClicked();
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
 //
 //	/**
 //	 * Muestra la ventana para crear o editar cultivos
@@ -342,15 +417,6 @@ public class Aplicacion extends Application {
 //		}
 //	}
 
-	/**
-	 * Main method of the project
-	 * 
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		Aplicacion.launch(new String[0]);
-	}
-
 //	/**
 //	 * Muestra la ventana para crear o editar personas
 //	 * 
@@ -395,41 +461,7 @@ public class Aplicacion extends Application {
 //
 
 //
-//	public boolean mostrarVentanaCrearFinca(Finca finca) {
-//		try {
-//			FXMLLoader loader = new FXMLLoader();
-//			loader.setLocation(Aplicacion.class.getResource("../views/CrearFinca.fxml"));
-//
-//			AnchorPane page = (AnchorPane) loader.load();
-//
-//			Stage dialogStage = new Stage();
-//			dialogStage.setTitle("Crear Finca");
-//			dialogStage.initModality(Modality.WINDOW_MODAL);
-//			dialogStage.initOwner(primaryStage);
-//			dialogStage.initStyle(StageStyle.TRANSPARENT);
-//			dialogStage.centerOnScreen();
-//
-//			Scene scene = new Scene(page);
-//			// Establecer el color de relleno del Scene a transparente
-//	        scene.setFill(Color.TRANSPARENT);
-//	        // Agregar el archivo de estilos style.css
-//	        scene.getStylesheets().add(getClass().getResource("../resource/Styles.css").toString());
-//			dialogStage.setScene(scene);
-//
-//			CrearFincaController crearFincaController = loader.getController();
-//			crearFincaController.mostrarDialogStage(dialogStage);
-//			crearFincaController.mostrarFinca(finca);
-//
-//			dialogStage.showAndWait();
-//
-//			return crearFincaController.isOkClicked();
-//
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//			return false;
-//		}
-//	}
+
 //
 //	public boolean mostrarVentanaEditarLabor(Labor labor) {
 //
@@ -467,5 +499,14 @@ public class Aplicacion extends Application {
 //			return false;
 //		}
 //	}
+
+	/**
+	 * Main method of the project
+	 * 
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		App.launch(new String[0]);
+	}
 
 }

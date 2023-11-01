@@ -3,13 +3,17 @@ package model;
 import java.util.Objects;
 
 import dataStructures.ListaSimple;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 public class Process {
 
 	private ListaSimple<Activity> activities = new ListaSimple<Activity>();
-	private String name;
-	private String description;
-	private int id;
+	private StringProperty name;
+	private StringProperty description;
+	private StringProperty id;
+	private State state;
+	private User owner;
 
 	/**
 	 * 
@@ -20,12 +24,12 @@ public class Process {
 	 * @param description
 	 * @param id
 	 */
-	public Process(ListaSimple<Activity> activities, String name, String description, int id) {
+	public Process(ListaSimple<Activity> activities, String name, String description, String id) {
 		super();
 		this.activities = activities;
-		this.name = name;
-		this.description = description;
-		this.id = id;
+		this.name = new SimpleStringProperty(name);
+		this.description = new SimpleStringProperty(description);
+		this.id = new SimpleStringProperty(id);
 	}
 
 	/**
@@ -47,12 +51,56 @@ public class Process {
 	}
 
 	/**
+	 * Getter of state
+	 *
+	 * @return the state
+	 */
+	public State getState() {
+		return state;
+	}
+
+	/**
+	 * Setter of state
+	 *
+	 * @param state the state to set
+	 */
+	public void setState(State state) {
+		this.state = state;
+	}
+
+	/**
+	 * Getter of owner
+	 *
+	 * @return the owner
+	 */
+	public User getOwner() {
+		return owner;
+	}
+
+	/**
+	 * Setter of owner
+	 *
+	 * @param owner the owner to set
+	 */
+	public void setOwner(User owner) {
+		this.owner = owner;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public StringProperty nameProperty() {
+		return name;
+	}
+
+	/**
 	 * Getter of name
 	 *
 	 * @return the name
 	 */
 	public String getName() {
-		return name;
+		return name.get();
 	}
 
 	/**
@@ -61,7 +109,15 @@ public class Process {
 	 * @param name the name to set
 	 */
 	public void setName(String name) {
-		this.name = name;
+		this.name.set(name);
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public StringProperty descriptionProperty() {
+		return description;
 	}
 
 	/**
@@ -70,7 +126,7 @@ public class Process {
 	 * @return the description
 	 */
 	public String getDescription() {
-		return description;
+		return description.get();
 	}
 
 	/**
@@ -79,7 +135,15 @@ public class Process {
 	 * @param description the description to set
 	 */
 	public void setDescription(String description) {
-		this.description = description;
+		this.description.set(description);
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public StringProperty idProperty() {
+		return id;
 	}
 
 	/**
@@ -87,8 +151,8 @@ public class Process {
 	 *
 	 * @return the id
 	 */
-	public int getId() {
-		return id;
+	public String getId() {
+		return id.get();
 	}
 
 	/**
@@ -96,8 +160,8 @@ public class Process {
 	 *
 	 * @param id the id to set
 	 */
-	public void setId(int id) {
-		this.id = id;
+	public void setId(String id) {
+		this.id.set(id);
 	}
 
 	/**

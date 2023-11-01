@@ -1,11 +1,15 @@
-/**
- * 
- */
 package model;
 
 import java.util.Objects;
 
+import dataStructures.ListaSimple;
+
 /**
+ * 
+ * 
+ * @author Juanes Cardona
+ * @author Juanes Ramirez
+ * @author Jose Taborda
  * 
  */
 public class User {
@@ -14,6 +18,8 @@ public class User {
 	private String name;
 	private String password;
 	private String rol;
+
+	public static Process currentProcess;
 
 	/**
 	 * 
@@ -31,7 +37,7 @@ public class User {
 		this.password = user;
 		this.rol = rol;
 	}
-	
+
 	/**
 	 * 
 	 * Class constructor
@@ -45,7 +51,23 @@ public class User {
 		this.password = password;
 	}
 
+	/**
+	 * Getter of currentProcess
+	 *
+	 * @return the currentProcess
+	 */
+	public static Process getCurrentProcess() {
+		return currentProcess;
+	}
 
+	/**
+	 * Setter of currentProcess
+	 *
+	 * @param currentProcess the currentProcess to set
+	 */
+	public static void setCurrentProcess(Process currentProcess) {
+		User.currentProcess = currentProcess;
+	}
 
 	/**
 	 * Getter of id

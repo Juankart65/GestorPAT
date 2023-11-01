@@ -3,10 +3,9 @@
  */
 package controller;
 
-import java.net.URL;
 import java.util.ResourceBundle;
 
-import application.Aplicacion;
+import application.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -14,6 +13,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import model.User;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
@@ -21,6 +21,9 @@ import javafx.scene.control.TextField;
  * This class represents to
  *
  * @author Juanes Cardona
+ * @author Juanes Ramirez
+ * @author Jose Taborda
+ * 
  */
 public class LoginController {
 
@@ -38,11 +41,14 @@ public class LoginController {
 
     @FXML
     private TextField txtUser;
+    
+    @FXML
+    private ComboBox<String> cbxRol;
 
     @FXML
     private PasswordField txtPassword;
 
-	private Aplicacion aplicacion;
+	private App aplicacion;
 	private Stage dialogStage;
 	int robin = 0;
 
@@ -63,6 +69,8 @@ public class LoginController {
 
 	/**
 	 * 
+	 * This method runs the registration window
+	 *
 	 */
 	private void signUpAction() {
 		User tempUser = new User("", "");
@@ -76,6 +84,8 @@ public class LoginController {
 
 	/**
 	 * 
+	 * Method that performs the login action
+	 *
 	 */
 	private void loginAction() {
 		robin++;
@@ -91,9 +101,9 @@ public class LoginController {
 
 			if (validUser) {
 				User currentUser = aplicacion.getUser(user, password);
-				Aplicacion.setCurrentUser(currentUser);
-//				Aplicacion.userActual.getListaFincas();
-//				aplicacion.mostrarVentanaMisFincas(Aplicacion.getUserActual());
+				App.setCurrentUser(currentUser);
+				System.out.println(currentUser.getName());
+				aplicacion.showProcessView(App.getCurrentUser());
 			} else {
 				txtUser.setText("");
 				txtPassword.setText("");
@@ -111,6 +121,7 @@ public class LoginController {
 	}
 
 	/**
+	 * This method checks if the textField entries are valid.
 	 * 
 	 * @return
 	 */
@@ -148,7 +159,7 @@ public class LoginController {
 	/**
 	 * @param aplicacion
 	 */
-	public void setAplicacion(Aplicacion aplicacion) {
+	public void setAplicacion(App aplicacion) {
 		this.aplicacion = aplicacion;
 
 	}

@@ -18,7 +18,7 @@
     <AnchorPane layoutX="39.0" layoutY="31.0" minHeight="0.0" minWidth="0.0" prefHeight="260.0" prefWidth="379.0" styleClass="root" stylesheets="@../resources/Styles.css">
          <children>
             <Separator layoutX="29.0" layoutY="55.0" prefHeight="5.0" prefWidth="323.0" />
-            <Label alignment="CENTER" layoutX="166.0" layoutY="14.0" prefHeight="27.0" prefWidth="90.0" styleClass="txtPrincipal" stylesheets="@../resources/Styles.css" text="Login" textFill="#14a7d0">
+            <Label alignment="CENTER" layoutX="166.0" layoutY="14.0" prefHeight="27.0" prefWidth="90.0" styleClass="txtPrincipal" text="Login" textFill="#14a7d0">
                <font>
                   <Font name="Franklin Gothic Medium" size="18.0" />
                </font>
@@ -41,18 +41,18 @@
                   <RowConstraints maxHeight="48.0" minHeight="10.0" prefHeight="48.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label prefHeight="20.0" prefWidth="70.0" stylesheets="@../resources/Styles.css" text="Password" textFill="#14a7d0" underline="true" GridPane.rowIndex="1">
+                  <Label alignment="CENTER" prefHeight="67.0" prefWidth="180.0" stylesheets="@../resources/Styles.css" text="Password" textFill="#14a7d0" underline="true" GridPane.rowIndex="1">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label alignment="CENTER" prefHeight="20.0" prefWidth="60.0" stylesheets="@../resources/Styles.css" text="User" textFill="#14a7d0" underline="true">
+                  <Label alignment="CENTER" prefHeight="93.0" prefWidth="189.0" stylesheets="@../resources/Styles.css" text="User" textFill="#14a7d0" underline="true">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="txtUser" prefHeight="25.0" prefWidth="208.0" GridPane.columnIndex="1" />
-                  <PasswordField fx:id="txtPassword" prefHeight="25.0" prefWidth="208.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="txtUser" prefHeight="25.0" prefWidth="208.0" styleClass="textField" GridPane.columnIndex="1" />
+                  <PasswordField fx:id="txtPassword" prefHeight="25.0" prefWidth="208.0" styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
             </GridPane>
             <ImageView fitHeight="31.0" fitWidth="33.0" layoutX="142.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">

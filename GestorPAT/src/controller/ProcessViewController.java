@@ -1,138 +1,148 @@
 package controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import application.App;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import model.Process;
+import model.User;
 import javafx.scene.control.Alert.AlertType;
 
 public class ProcessViewController {
 
-	@FXML
-	private TableView<Finca> fincasTabla;
+    @FXML
+    private Button btnVisualizeProcess;
 
-	@FXML
-	private TableColumn<Finca, Persona> adminColumn;
+    @FXML
+    private Button btnLogOut;
 
-	@FXML
-	private Button btnEliminarFinca;
+    @FXML
+    private TableView<Process> processTable;
 
-	@FXML
-	private Button btnVisualizarFinca;
+    @FXML
+    private TableColumn<Process, String> nameColProcess;
 
-	@FXML
-	private TableColumn<Finca, String> nombreColumn;
+    @FXML
+    private Button btnCreateProcess;
 
-	@FXML
-	private Button btnCrearFinca;
+    @FXML
+    private Button btnDelete;
 
-	@FXML
-	private Button btnActualizarFinca;
+    @FXML
+    private TableColumn<Process, String> idColProcess;
 
-	@FXML
-	private TableColumn<Finca, Integer> idColumn;
+    @FXML
+    private TableColumn<Process, ?> stateColProcess;
 
-	@FXML
-	private TableColumn<Finca, String> direccionColumn;
+    @FXML
+    private Button btnUpdateProcess;
 
-	@FXML
-	private Button btnVolver;
-
-	private Aplicacion aplicacion;
-	private User user = Aplicacion.userActual;
-	private CrearFincaController crearFincaController = new CrearFincaController();
+	private App app;
+	private User user = App.currentUser;
+	private CreateProcessController createProcessController = new CreateProcessController();
 
 	private boolean okClicked = false;
 
 	@FXML
-	void crearFincaEvent(ActionEvent event) {
-		Persona tempAdmin = new Persona(null, null, 0, null, 0);
-		Finca tempFinca = new Finca(null, null, tempAdmin, 0, null);
-		boolean okClicked = aplicacion.mostrarVentanaCrearFinca(tempFinca);
+	void createProcessEvent(ActionEvent event) {
+		Process tempProcess = new Process(null, null, null, null);
+		boolean okClicked = app.showCreateProcess(tempProcess);
 
 		if (okClicked) {
-			user.getListaFincas().add(tempFinca);
+	        app.getProcessList().agregarFinal(tempProcess);
+	        processTable.getItems().add(tempProcess);
 		}
 	}
 
 	@FXML
-	void actualizarFincaEvent(ActionEvent event) {
-		Finca fincaSeleccionada = fincasTabla.getSelectionModel().getSelectedItem();
-		if (fincaSeleccionada != null) {
-			boolean okClicked = aplicacion.mostrarVentanaCrearFinca(fincaSeleccionada);
+	void updateProcessEvent(ActionEvent event) {
+		Process selectProcess = processTable.getSelectionModel().getSelectedItem();
+		if (selectProcess != null) {
+			boolean okClicked = app.showCreateProcess(selectProcess);
 		} else {
 			Alert alert = new Alert(AlertType.WARNING);
-			alert.initOwner(aplicacion.getPrimaryStage());
-			alert.setTitle("Sin seleccion");
-			alert.setHeaderText("No seleccion� una finca");
-			alert.setContentText("Por favor selecciona una finca en la tabla");
+			alert.initOwner(app.getPrimaryStage());
+			alert.setTitle("No selection");
+			alert.setHeaderText("You did not select a process");
+			alert.setContentText("Please select a process in the table");
 
 			alert.showAndWait();
 		}
 	}
 
 	@FXML
-	void EliminarFincaEvent(ActionEvent event) {
-		int selectedIndex = fincasTabla.getSelectionModel().getSelectedIndex();
+	void deleteProcessEvent(ActionEvent event) {
+		int selectedIndex = processTable.getSelectionModel().getSelectedIndex();
 
 		if (selectedIndex >= 0) {
-			fincasTabla.getItems().remove(selectedIndex);
+			processTable.getItems().remove(selectedIndex);
+			app.getProcessList().eliminarNodo(selectedIndex);
 		} else {
 			// Nada seleccionado
 
 			Alert alert = new Alert(AlertType.WARNING);
-			alert.initOwner(aplicacion.getPrimaryStage());
-			alert.setTitle("Sin selecci�n");
-			alert.setHeaderText("No hay nada seleccionado");
-			alert.setContentText("Por favor seleccione una finca en la tabla");
+			alert.initOwner(app.getPrimaryStage());
+			alert.setTitle("No selection");
+			alert.setHeaderText("You did not select a process");
+			alert.setContentText("Please select a process in the table");
 
 			alert.showAndWait();
 		}
 	}
 
 	@FXML
-	void visualizarFincaEvent(ActionEvent event) {
-		Finca fincaSeleccionada = fincasTabla.getSelectionModel().getSelectedItem();
+	void visualizeProcessEvent(ActionEvent event) {
+		Process selectProcess = processTable.getSelectionModel().getSelectedItem();
 
-		if (fincaSeleccionada != null) {
+		if (selectProcess != null) {
 
-			User.setFincaActual(fincaSeleccionada);
+			User.setCurrentProcess(selectProcess);
 
-			boolean okClicked = aplicacion.mostrarVentanaPrincipal(User.getFincaActual());
+			boolean okClicked = app.showActiviitiesView(selectProcess);
 		} else {
 			Alert alert = new Alert(AlertType.WARNING);
-			alert.initOwner(aplicacion.getPrimaryStage());
-			alert.setTitle("Sin seleccion");
-			alert.setHeaderText("No seleccion� una finca");
-			alert.setContentText("Por favor selecciona una finca en la tabla");
+			alert.initOwner(app.getPrimaryStage());
+			alert.setTitle("No selection");
+			alert.setHeaderText("You did not select a process");
+			alert.setContentText("Please select a process in the table");
 
 			alert.showAndWait();
 		}
 	}
 
 	@FXML
-	private Button btnCerrarSesion;
-
-	@FXML
-	void cerrarSesionEvent(ActionEvent event) {
-		aplicacion.showLogin();
+	void logOutProcessEvent(ActionEvent event) {
+		app.showLogin();
 	}
 
-	public void setAplicacion(Aplicacion aplicacion) {
-		this.aplicacion = aplicacion;
+	public void setAplicacion(App app) {
+		this.app = app;
+		
+		
+        // Convierte la lista enlazada simple en una lista convencional
+        List<Process> processList = new ArrayList<>(app.getProcessList().convertArraylist(app.getProcessList()));
 
-		fincasTabla.setItems(user.getListaFincas());
+        // Crea un ObservableList a partir de la lista convencional
+        ObservableList<Process> process = FXCollections.observableArrayList(processList);
+
+        // Asigna la lista de procesos al TableView
+        processTable.setItems(process);
 	}
 
 	@FXML
 	void initialize() {
-
-		// Tabla de fincas
-		idColumn.setCellValueFactory(cellData -> cellData.getValue().idProperty().asObject());
-		nombreColumn.setCellValueFactory(cellData -> cellData.getValue().nombreProperty());
-		direccionColumn.setCellValueFactory(cellData -> cellData.getValue().direccionProperty());
+		// Tabla de procesos
+		idColProcess.setCellValueFactory(cellData -> cellData.getValue().idProperty());
+		nameColProcess.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+		
 	}
 
 	/**

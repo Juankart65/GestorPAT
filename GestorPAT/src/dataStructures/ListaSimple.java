@@ -1,5 +1,6 @@
 package dataStructures;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
@@ -174,7 +175,7 @@ public class ListaSimple<T> implements Iterable<T> {
 		throw new RuntimeException("Lista vac�a");
 	}
 
-	private Nodo<T> obtenerNodo(int indice) {
+	public Nodo<T> obtenerNodo(int indice) {
 
 		if (indice >= 0 && indice < tamanio) {
 
@@ -287,5 +288,48 @@ public class ListaSimple<T> implements Iterable<T> {
 	public void setTamanio(int tamanio) {
 		this.tamanio = tamanio;
 	}
+	
+	
+	public <T> ArrayList<T> convertArraylist(ListaSimple<T> linkedList) {
+	    ArrayList<T> arrayList = new ArrayList<T>();
 
+	    for (T item : linkedList) {
+	        arrayList.add(item);
+	    }
+
+	    return arrayList;
+	}
+	
+	
+	public void eliminarNodo(int indice) {
+	    if (estaVacia()) {
+	        return; // La lista está vacía, no hay nada que eliminar.
+	    }
+
+	    if (indice == 0) {
+	        // Si el índice es 0, eliminar el primer nodo
+	        eliminarPrimero();
+	        return;
+	    }
+
+	    if (indice >= tamanio || indice < 0) {
+	        throw new IllegalArgumentException("Índice no válido");
+	    }
+
+	    Nodo<T> nodoActual = nodoPrimero;
+	    Nodo<T> nodoAnterior = null;
+	    int contador = 0;
+
+	    while (contador < indice) {
+	        nodoAnterior = nodoActual;
+	        nodoActual = nodoActual.getSiguienteNodo();
+	        contador++;
+	    }
+
+	    // En este punto, nodoActual apunta al nodo que queremos eliminar
+	    // y nodoAnterior apunta al nodo anterior a él
+
+	    nodoAnterior.setSiguienteNodo(nodoActual.getSiguienteNodo());
+	    tamanio--;
+	}
 }
