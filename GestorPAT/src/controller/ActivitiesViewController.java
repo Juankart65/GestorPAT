@@ -75,7 +75,7 @@ public class ActivitiesViewController {
 	 */
 	@FXML
 	void refreshEvent(ActionEvent event) {
-		app.showActiviitiesView(null);
+		app.showActivitiesView(App.getCurrentProcess());
 	}
 
 	/**
@@ -97,7 +97,13 @@ public class ActivitiesViewController {
 	 */
 	@FXML
 	void createActivityEvent(ActionEvent event) {
+		Activity tempActivity = new Activity(null, null, null, null);
+		boolean okClicked = app.showCreateActivities(tempActivity);
 
+		if (okClicked) {
+	        App.getCurrentProcess().getActivities().agregarFinal(tempActivity);
+	        activitiesTable.getItems().add(tempActivity);
+		}
 	}
 
 	/**
@@ -108,7 +114,18 @@ public class ActivitiesViewController {
 	 */
 	@FXML
 	void updateActivityEvent(ActionEvent event) {
+		Activity selectActivity = activitiesTable.getSelectionModel().getSelectedItem();
+		if (selectActivity != null) {
+			boolean okClicked = app.showCreateActivities(selectActivity);
+		} else {
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.initOwner(app.getPrimaryStage());
+			alert.setTitle("No selection");
+			alert.setHeaderText("You did not select a process");
+			alert.setContentText("Please select a process in the table");
 
+			alert.showAndWait();
+		}
 	}
 
 	/**
@@ -119,7 +136,22 @@ public class ActivitiesViewController {
 	 */
 	@FXML
 	void deleteActivityEvent(ActionEvent event) {
+		int selectedIndex = activitiesTable.getSelectionModel().getSelectedIndex();
 
+		if (selectedIndex >= 0) {
+			activitiesTable.getItems().remove(selectedIndex);
+			App.getCurrentProcess().getActivities().eliminarNodo(selectedIndex);
+		} else {
+			// Nada seleccionado
+
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.initOwner(app.getPrimaryStage());
+			alert.setTitle("No selection");
+			alert.setHeaderText("You did not select a process");
+			alert.setContentText("Please select a process in the table");
+
+			alert.showAndWait();
+		}
 	}
 
 	/**
@@ -130,7 +162,22 @@ public class ActivitiesViewController {
 	 */
 	@FXML
 	void visualizeActivityEvent(ActionEvent event) {
+		Activity selectActivity = activitiesTable.getSelectionModel().getSelectedItem();
 
+		if (selectActivity != null) {
+
+//			App.setCurrentProcess(selectActivity);
+
+//			boolean okClicked = app.showActivitiesView(selectActivity);
+		} else {
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.initOwner(app.getPrimaryStage());
+			alert.setTitle("No selection");
+			alert.setHeaderText("You did not select a process");
+			alert.setContentText("Please select a process in the table");
+
+			alert.showAndWait();
+		}
 	}
 
 	/**

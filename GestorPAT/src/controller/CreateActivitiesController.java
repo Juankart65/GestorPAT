@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import model.Activity;
 
 /**
  * Este es el controlador de la ventana para crear o editar cultivos
@@ -17,7 +18,7 @@ import javafx.stage.Stage;
  * @author USER
  *
  */
-public class ActualizarCultivosController {
+public class CreateActivitiesController {
 
 	/**
 	 * Bot�n para aceptar los cambios
@@ -68,7 +69,7 @@ public class ActualizarCultivosController {
 	 * 
 	 */
 	private Stage dialogStage;
-	private Cultivo cultivo;
+	private Activity cultivo;
 	private boolean okClicked = false;
 
 	/**
@@ -204,15 +205,15 @@ public class ActualizarCultivosController {
 	 * Este metodo muestra los parametros del cultivo que se haya seleccionado en la
 	 * tabla
 	 * 
-	 * @param cultivo
+	 * @param activity
 	 */
-	public void mostrarCultivo(Cultivo cultivo) {
-		this.cultivo = cultivo;
+	public void mostrarCultivo(Activity activity) {
+		this.cultivo = activity;
 
-		txtEditIdCultivos.setText(Integer.toString(cultivo.getId()));
-		txtEditNombreCultivos.setText(cultivo.getNombre());
-		txtEditProduccionCultivos.setText(String.valueOf(cultivo.getProduccion()));
-		txtEditCantidadCultivos.setText(String.valueOf(cultivo.getCantidad()));
+		txtEditIdCultivos.setText(Integer.toString(activity.getId()));
+		txtEditNombreCultivos.setText(activity.getNombre());
+		txtEditProduccionCultivos.setText(String.valueOf(activity.getProduccion()));
+		txtEditCantidadCultivos.setText(String.valueOf(activity.getCantidad()));
 	}
 
 	/**

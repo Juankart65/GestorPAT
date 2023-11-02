@@ -2,14 +2,14 @@ package model;
 
 import java.util.Objects;
 
-import dataStructures.ListaSimple;
+import dataStructures.ListaDobleCircular;
 
 public class Activity {
 
-	private ListaSimple<Task> tasks = new ListaSimple<Task>();
+	private ListaDobleCircular<Task> tasks = new ListaDobleCircular<Task>();
 	private String name;
 	private String description;
-	private int id;
+	private String id;
 
 	/**
 	 * 
@@ -20,7 +20,7 @@ public class Activity {
 	 * @param description
 	 * @param id
 	 */
-	public Activity(ListaSimple<Task> tasks, String name, String description, int id) {
+	public Activity(ListaDobleCircular<Task> tasks, String name, String description, String id) {
 		super();
 		this.tasks = tasks;
 		this.name = name;
@@ -33,7 +33,7 @@ public class Activity {
 	 *
 	 * @return the tasks
 	 */
-	public ListaSimple<Task> getTasks() {
+	public ListaDobleCircular<Task> getTasks() {
 		return tasks;
 	}
 
@@ -42,7 +42,7 @@ public class Activity {
 	 *
 	 * @param tasks the tasks to set
 	 */
-	public void setTasks(ListaSimple<Task> tasks) {
+	public void setTasks(ListaDobleCircular<Task> tasks) {
 		this.tasks = tasks;
 	}
 
@@ -87,7 +87,7 @@ public class Activity {
 	 *
 	 * @return the id
 	 */
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
@@ -96,7 +96,7 @@ public class Activity {
 	 *
 	 * @param id the id to set
 	 */
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

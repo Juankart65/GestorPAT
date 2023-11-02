@@ -3,6 +3,7 @@ package application;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import model.Activity;
 import model.Process;
 import model.User;
 
@@ -11,6 +12,7 @@ import java.io.IOException;
 import controller.CreateProcessController;
 import controller.LoginController;
 import controller.ActivitiesViewController;
+import controller.CreateActivitiesController;
 import controller.ProcessViewController;
 import controller.SignUpController;
 import dataStructures.ListaSimple;
@@ -33,6 +35,7 @@ public class App extends Application {
 
 	private Stage primaryStage;
 	public static User currentUser;
+	public static Process currentProcess;
 
 	private ObservableList<User> userList = FXCollections.observableArrayList();
 	private ListaSimple<Process> processList = new ListaSimple<Process>();
@@ -123,6 +126,24 @@ public class App extends Application {
 	 */
 	public void setProcessList(ListaSimple<Process> processList) {
 		this.processList = processList;
+	}
+
+	/**
+	 * Getter of currentProcess
+	 *
+	 * @return the currentProcess
+	 */
+	public static Process getCurrentProcess() {
+		return currentProcess;
+	}
+
+	/**
+	 * Setter of currentProcess
+	 *
+	 * @param currentProcess the currentProcess to set
+	 */
+	public static void setCurrentProcess(Process currentProcess) {
+		App.currentProcess = currentProcess;
 	}
 
 	/*
@@ -315,7 +336,7 @@ public class App extends Application {
 	 * 
 	 * @return
 	 */
-	public boolean showActiviitiesView(Process process) {
+	public boolean showActivitiesView(Process process) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(App.class.getResource("../view/ActivitiesView.fxml"));
@@ -324,7 +345,7 @@ public class App extends Application {
 
 			ActivitiesViewController activitiesViewController = loader.getController();
 			activitiesViewController.setAplicacion(this);
-			activitiesViewController.showDetailProcess(User.getCurrentProcess());
+			activitiesViewController.showDetailProcess(App.getCurrentProcess());
 
 			Scene scene = new Scene(rootLayout);
 
@@ -344,46 +365,46 @@ public class App extends Application {
 			return false;
 		}
 	}
-//
-//	/**
-//	 * Muestra la ventana para crear o editar cultivos
-//	 */
-//	public boolean mostrarVentanaEditarCultivos(Cultivo cultivo) {
-//		try {
-//			FXMLLoader loader = new FXMLLoader();
-//			loader.setLocation(Aplicacion.class.getResource("../views/EditarCrearCultivos.fxml"));
-//
-//			AnchorPane page = (AnchorPane) loader.load();
-//
-//			Stage dialogStage = new Stage();
-//			dialogStage.setTitle("Editar o Crear Cultivo");
-//			dialogStage.initModality(Modality.WINDOW_MODAL);
-//			dialogStage.initOwner(primaryStage);
-//			dialogStage.initStyle(StageStyle.TRANSPARENT);
-//			dialogStage.centerOnScreen();
-//			
-//			Scene scene = new Scene(page);
-//			// Establecer el color de relleno del Scene a transparente
-//	        scene.setFill(Color.TRANSPARENT);
-//	        // Agregar el archivo de estilos style.css
-//	        scene.getStylesheets().add(getClass().getResource("../resource/Styles.css").toString());
-//	        
-//			dialogStage.setScene(scene);
-//
-//			ActualizarCultivosController actualizarCultivosController = loader.getController();
-//			actualizarCultivosController.mostrarDialogStage(dialogStage);
-//			actualizarCultivosController.mostrarCultivo(cultivo);
-//
-//			dialogStage.showAndWait();
-//
-//			return actualizarCultivosController.isOkClicked();
-//
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//			return false;
-//		}
-//	}
+
+	/**
+	 * Muestra la ventana para crear o editar cultivos
+	 */
+	public boolean showCreateActivities(Activity activity) {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(App.class.getResource("../view/CreateActivitiesView.fxml"));
+
+			AnchorPane page = (AnchorPane) loader.load();
+
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Editar o Crear Cultivo");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			dialogStage.initStyle(StageStyle.TRANSPARENT);
+			dialogStage.centerOnScreen();
+
+			Scene scene = new Scene(page);
+			// Establecer el color de relleno del Scene a transparente
+			scene.setFill(Color.TRANSPARENT);
+			// Agregar el archivo de estilos style.css
+			scene.getStylesheets().add(getClass().getResource("../resources/Styles.css").toString());
+
+			dialogStage.setScene(scene);
+
+			CreateActivitiesController createActivitiesController = loader.getController();
+			createActivitiesController.mostrarDialogStage(dialogStage);
+			createActivitiesController.mostrarCultivo(activity);
+
+			dialogStage.showAndWait();
+
+			return createActivitiesController.isOkClicked();
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
 //
 //	/**
 //	 * Obtiene la ultima ruta que visit� el usuario

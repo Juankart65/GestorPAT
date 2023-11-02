@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import model.Process;
+import model.Rol;
 import model.User;
 import javafx.scene.control.Alert.AlertType;
 
@@ -104,9 +105,9 @@ public class ProcessViewController {
 
 		if (selectProcess != null) {
 
-			User.setCurrentProcess(selectProcess);
+			App.setCurrentProcess(selectProcess);
 
-			boolean okClicked = app.showActiviitiesView(selectProcess);
+			boolean okClicked = app.showActivitiesView(selectProcess);
 		} else {
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.initOwner(app.getPrimaryStage());
@@ -142,6 +143,12 @@ public class ProcessViewController {
 		// Tabla de procesos
 		idColProcess.setCellValueFactory(cellData -> cellData.getValue().idProperty());
 		nameColProcess.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+		
+		if (App.getCurrentUser().getRol().equals(Rol.User)) {
+			btnCreateProcess.setDisable(true);
+			btnUpdateProcess.setDisable(true);
+			btnDelete.setDisable(true);
+		}
 		
 	}
 

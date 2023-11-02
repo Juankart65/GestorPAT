@@ -31,7 +31,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="cbxRol" prefHeight="53.0" prefWidth="285.0" promptText="Seleccione" styleClass="comboBox" GridPane.columnIndex="1" />
+                  <ComboBox fx:id="cbxRol" prefHeight="53.0" prefWidth="285.0" promptText="Select..." styleClass="comboBox" GridPane.columnIndex="1" />
                </children>
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="188.0" minWidth="10.0" prefWidth="123.0" />

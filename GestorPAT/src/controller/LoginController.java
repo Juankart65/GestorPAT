@@ -78,6 +78,8 @@ public class LoginController {
 
 		if (okClicked) {
 			aplicacion.getUserList().add(tempUser);
+			txtUser.setText(tempUser.getName());
+			txtPassword.setText(tempUser.getPassword());
 			btnLogin.setDisable(false);
 		}
 	}
@@ -89,6 +91,7 @@ public class LoginController {
 	 */
 	private void loginAction() {
 		robin++;
+		int n = 3 - robin;
 		String user = txtUser.getText();
 		String password = txtPassword.getText();
 
@@ -102,7 +105,6 @@ public class LoginController {
 			if (validUser) {
 				User currentUser = aplicacion.getUser(user, password);
 				App.setCurrentUser(currentUser);
-				System.out.println(currentUser.getName());
 				aplicacion.showProcessView(App.getCurrentUser());
 			} else {
 				txtUser.setText("");
@@ -112,7 +114,7 @@ public class LoginController {
 				alert.initOwner(dialogStage);
 				alert.setTitle("User does not exist");
 				alert.setHeaderText("Please enter a valid username and password");
-				alert.setContentText("After 3 incorrect attempts the user will be blocked");
+				alert.setContentText("After " + n + " incorrect attempts the user will be blocked");
 
 				alert.showAndWait();
 			}

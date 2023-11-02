@@ -3,6 +3,8 @@ package controller;
 import java.io.File;
 
 import application.App;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -16,6 +18,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.Process;
+import model.State;
 
 /**
  * Este es el controlador de la ventana para crear o editar cultivos
@@ -41,9 +44,9 @@ public class CreateProcessController {
 	private TextField txtNameProcess;
 
 	@FXML
-	private ComboBox<?> cbxStateProcess;
+	private ComboBox<State> cbxStateProcess = new ComboBox<State>();
 
-	private App aplicacion = new App();
+	private App app = new App();
 
 	/**
 	 * 
@@ -71,13 +74,26 @@ public class CreateProcessController {
 	void cancelProcessEvent(ActionEvent event) {
 		dialogStage.close();
 	}
+	
+	/**
+	 * LLena el comboBox con los tipos de cuenta disponibles
+	 */
+	public void llenarComboBox() {
+		ObservableList<State> statesProcess = FXCollections.observableArrayList();
+
+		for (State stateProcess : State.values()) {
+			statesProcess.add(stateProcess);
+		}
+
+		this.cbxStateProcess.setItems(statesProcess);
+	}
 
 	/**
 	 * Metodo initialize predefinidp
 	 */
 	@FXML
 	private void initialize() {
-		// TODO Auto-generated method stub
+		llenarComboBox();
 	}
 
 	/**

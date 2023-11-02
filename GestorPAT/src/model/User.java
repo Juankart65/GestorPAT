@@ -17,9 +17,7 @@ public class User {
 	private String id;
 	private String name;
 	private String password;
-	private String rol;
-
-	public static Process currentProcess;
+	private Rol rol;
 
 	/**
 	 * 
@@ -30,7 +28,7 @@ public class User {
 	 * @param user
 	 * @param rol
 	 */
-	public User(String id, String name, String user, String rol) {
+	public User(String id, String name, String user, Rol rol) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -49,24 +47,6 @@ public class User {
 		super();
 		this.name = name;
 		this.password = password;
-	}
-
-	/**
-	 * Getter of currentProcess
-	 *
-	 * @return the currentProcess
-	 */
-	public static Process getCurrentProcess() {
-		return currentProcess;
-	}
-
-	/**
-	 * Setter of currentProcess
-	 *
-	 * @param currentProcess the currentProcess to set
-	 */
-	public static void setCurrentProcess(Process currentProcess) {
-		User.currentProcess = currentProcess;
 	}
 
 	/**
@@ -128,7 +108,7 @@ public class User {
 	 *
 	 * @return the rol
 	 */
-	public String getRol() {
+	public Rol getRol() {
 		return rol;
 	}
 
@@ -137,7 +117,7 @@ public class User {
 	 *
 	 * @param rol the rol to set
 	 */
-	public void setRol(String rol) {
+	public void setRol(Rol rol) {
 		this.rol = rol;
 	}
 

@@ -1,13 +1,17 @@
 package controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import model.Rol;
 import model.User;
 
 public class SignUpController {
@@ -23,6 +27,9 @@ public class SignUpController {
 
     @FXML
     private PasswordField txtPassword;
+    
+    @FXML
+    private ComboBox<Rol> cbxRol = new ComboBox<Rol>();
 
 
 	private Stage dialogStage;
@@ -34,6 +41,18 @@ public class SignUpController {
     	if(isInputValid()) {
     		user.setName(txtCreateUser.getText());
     		user.setPassword(txtPassword.getText());
+    		
+			switch (cbxRol.getValue().name()) {
+			case "Admin":
+				user.setRol(Rol.Admin);
+				break;
+			case "User":
+				user.setRol(Rol.User);
+				break;
+			default:
+				user.setRol(Rol.User);
+				break;
+			}
     		
     		Alert alert = new Alert(AlertType.INFORMATION);
     		alert.initOwner(dialogStage);
@@ -53,10 +72,22 @@ public class SignUpController {
 	void cancelUserEvent(ActionEvent event) {
 		dialogStage.close();
 	}
+	
+	/**
+	 * LLena el comboBox con los tipos de cuenta disponibles
+	 */
+	public void llenarComboBox() {
+		ObservableList<Rol> rols = FXCollections.observableArrayList();
+
+		for (Rol rol : Rol.values()) {
+			rols.add(rol);
+		}
+		this.cbxRol.setItems(rols);
+	}
 
 	@FXML
 	private void initialize() {
-		// TODO Auto-generated method stub
+		llenarComboBox();
 	}
 
 	private boolean isInputValid() {
@@ -68,6 +99,10 @@ public class SignUpController {
     	
     	if(txtPassword == null || txtPassword.getText().length() == 0) {
 			errorMensaje += "The password is not valid!\n";
+    	}
+    	
+    	if(cbxRol.getValue() == null || cbxRol.getValue().name().length() == 0) {
+			errorMensaje += "The rol is not valid!\n";
     	}
     	
     	if(errorMensaje.length() == 0) {
