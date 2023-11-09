@@ -27,7 +27,7 @@ public class Task {
 	 * @param duration
 	 * @param mandatoryTask
 	 */
-	public Task(String id, String description, Duration duration, boolean mandatoryTask, State state, User owner) {
+	public Task(String id, String description, Duration duration, boolean mandatoryTask, State state, User owner, String name) {
 		super();
 		this.id = new SimpleStringProperty(id);
 		this.description = new SimpleStringProperty(description);
@@ -35,6 +35,7 @@ public class Task {
 		this.mandatoryTask = new SimpleBooleanProperty(mandatoryTask);
 		this.state = new SimpleObjectProperty<State>(state);
 		this.owner = owner;
+		this.name = new SimpleStringProperty(name);
 	}
 
 	public ObjectProperty<State> stateProperty(){

@@ -36,6 +36,24 @@ public class Activity {
 		this.state = new SimpleObjectProperty<State>(state);
 	}
 	
+	/**
+	 * 
+	 * Class constructor
+	 *
+	 * @param tasks
+	 * @param name
+	 * @param description
+	 * @param id
+	 */
+	public Activity(String name, String description, String id, User owner, State state) {
+		super();
+		this.name = new SimpleStringProperty(name);
+		this.description = new SimpleStringProperty(description);
+		this.id = new SimpleStringProperty(id);
+		this.owner = owner;
+		this.state = new SimpleObjectProperty<State>(state);
+	}
+	
 	public ObjectProperty<State> stateProperty(){
 		return state;
 	}

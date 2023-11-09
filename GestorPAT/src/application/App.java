@@ -13,15 +13,13 @@ import java.io.IOException;
 import controller.CreateProcessController;
 import controller.CreateTaskController;
 import controller.LoginController;
+import controller.ModelFactoryController;
 import controller.ActivitiesViewController;
 import controller.CreateActivitiesController;
 import controller.ProcessViewController;
 import controller.SignUpController;
 import controller.TasksViewController;
-import dataStructures.SimpleList;
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -39,59 +37,6 @@ public class App extends Application {
 	private Stage primaryStage;
 	public static User currentUser;
 	public static Process currentProcess;
-
-	private ObservableList<User> userList = FXCollections.observableArrayList();
-	private SimpleList<Process> processList = new SimpleList<Process>();
-
-	public ObservableList<User> getUserList() {
-		return userList;
-	}
-
-	public void setUserList(ObservableList<User> userList) {
-		this.userList = userList;
-	}
-
-	/**
-	 * @return
-	 **/
-	@Override
-	public String toString() {
-		return "App [userList=" + userList + "]";
-	}
-
-	/**
-	 * 
-	 * Method that verifies if a user exists on the platform
-	 *
-	 * @param user
-	 * @param pw
-	 * @return
-	 */
-	public boolean verifyUser(String user, String pw) {
-		for (User user1 : userList) {
-			if (user1.getName().equals(user) && user1.getPassword().equals(pw)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	/**
-	 * 
-	 * Method that obtains a user from the platform
-	 *
-	 * @param user
-	 * @param pw
-	 * @return
-	 */
-	public User getUser(String user, String pw) {
-		for (User user1 : userList) {
-			if (user1.getName().equals(user) && user1.getPassword().equals(pw)) {
-				return user1;
-			}
-		}
-		return null;
-	}
 
 	/**
 	 * 
@@ -111,24 +56,6 @@ public class App extends Application {
 	 */
 	public static void setCurrentUser(User userActual) {
 		App.currentUser = userActual;
-	}
-
-	/**
-	 * Getter of processList
-	 *
-	 * @return the processList
-	 */
-	public SimpleList<Process> getProcessList() {
-		return processList;
-	}
-
-	/**
-	 * Setter of processList
-	 *
-	 * @param processList the processList to set
-	 */
-	public void setProcessList(SimpleList<Process> processList) {
-		this.processList = processList;
 	}
 
 	/**
@@ -161,8 +88,8 @@ public class App extends Application {
 		this.primaryStage.centerOnScreen();
 		this.primaryStage.setTitle("GestorPAT");
 		showLogin();
-		getUserList();
-		getProcessList();
+		ModelFactoryController.getInstance().getHandler().getUserList();
+		ModelFactoryController.getInstance().getHandler().getProcessList();
 	}
 
 	/**
@@ -408,7 +335,7 @@ public class App extends Application {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Muestra la ventana principal
 	 * 
@@ -443,7 +370,7 @@ public class App extends Application {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Muestra la ventana para crear o editar cultivos
 	 */

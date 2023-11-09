@@ -97,7 +97,7 @@ public class LoginController {
 		boolean okClicked = aplicacion.showSignUp(tempUser);
 
 		if (okClicked) {
-			aplicacion.getUserList().add(tempUser);
+			ModelFactoryController.getInstance().getHandler().getUserList().addEnd(tempUser);
 			txtUser.setText(tempUser.getName());
 			txtPassword.setText(tempUser.getPassword());
 			btnLogin.setDisable(false);
@@ -120,10 +120,10 @@ public class LoginController {
 		}
 
 		if (isInputValid()) {
-			boolean validUser = aplicacion.verifyUser(user, password);
+			boolean validUser = ModelFactoryController.getInstance().getHandler().verifyUser(user, password);
 
 			if (validUser) {
-				User currentUser = aplicacion.getUser(user, password);
+				User currentUser = ModelFactoryController.getInstance().getHandler().getUser(user, password);
 				App.setCurrentUser(currentUser);
 				aplicacion.showMainView(App.getCurrentUser());
 			} else {

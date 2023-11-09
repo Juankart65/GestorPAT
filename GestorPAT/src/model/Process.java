@@ -27,15 +27,17 @@ public class Process {
 	 * @param description
 	 * @param id
 	 */
-	public Process(SimpleList<Activity> activities, String name, String description, String id, State state) {
+	public Process(String name, String description, String id, State state, User owner) {
 		super();
-		this.activities = activities;
 		this.name = new SimpleStringProperty(name);
 		this.description = new SimpleStringProperty(description);
 		this.id = new SimpleStringProperty(id);
 		this.state = new SimpleObjectProperty<State>(state);
+		this.owner = owner;
 		getActivities();
 	}
+
+
 
 	/**
 	 * Getter of currentActivity

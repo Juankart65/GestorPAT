@@ -4,10 +4,12 @@ import java.time.Duration;
 import application.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 import model.Activity;
 import model.Process;
 import model.State;
@@ -80,7 +82,7 @@ public class TasksViewController {
 
 	@FXML
 	void createTaskEvent(ActionEvent event) {
-		Task tempTask = new Task(null, null, null, false, null, null);
+		Task tempTask = new Task(null, null, null, false, null, null, null);
 		boolean okClicked = app.showCreateTask(tempTask);
 
 		if (okClicked) {
@@ -91,12 +93,39 @@ public class TasksViewController {
 
 	@FXML
 	void updateTaskEvent(ActionEvent event) {
+		Task selectTask = taskTable.getSelectionModel().getSelectedItem();
+		if (selectTask != null) {
+			@SuppressWarnings("unused")
+			boolean okClicked = app.showCreateTask(selectTask);
+		} else {
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.initOwner(app.getPrimaryStage());
+			alert.setTitle("No selection");
+			alert.setHeaderText("You did not select a process");
+			alert.setContentText("Please select a process in the table");
 
+			alert.showAndWait();
+		}
 	}
 
 	@FXML
 	void deleteTaskEvent(ActionEvent event) {
+		int selectedIndex = taskTable.getSelectionModel().getSelectedIndex();
 
+		if (selectedIndex >= 0) {
+			taskTable.getItems().remove(selectedIndex);
+			Process.getCurrentActivity().getTasks().eliminarPorIndice(selectedIndex);
+		} else {
+			// Nada seleccionado
+
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.initOwner(app.getPrimaryStage());
+			alert.setTitle("No selection");
+			alert.setHeaderText("You did not select a process");
+			alert.setContentText("Please select a process in the table");
+
+			alert.showAndWait();
+		}
 	}
 
 	@FXML

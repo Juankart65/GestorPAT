@@ -64,7 +64,7 @@ public class ProcessViewController {
 		boolean okClicked = app.showCreateProcess(tempProcess);
 
 		if (okClicked) {
-			app.getProcessList().addEnd(tempProcess);
+			ModelFactoryController.getInstance().getHandler().getProcessList().addEnd(tempProcess);
 			processTable.getItems().add(tempProcess);
 		}
 	}
@@ -104,7 +104,7 @@ public class ProcessViewController {
 
 		if (selectedIndex >= 0) {
 			processTable.getItems().remove(selectedIndex);
-			app.getProcessList().deleteNode(selectedIndex);
+			ModelFactoryController.getInstance().getHandler().getProcessList().deleteNode(selectedIndex);
 		} else {
 			// Nada seleccionado
 
@@ -166,7 +166,7 @@ public class ProcessViewController {
 		this.app = app;
 
 		// Convierte la lista enlazada simple en una lista convencional
-		List<Process> processList = new ArrayList<>(app.getProcessList().convertArraylist(app.getProcessList()));
+		List<Process> processList = new ArrayList<>(ModelFactoryController.getInstance().getHandler().getProcessList().convertArraylist(ModelFactoryController.getInstance().getHandler().getProcessList()));
 
 		// Crea un ObservableList a partir de la lista convencional
 		ObservableList<Process> process = FXCollections.observableArrayList(processList);

@@ -2,8 +2,6 @@ package model;
 
 import java.util.Objects;
 
-import dataStructures.SimpleList;
-
 /**
  * 
  * 
@@ -25,14 +23,14 @@ public class User {
 	 *
 	 * @param id
 	 * @param name
-	 * @param user
+	 * @param password
 	 * @param rol
 	 */
-	public User(String id, String name, String user, Rol rol) {
+	public User(String id, String name, String password, Rol rol) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.password = user;
+		this.password = password;
 		this.rol = rol;
 	}
 
