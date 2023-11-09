@@ -10,13 +10,13 @@ import java.util.Iterator;
  * 
  **/
 
-public class ListaSimpleCircular<T> implements Iterable<T> {
+public class SimpleCircularList<T> implements Iterable<T> {
 
-	private Nodo<T> nodoPrimero;
-	private Nodo<T> nodoUltimo;
+	private Node<T> nodoPrimero;
+	private Node<T> nodoUltimo;
 	private int tamanio;
 
-	public ListaSimpleCircular() {
+	public SimpleCircularList() {
 		nodoPrimero = null;
 		nodoPrimero = null;
 		tamanio = 0;
@@ -27,12 +27,12 @@ public class ListaSimpleCircular<T> implements Iterable<T> {
 	// Agregar al inicio de la lista
 	public void agregarInicio(T valorNodo) {
 
-		Nodo<T> nuevoNodo = new Nodo<>(valorNodo);
+		Node<T> nuevoNodo = new Node<>(valorNodo);
 
 		if (estaVacia()) {
 			nodoPrimero = nuevoNodo;
 		} else {
-			Nodo<T> aux = nodoUltimo.getSiguienteNodo();
+			Node<T> aux = nodoUltimo.getSiguienteNodo();
 			nodoUltimo.setSiguienteNodo(nuevoNodo);
 			nuevoNodo.setSiguienteNodo(aux);
 			nodoUltimo = nuevoNodo;
@@ -43,12 +43,12 @@ public class ListaSimpleCircular<T> implements Iterable<T> {
 	// Agregar al final de la lista
 	public void agregarfinal(T valorNodo) {
 
-		Nodo<T> nuevoNodo = new Nodo<>(valorNodo);
+		Node<T> nuevoNodo = new Node<>(valorNodo);
 
 		if (estaVacia()) {
 			nodoPrimero = nodoUltimo = nuevoNodo;
 		} else {
-			Nodo<T> aux = nodoUltimo.getSiguienteNodo();
+			Node<T> aux = nodoUltimo.getSiguienteNodo();
 			nodoUltimo.setSiguienteNodo(nuevoNodo);
 			nuevoNodo.setSiguienteNodo(aux);
 			nodoUltimo = nuevoNodo;
@@ -59,7 +59,7 @@ public class ListaSimpleCircular<T> implements Iterable<T> {
 	// Obtener Nodo el valor de un Nodo
 	public T obtenerValorNodo(int indice) {
 
-		Nodo<T> nodoTemporal = null;
+		Node<T> nodoTemporal = null;
 		int contador = 0;
 
 		if (indiceValido(indice)) {
@@ -96,7 +96,7 @@ public class ListaSimpleCircular<T> implements Iterable<T> {
 	 */
 	public void imprimirLista() {
 
-		Nodo<T> aux = nodoPrimero;
+		Node<T> aux = nodoPrimero;
 
 		while (aux != null) {
 			System.out.print(aux.getValorNodo() + "\t");
@@ -108,9 +108,9 @@ public class ListaSimpleCircular<T> implements Iterable<T> {
 
 	// Eliminar dado el valor de un nodo
 	public T eliminar(T dato) {
-		Nodo<T> nodo = nodoPrimero;
-		Nodo<T> previo = null;
-		Nodo<T> siguiente = null;
+		Node<T> nodo = nodoPrimero;
+		Node<T> previo = null;
+		Node<T> siguiente = null;
 		boolean encontrado = false;
 
 		// buscar el nodo previo
@@ -148,7 +148,7 @@ public class ListaSimpleCircular<T> implements Iterable<T> {
 	public T eliminarPrimero() {
 
 		if (!estaVacia()) {
-			Nodo<T> n = nodoPrimero;
+			Node<T> n = nodoPrimero;
 			T valor = n.getValorNodo();
 			nodoPrimero = n.getSiguienteNodo();
 
@@ -167,7 +167,7 @@ public class ListaSimpleCircular<T> implements Iterable<T> {
 
 		if (!estaVacia()) {
 			T valor = nodoUltimo.getValorNodo();
-			Nodo<T> prev = obtenerNodo(tamanio - 2);
+			Node<T> prev = obtenerNodo(tamanio - 2);
 			nodoUltimo = prev;
 
 			if (nodoUltimo == null) {
@@ -183,11 +183,11 @@ public class ListaSimpleCircular<T> implements Iterable<T> {
 		throw new RuntimeException("Lista vac�a");
 	}
 
-	private Nodo<T> obtenerNodo(int indice) {
+	private Node<T> obtenerNodo(int indice) {
 
 		if (indice >= 0 && indice < tamanio) {
 
-			Nodo<T> nodo = nodoPrimero;
+			Node<T> nodo = nodoPrimero;
 
 			for (int i = 0; i < indice; i++) {
 				nodo = nodo.getSiguienteNodo();
@@ -208,7 +208,7 @@ public class ListaSimpleCircular<T> implements Iterable<T> {
 	public void modificarNodo(int indice, T nuevo) {
 
 		if (indiceValido(indice)) {
-			Nodo<T> nodo = obtenerNodo(indice);
+			Node<T> nodo = obtenerNodo(indice);
 			nodo.setValorNodo(nuevo);
 		}
 
@@ -224,7 +224,7 @@ public class ListaSimpleCircular<T> implements Iterable<T> {
 
 		int i = 0;
 
-		for (Nodo<T> aux = nodoPrimero; aux != null; aux = aux.getSiguienteNodo()) {
+		for (Node<T> aux = nodoPrimero; aux != null; aux = aux.getSiguienteNodo()) {
 			if (aux.getValorNodo().equals(dato)) {
 				return i;
 			}
@@ -242,7 +242,7 @@ public class ListaSimpleCircular<T> implements Iterable<T> {
 
 	protected class IteradorListaSimple implements Iterator<T> {
 
-		private Nodo<T> nodo;
+		private Node<T> nodo;
 		private int posicion;
 
 		/**
@@ -250,7 +250,7 @@ public class ListaSimpleCircular<T> implements Iterable<T> {
 		 * 
 		 * @param aux Primer Nodo de la lista
 		 */
-		public IteradorListaSimple(Nodo<T> nodo) {
+		public IteradorListaSimple(Node<T> nodo) {
 			this.nodo = nodo;
 			this.posicion = 0;
 		}
@@ -281,11 +281,11 @@ public class ListaSimpleCircular<T> implements Iterable<T> {
 
 	// Metodos get y set de la clase ListaSimple
 
-	public Nodo getNodoPrimero() {
+	public Node getNodoPrimero() {
 		return nodoPrimero;
 	}
 
-	public void setNodoPrimero(Nodo nodoPrimero) {
+	public void setNodoPrimero(Node nodoPrimero) {
 		this.nodoPrimero = nodoPrimero;
 	}
 

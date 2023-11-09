@@ -16,6 +16,8 @@ import model.User;
 
 public class SignUpController {
 
+	// Attribute declaration
+
     @FXML
     private Button btnCancelUser;
 
@@ -36,6 +38,12 @@ public class SignUpController {
 	private User user = new User("", "");
 	private boolean okClicked = false;
 
+	/**
+	 * 
+	 * Method that 
+	 *
+	 * @param event
+	 */
 	@FXML
     void acceptUserEvent(ActionEvent event) {
     	if(isInputValid()) {
@@ -68,6 +76,12 @@ public class SignUpController {
     	}
     }
 
+	/**
+	 * 
+	 * Method that 
+	 *
+	 * @param event
+	 */
 	@FXML
 	void cancelUserEvent(ActionEvent event) {
 		dialogStage.close();
@@ -85,11 +99,22 @@ public class SignUpController {
 		this.cbxRol.setItems(rols);
 	}
 
+	/**
+	 * 
+	 * Method that 
+	 *
+	 */
 	@FXML
 	private void initialize() {
 		llenarComboBox();
 	}
 
+	/**
+	 * 
+	 * Method that 
+	 *
+	 * @return
+	 */
 	private boolean isInputValid() {
     	String errorMensaje = "";
     	
@@ -120,10 +145,22 @@ public class SignUpController {
     	}
     }
 
+	/**
+	 * 
+	 * Method that 
+	 *
+	 * @param dialogStage
+	 */
 	public void showDialogStage(Stage dialogStage) {
 		this.dialogStage = dialogStage;
 	}
 
+	/**
+	 * 
+	 * Method that 
+	 *
+	 * @param user
+	 */
 	public void showUser(User user) {
     	this.user = user;
     	
@@ -131,6 +168,12 @@ public class SignUpController {
     	txtPassword.setText(user.getPassword());
     }
 
+	/**
+	 * 
+	 * Method that 
+	 *
+	 * @return
+	 */
 	public boolean isOkClicked() {
 		return okClicked;
 	}

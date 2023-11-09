@@ -2,7 +2,7 @@ package model;
 
 import java.util.Objects;
 
-import dataStructures.ListaSimple;
+import dataStructures.SimpleList;
 
 /**
  * 

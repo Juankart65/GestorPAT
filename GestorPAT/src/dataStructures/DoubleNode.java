@@ -7,10 +7,10 @@ package dataStructures;
  * 
  **/
 
-public class NodoDoble<T> {
+public class DoubleNode<T> {
 
-	private NodoDoble<T> siguienteNodo;
-	private NodoDoble<T> anteriorNodo;
+	private DoubleNode<T> siguienteNodo;
+	private DoubleNode<T> anteriorNodo;
 	private T valorNodo;
 
 	/**
@@ -18,7 +18,7 @@ public class NodoDoble<T> {
 	 * 
 	 * @param dato Elemento que se guarda en el Nodo
 	 */
-	public NodoDoble(T valorNodo) {
+	public DoubleNode(T valorNodo) {
 		this.valorNodo = valorNodo;
 	}
 
@@ -28,7 +28,7 @@ public class NodoDoble<T> {
 	 * @param dato      Elemento que se guarda en el Nodo
 	 * @param siguiente Enlace al siguiente Nodo
 	 */
-	public NodoDoble(T dato, NodoDoble<T> siguiente, NodoDoble<T> anterior) {
+	public DoubleNode(T dato, DoubleNode<T> siguiente, DoubleNode<T> anterior) {
 		super();
 		this.valorNodo = dato;
 		this.siguienteNodo = siguiente;
@@ -37,11 +37,11 @@ public class NodoDoble<T> {
 
 	// Metodos get y set de la clase Nodo
 
-	public NodoDoble<T> getSiguienteNodo() {
+	public DoubleNode<T> getSiguienteNodo() {
 		return siguienteNodo;
 	}
 
-	public void setSiguienteNodo(NodoDoble<T> siguienteNodo) {
+	public void setSiguienteNodo(DoubleNode<T> siguienteNodo) {
 		this.siguienteNodo = siguienteNodo;
 	}
 
@@ -53,11 +53,11 @@ public class NodoDoble<T> {
 		this.valorNodo = valorNodo;
 	}
 
-	public NodoDoble<T> getAnteriorNodo() {
+	public DoubleNode<T> getAnteriorNodo() {
 		return anteriorNodo;
 	}
 
-	public void setAnteriorNodo(NodoDoble<T> anteriorNodo) {
+	public void setAnteriorNodo(DoubleNode<T> anteriorNodo) {
 		this.anteriorNodo = anteriorNodo;
 	}
 

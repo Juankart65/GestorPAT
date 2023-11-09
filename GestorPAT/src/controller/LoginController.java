@@ -27,41 +27,61 @@ import javafx.scene.control.TextField;
  */
 public class LoginController {
 
+	// Attribute declaration
+
 	@FXML
 	private ResourceBundle resources;
 
-    @FXML
-    private Button btnBack;
+	@FXML
+	private Button btnBack;
 
-    @FXML
-    private Button btnLogin;
+	@FXML
+	private Button btnLogin;
 
-    @FXML
-    private Button btnSignUp;
+	@FXML
+	private Button btnSignUp;
 
-    @FXML
-    private TextField txtUser;
-    
-    @FXML
-    private ComboBox<String> cbxRol;
+	@FXML
+	private TextField txtUser;
 
-    @FXML
-    private PasswordField txtPassword;
+	@FXML
+	private ComboBox<String> cbxRol;
+
+	@FXML
+	private PasswordField txtPassword;
 
 	private App aplicacion;
 	private Stage dialogStage;
 	int robin = 0;
 
+	/**
+	 * 
+	 * Method that
+	 *
+	 * @param event
+	 */
 	@FXML
 	void backEvent(ActionEvent event) {
 		System.exit(0);
 	}
 
+	/**
+	 * 
+	 * Method that
+	 *
+	 * @param event
+	 */
 	@FXML
 	void loginEvent(ActionEvent event) {
 		loginAction();
 	}
 
+	/**
+	 * 
+	 * Method that
+	 *
+	 * @param event
+	 */
 	@FXML
 	void signUpEvent(ActionEvent event) {
 		signUpAction();
@@ -105,7 +125,7 @@ public class LoginController {
 			if (validUser) {
 				User currentUser = aplicacion.getUser(user, password);
 				App.setCurrentUser(currentUser);
-				aplicacion.showProcessView(App.getCurrentUser());
+				aplicacion.showMainView(App.getCurrentUser());
 			} else {
 				txtUser.setText("");
 				txtPassword.setText("");
@@ -153,6 +173,11 @@ public class LoginController {
 		}
 	}
 
+	/**
+	 * 
+	 * Method that
+	 *
+	 */
 	@FXML
 	void initialize() {
 

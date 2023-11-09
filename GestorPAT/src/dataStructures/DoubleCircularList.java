@@ -1,12 +1,12 @@
 package dataStructures;
 
-public class ListaDobleCircular<T> {
+public class DoubleCircularList<T> {
 
-	private NodoDoble<T> nodoPrimero;
-	private NodoDoble<T> nodoUltimo;
+	private DoubleNode<T> nodoPrimero;
+	private DoubleNode<T> nodoUltimo;
 	private int tamanio;
 
-	public ListaDobleCircular() {
+	public DoubleCircularList() {
 		nodoPrimero = null;
 		nodoUltimo = null;
 		tamanio = 0;
@@ -21,10 +21,10 @@ public class ListaDobleCircular<T> {
 	public void insertar(T valor, int posicion) {
 		int cont = 0;
 
-		for (NodoDoble<T> aux = nodoPrimero; cont < tamanio; cont++, aux = aux.getSiguienteNodo()) {
+		for (DoubleNode<T> aux = nodoPrimero; cont < tamanio; cont++, aux = aux.getSiguienteNodo()) {
 			if (cont == posicion) {
-				NodoDoble<T> aux2 = aux.getAnteriorNodo();
-				NodoDoble<T> nuevo = new NodoDoble<>(valor);
+				DoubleNode<T> aux2 = aux.getAnteriorNodo();
+				DoubleNode<T> nuevo = new DoubleNode<>(valor);
 				aux2.setSiguienteNodo(nuevo);
 				nuevo.setSiguienteNodo(aux);
 				nuevo.setAnteriorNodo(aux2);
@@ -45,7 +45,7 @@ public class ListaDobleCircular<T> {
 		int cont = 0;
 		int pos = -1;
 
-		for (NodoDoble<T> aux = nodoPrimero; cont < tamanio; cont++, aux = aux.getSiguienteNodo()) {
+		for (DoubleNode<T> aux = nodoPrimero; cont < tamanio; cont++, aux = aux.getSiguienteNodo()) {
 			if (aux.getValorNodo().equals(valor)) {
 				pos = cont;
 			}
@@ -55,7 +55,7 @@ public class ListaDobleCircular<T> {
 
 	public void agregarFinal(T valorNodo) {
 
-		NodoDoble<T> nuevoNodo = new NodoDoble<>(valorNodo);
+		DoubleNode<T> nuevoNodo = new DoubleNode<>(valorNodo);
 
 		if (estaVacia()) {
 			nodoPrimero = nodoUltimo = nuevoNodo;
@@ -79,7 +79,7 @@ public class ListaDobleCircular<T> {
 	 */
 	public void imprimirLista() {
 
-		NodoDoble<T> aux = nodoPrimero;
+		DoubleNode<T> aux = nodoPrimero;
 		int cont = 0;
 
 		while (aux != null && cont != tamanio) {

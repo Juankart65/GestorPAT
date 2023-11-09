@@ -1,5 +1,7 @@
 package controller;
 
+import java.time.Duration;
+
 import application.App;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,8 +14,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
-import model.Activity;
 import model.State;
+import model.Task;
 
 /**
  * Este es el controlador de la ventana para crear o editar cultivos
@@ -21,38 +23,46 @@ import model.State;
  * @author USER
  *
  */
-public class CreateActivitiesController {
+public class CreateTaskController {
 
 	@FXML
-	private TextArea txtDescriptionActivity;
+	private Button btnAcceptTask;
 
 	@FXML
-	private TextField txtIdActivity;
+	private ComboBox<State> cbxStateTask = new ComboBox<State>();
 
 	@FXML
-	private Button btnCancelActivity;
+	private ComboBox<Duration> cbxDurationTask = new ComboBox<Duration>();
 
 	@FXML
-	private Button btnAcceptActivity;
+	private TextArea txtDescriptionTask;
 
 	@FXML
-	private ComboBox<State> cbxStateActivity = new ComboBox<State>();
+	private ComboBox<Boolean> cbxMandatoryTask = new ComboBox<Boolean>();
 
 	@FXML
-	private TextField txtNameActivity;
+	private Button btnCancelTask;
+
+	@FXML
+	private TextField txtIdTask;
+
+	@FXML
+	private TextField txtNameTask;
 
 	private Stage dialogStage;
-	private Activity activity;
+	private Task task;
 	private boolean okClicked = false;
 
 	@FXML
 	void acceptActivityEvent(ActionEvent event) {
 		if (isInputValid()) {
-			activity.setId(txtIdActivity.getText());
-			activity.setState(cbxStateActivity.getValue());
-			activity.setName(txtNameActivity.getText());
-			activity.setDescription(txtDescriptionActivity.getText());
-			activity.setOwner(App.getCurrentUser());
+			task.setId(txtIdTask.getText());
+			task.setState(cbxStateTask.getValue());
+			task.setName(txtNameTask.getText());
+			task.setDescription(txtDescriptionTask.getText());
+			task.setDuration(cbxDurationTask.getValue());
+			task.setMandatoryTask(cbxMandatoryTask.getValue());
+			task.setOwner(App.getCurrentUser());
 
 			okClicked = true;
 			dialogStage.close();
@@ -75,7 +85,11 @@ public class CreateActivitiesController {
 			statesProcess.add(stateProcess);
 		}
 
-		this.cbxStateActivity.setItems(statesProcess);
+		this.cbxStateTask.setItems(statesProcess);
+
+		this.cbxDurationTask.getItems().addAll(Duration.ofMinutes(15), Duration.ofMinutes(30), Duration.ofHours(1),
+				Duration.ofHours(2));
+		this.cbxMandatoryTask.getItems().addAll(true, false);
 	}
 
 	/**
@@ -85,7 +99,7 @@ public class CreateActivitiesController {
 	private void initialize() {
 		fillComboBox();
 	}
-
+	
 	/**
 	 * Method to check that the text fields are correct
 	 * 
@@ -94,19 +108,19 @@ public class CreateActivitiesController {
 	private boolean isInputValid() {
 		String errorMensaje = "";
 
-		if (txtIdActivity == null || txtIdActivity.getText().length() == 0) {
+		if (txtIdTask == null || txtIdTask.getText().length() == 0) {
 			errorMensaje += "The ID is not valid!\n";
 		}
 
-		if (txtNameActivity == null || txtNameActivity.getText().length() == 0) {
+		if (txtNameTask == null || txtNameTask.getText().length() == 0) {
 			errorMensaje += "The name is not valid!\n";
 		}
 
-		if (txtDescriptionActivity == null || txtDescriptionActivity.getText().length() == 0) {
+		if (txtDescriptionTask == null || txtDescriptionTask.getText().length() == 0) {
 			errorMensaje += "The description is not valid!\n";
 		}
 		
-		if (cbxStateActivity.getValue() == null || cbxStateActivity.getValue().name().length() == 0) {
+		if (cbxStateTask.getValue() == null || cbxStateTask.getValue().name().length() == 0) {
 			errorMensaje += "The rol is not valid!\n";
 		}
 
@@ -139,12 +153,12 @@ public class CreateActivitiesController {
 	 * 
 	 * @param cultivo
 	 */
-	public void showActivity(Activity activity) {
-		this.activity = activity;
+	public void showTask(Task task) {
+		this.task = task;
 
-		txtIdActivity.setText(activity.getId());
-		txtNameActivity.setText(activity.getName());
-		txtDescriptionActivity.setText(activity.getDescription());
+//		txtIdTask.setText(task.getId());
+//		txtNameTask.setText(task.getName());
+//		txtDescriptionTask.setText(task.getDescription());
 	}
 
 	/**

@@ -5,17 +5,20 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.Activity;
 import model.Process;
+import model.Task;
 import model.User;
 
 import java.io.IOException;
 
 import controller.CreateProcessController;
+import controller.CreateTaskController;
 import controller.LoginController;
 import controller.ActivitiesViewController;
 import controller.CreateActivitiesController;
 import controller.ProcessViewController;
 import controller.SignUpController;
-import dataStructures.ListaSimple;
+import controller.TasksViewController;
+import dataStructures.SimpleList;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -38,7 +41,7 @@ public class App extends Application {
 	public static Process currentProcess;
 
 	private ObservableList<User> userList = FXCollections.observableArrayList();
-	private ListaSimple<Process> processList = new ListaSimple<Process>();
+	private SimpleList<Process> processList = new SimpleList<Process>();
 
 	public ObservableList<User> getUserList() {
 		return userList;
@@ -115,7 +118,7 @@ public class App extends Application {
 	 *
 	 * @return the processList
 	 */
-	public ListaSimple<Process> getProcessList() {
+	public SimpleList<Process> getProcessList() {
 		return processList;
 	}
 
@@ -124,7 +127,7 @@ public class App extends Application {
 	 *
 	 * @param processList the processList to set
 	 */
-	public void setProcessList(ListaSimple<Process> processList) {
+	public void setProcessList(SimpleList<Process> processList) {
 		this.processList = processList;
 	}
 
@@ -258,7 +261,7 @@ public class App extends Application {
 	 * @param usuarios
 	 * @return
 	 */
-	public boolean showProcessView(User usuarios) {
+	public boolean showMainView(User usuarios) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(App.class.getResource("../view/ProcessView.fxml"));
@@ -336,7 +339,7 @@ public class App extends Application {
 	 * 
 	 * @return
 	 */
-	public boolean showActivitiesView(Process process) {
+	public boolean showProcessView(Process process) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(App.class.getResource("../view/ActivitiesView.fxml"));
@@ -377,7 +380,7 @@ public class App extends Application {
 			AnchorPane page = (AnchorPane) loader.load();
 
 			Stage dialogStage = new Stage();
-			dialogStage.setTitle("Editar o Crear Cultivo");
+			dialogStage.setTitle("Create or Edit Activity");
 			dialogStage.initModality(Modality.WINDOW_MODAL);
 			dialogStage.initOwner(primaryStage);
 			dialogStage.initStyle(StageStyle.TRANSPARENT);
@@ -393,11 +396,86 @@ public class App extends Application {
 
 			CreateActivitiesController createActivitiesController = loader.getController();
 			createActivitiesController.mostrarDialogStage(dialogStage);
-			createActivitiesController.mostrarCultivo(activity);
+			createActivitiesController.showActivity(activity);
 
 			dialogStage.showAndWait();
 
 			return createActivitiesController.isOkClicked();
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	/**
+	 * Muestra la ventana principal
+	 * 
+	 * @return
+	 */
+	public boolean showActivitiesView(Activity activity) {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(App.class.getResource("../view/TasksView.fxml"));
+
+			AnchorPane rootLayout = (AnchorPane) loader.load();
+
+			TasksViewController activitiesViewController = loader.getController();
+			activitiesViewController.setAplicacion(this);
+			activitiesViewController.showDetailActivity(Process.getCurrentActivity());
+
+			Scene scene = new Scene(rootLayout);
+
+			// Establecer el color de relleno del Scene a transparente
+			scene.setFill(Color.TRANSPARENT);
+			// Agregar el archivo de estilos Styles.css
+			scene.getStylesheets().add(getClass().getResource("../resources/Styles.css").toString());
+			primaryStage.setScene(scene);
+			primaryStage.centerOnScreen();
+			primaryStage.show();
+
+			return activitiesViewController.isOkClicked();
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	/**
+	 * Muestra la ventana para crear o editar cultivos
+	 */
+	public boolean showCreateTask(Task task) {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(App.class.getResource("../view/CreateTaskView.fxml"));
+
+			AnchorPane page = (AnchorPane) loader.load();
+
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Create or Edit Task");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			dialogStage.initStyle(StageStyle.TRANSPARENT);
+			dialogStage.centerOnScreen();
+
+			Scene scene = new Scene(page);
+			// Establecer el color de relleno del Scene a transparente
+			scene.setFill(Color.TRANSPARENT);
+			// Agregar el archivo de estilos style.css
+			scene.getStylesheets().add(getClass().getResource("../resources/Styles.css").toString());
+
+			dialogStage.setScene(scene);
+
+			CreateTaskController createTaskController = loader.getController();
+			createTaskController.mostrarDialogStage(dialogStage);
+			createTaskController.showTask(task);
+
+			dialogStage.showAndWait();
+
+			return createTaskController.isOkClicked();
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

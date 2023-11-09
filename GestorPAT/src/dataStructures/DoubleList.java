@@ -9,14 +9,14 @@ import java.util.Iterator;
  *
  * **/
 
-public class ListaDoble<T> implements Iterable<T> {
+public class DoubleList<T> implements Iterable<T> {
 
-	private NodoDoble<T> nodoPrimero;
-	private NodoDoble<T> nodoUltimo;
+	private DoubleNode<T> nodoPrimero;
+	private DoubleNode<T> nodoUltimo;
 	private int tamanio;
 
 
-	public ListaDoble() {
+	public DoubleList() {
 		nodoPrimero = null;
 		nodoPrimero = null;
 		tamanio = 0;
@@ -29,7 +29,7 @@ public class ListaDoble<T> implements Iterable<T> {
 	//Agregar al inicio de la lista
 	public void agregarInicio(T valorNodo) {
 
-		NodoDoble<T> nuevoNodo = new NodoDoble<>(valorNodo);
+		DoubleNode<T> nuevoNodo = new DoubleNode<>(valorNodo);
 
 		if(estaVacia())
 		{
@@ -47,7 +47,7 @@ public class ListaDoble<T> implements Iterable<T> {
 	//Agregar al final de la lista
 	public void agregarfinal(T valorNodo) {
 
-		NodoDoble<T> nuevoNodo = new NodoDoble<>(valorNodo);
+		DoubleNode<T> nuevoNodo = new DoubleNode<>(valorNodo);
 
 		if(estaVacia())
 		{
@@ -75,8 +75,8 @@ public class ListaDoble<T> implements Iterable<T> {
 				agregarInicio(dato);
 			}
 			else {
-				NodoDoble<T> nuevo = new NodoDoble<>(dato);
-				NodoDoble<T> actual = obtenerNodo(indice);
+				DoubleNode<T> nuevo = new DoubleNode<>(dato);
+				DoubleNode<T> actual = obtenerNodo(indice);
 
 				nuevo.setSiguienteNodo(actual);
 				nuevo.setAnteriorNodo(actual.getAnteriorNodo());
@@ -101,7 +101,7 @@ public class ListaDoble<T> implements Iterable<T> {
 	//Obtener Nodo el valor de un Nodo
 	public T obtenerValorNodo(int indice) {
 
-		NodoDoble<T> nodoTemporal = null;
+		DoubleNode<T> nodoTemporal = null;
 		int contador = 0;
 
 		if(indiceValido(indice))
@@ -143,7 +143,7 @@ public class ListaDoble<T> implements Iterable<T> {
 	 */
 	public void imprimirLista() {
 
-		NodoDoble<T> aux = nodoPrimero;
+		DoubleNode<T> aux = nodoPrimero;
 
 		while(aux!=null) {
 			System.out.print( aux.getValorNodo()+"\t" );
@@ -155,7 +155,7 @@ public class ListaDoble<T> implements Iterable<T> {
 
 	public void imprimirAtras() {
 
-		for(NodoDoble<T> aux = nodoUltimo; aux!=null; aux = aux.getAnteriorNodo()) {
+		for(DoubleNode<T> aux = nodoUltimo; aux!=null; aux = aux.getAnteriorNodo()) {
 			System.out.print( aux.getValorNodo()+"\t" );
 		}
 		System.out.println();
@@ -171,12 +171,12 @@ public class ListaDoble<T> implements Iterable<T> {
 	 */
 	public T eliminar(T dato) {
 
-		NodoDoble<T> nodo = buscarNodo(dato);
+		DoubleNode<T> nodo = buscarNodo(dato);
 
 		if(nodo!=null) {
 
-			NodoDoble<T> previo = nodo.getAnteriorNodo();
-			NodoDoble<T> siguiente = nodo.getSiguienteNodo();
+			DoubleNode<T> previo = nodo.getAnteriorNodo();
+			DoubleNode<T> siguiente = nodo.getSiguienteNodo();
 
 			if(previo==null) {
 				nodoPrimero = siguiente;
@@ -204,7 +204,7 @@ public class ListaDoble<T> implements Iterable<T> {
 	public T eliminarPrimero() {
 
 		if( !estaVacia() ) {
-			NodoDoble<T> nodoAux = nodoPrimero;
+			DoubleNode<T> nodoAux = nodoPrimero;
 			T valor = nodoAux.getValorNodo();
 			nodoPrimero = nodoAux.getSiguienteNodo();
 
@@ -228,7 +228,7 @@ public class ListaDoble<T> implements Iterable<T> {
 
 		if( !estaVacia() ) {
 			T valor = nodoUltimo.getValorNodo();
-			NodoDoble<T> prev = obtenerNodo(tamanio-2);
+			DoubleNode<T> prev = obtenerNodo(tamanio-2);
 			nodoUltimo = prev;
 
 			if(nodoUltimo==null) {
@@ -250,11 +250,11 @@ public class ListaDoble<T> implements Iterable<T> {
 	 * @param indice �ndice para obtener el Nodo
 	 * @return Nodo objeto
 	 */
-	private NodoDoble<T> obtenerNodo(int indice) {
+	private DoubleNode<T> obtenerNodo(int indice) {
 
 		if(indice>=0 && indice<tamanio) {
 
-			NodoDoble<T> nodo = nodoPrimero;
+			DoubleNode<T> nodo = nodoPrimero;
 
 			for (int i = 0; i < indice; i++) {
 				nodo = nodo.getSiguienteNodo();
@@ -271,9 +271,9 @@ public class ListaDoble<T> implements Iterable<T> {
 	 * @param dato Dato a buscar
 	 * @return Nodo
 	 */
-	private NodoDoble<T> buscarNodo(T dato){
+	private DoubleNode<T> buscarNodo(T dato){
 
-		NodoDoble<T> aux = nodoPrimero;
+		DoubleNode<T> aux = nodoPrimero;
 
 		while(aux!=null) {
 			if(aux.getValorNodo().equals(dato)) {
@@ -295,7 +295,7 @@ public class ListaDoble<T> implements Iterable<T> {
 	public void modificarNodo(int indice, T nuevo) {
 
 		if( indiceValido(indice) ) {
-			NodoDoble<T> nodo = obtenerNodo(indice);
+			DoubleNode<T> nodo = obtenerNodo(indice);
 			nodo.setValorNodo(nuevo);
 		}
 
@@ -311,7 +311,7 @@ public class ListaDoble<T> implements Iterable<T> {
 
 		int i = 0;
 
-		for( NodoDoble<T> aux = nodoPrimero ; aux!=null ; aux = aux.getSiguienteNodo() ) {
+		for( DoubleNode<T> aux = nodoPrimero ; aux!=null ; aux = aux.getSiguienteNodo() ) {
 			if( aux.getValorNodo().equals(dato) ) {
 				return i;
 			}
@@ -330,7 +330,7 @@ public class ListaDoble<T> implements Iterable<T> {
 	public T obtener(int indice) {
 
 		if( indiceValido(indice) ) {
-			NodoDoble<T> n = obtenerNodo(indice);
+			DoubleNode<T> n = obtenerNodo(indice);
 
 			if(n!=null) {
 				return n.getValorNodo();
@@ -353,14 +353,14 @@ public class ListaDoble<T> implements Iterable<T> {
 
 	protected class IteradorListaDoble implements Iterator<T>{
 
-		private NodoDoble<T> nodo;
+		private DoubleNode<T> nodo;
 		private int posicion;
 
 		/**
 		 * Constructor de la clase Iterador
 		 * @param aux Primer Nodo de la lista
 		 */
-		public IteradorListaDoble(NodoDoble<T> nodo) {
+		public IteradorListaDoble(DoubleNode<T> nodo) {
 			this.nodo = nodo;
 			this.posicion = 0;
 		}
@@ -429,7 +429,7 @@ public class ListaDoble<T> implements Iterable<T> {
 
 	public void imprimirHaciaAtras() {
 
-		for(NodoDoble<T> aux = nodoUltimo; aux!=null; aux = aux.getAnteriorNodo()) {
+		for(DoubleNode<T> aux = nodoUltimo; aux!=null; aux = aux.getAnteriorNodo()) {
 			System.out.print(aux.getValorNodo()+"\t" );
 		}
 		System.out.println();
@@ -439,12 +439,12 @@ public class ListaDoble<T> implements Iterable<T> {
 	//Metodos get y set de la clase ListaSimple
 
 
-	public NodoDoble<T> getNodoPrimero() {
+	public DoubleNode<T> getNodoPrimero() {
 		return nodoPrimero;
 	}
 
 
-	public void setNodoPrimero(NodoDoble<T> nodoPrimero) {
+	public void setNodoPrimero(DoubleNode<T> nodoPrimero) {
 		this.nodoPrimero = nodoPrimero;
 	}
 
@@ -459,12 +459,12 @@ public class ListaDoble<T> implements Iterable<T> {
 	}
 
 
-	public NodoDoble<T> getNodoUltimo() {
+	public DoubleNode<T> getNodoUltimo() {
 		return nodoUltimo;
 	}
 
 
-	public void setNodoUltimo(NodoDoble<T> nodoUltimo) {
+	public void setNodoUltimo(DoubleNode<T> nodoUltimo) {
 		this.nodoUltimo = nodoUltimo;
 	}
 

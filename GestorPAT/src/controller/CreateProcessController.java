@@ -1,6 +1,6 @@
 package controller;
 
-import java.io.File;
+
 
 import application.App;
 import javafx.collections.FXCollections;
@@ -13,9 +13,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.Process;
 import model.State;
@@ -27,6 +24,8 @@ import model.State;
  *
  */
 public class CreateProcessController {
+
+	// Attribute declaration
 
 	@FXML
 	private Button btnCancelProcess;
@@ -46,20 +45,21 @@ public class CreateProcessController {
 	@FXML
 	private ComboBox<State> cbxStateProcess = new ComboBox<State>();
 
-	private App app = new App();
+	private Stage dialogStage;
+	private Process process;
+	private boolean okClicked = false;
 
 	/**
 	 * 
+	 * Method that
+	 *
+	 * @param event
 	 */
-	private Stage dialogStage;
-	private Process process;
-
-	private boolean okClicked = false;
-
 	@FXML
 	void acceptProcessEvent(ActionEvent event) {
 		if (isInputValid()) {
 			process.setId(txtIdProcess.getText());
+			process.setState(cbxStateProcess.getValue());
 			process.setName(txtNameProcess.getText());
 			process.setDescription(txtDescription.getText());
 			process.setOwner(App.getCurrentUser());
@@ -70,15 +70,21 @@ public class CreateProcessController {
 		}
 	}
 
+	/**
+	 * 
+	 * Method that
+	 *
+	 * @param event
+	 */
 	@FXML
 	void cancelProcessEvent(ActionEvent event) {
 		dialogStage.close();
 	}
-	
+
 	/**
-	 * LLena el comboBox con los tipos de cuenta disponibles
+	 * Fill the comboBox with the available states
 	 */
-	public void llenarComboBox() {
+	public void fillComboBox() {
 		ObservableList<State> statesProcess = FXCollections.observableArrayList();
 
 		for (State stateProcess : State.values()) {
@@ -89,15 +95,15 @@ public class CreateProcessController {
 	}
 
 	/**
-	 * Metodo initialize predefinidp
+	 * Predefined initialize method
 	 */
 	@FXML
 	private void initialize() {
-		llenarComboBox();
+		fillComboBox();
 	}
 
 	/**
-	 * Metodo para comprobar que los campos de textos sean correctos
+	 * Method to check that the text fields are correct
 	 * 
 	 * @return
 	 */
@@ -132,7 +138,7 @@ public class CreateProcessController {
 	}
 
 	/**
-	 * Metodo para mostrar una ventana de dialogo
+	 * Method to display a dialog window
 	 * 
 	 * @param dialogStage
 	 */
@@ -141,8 +147,7 @@ public class CreateProcessController {
 	}
 
 	/**
-	 * Este metodo muestra los parametros del cultivo que se haya seleccionado en la
-	 * tabla
+	 * This method displays the parameters of the selected crop in the table.
 	 * 
 	 * @param cultivo
 	 */
@@ -155,7 +160,7 @@ public class CreateProcessController {
 	}
 
 	/**
-	 * Metodo que dice si el boton aceptar fue pulsado
+	 * Method that tells if the accept button was pressed
 	 * 
 	 * @return
 	 */

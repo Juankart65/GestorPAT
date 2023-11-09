@@ -14,59 +14,72 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import model.Process;
 import model.Rol;
-import model.User;
+import model.State;
 import javafx.scene.control.Alert.AlertType;
 
 public class ProcessViewController {
 
-    @FXML
-    private Button btnVisualizeProcess;
+	// Attribute declaration
 
-    @FXML
-    private Button btnLogOut;
+	@FXML
+	private Button btnVisualizeProcess;
 
-    @FXML
-    private TableView<Process> processTable;
+	@FXML
+	private Button btnLogOut;
 
-    @FXML
-    private TableColumn<Process, String> nameColProcess;
+	@FXML
+	private TableView<Process> processTable;
 
-    @FXML
-    private Button btnCreateProcess;
+	@FXML
+	private TableColumn<Process, String> nameColProcess;
 
-    @FXML
-    private Button btnDelete;
+	@FXML
+	private Button btnCreateProcess;
 
-    @FXML
-    private TableColumn<Process, String> idColProcess;
+	@FXML
+	private Button btnDelete;
 
-    @FXML
-    private TableColumn<Process, ?> stateColProcess;
+	@FXML
+	private TableColumn<Process, String> idColProcess;
 
-    @FXML
-    private Button btnUpdateProcess;
+	@FXML
+	private TableColumn<Process, State> stateColProcess;
+
+	@FXML
+	private Button btnUpdateProcess;
 
 	private App app;
-	private User user = App.currentUser;
-	private CreateProcessController createProcessController = new CreateProcessController();
 
 	private boolean okClicked = false;
 
+	/**
+	 * 
+	 * Method that
+	 *
+	 * @param event
+	 */
 	@FXML
 	void createProcessEvent(ActionEvent event) {
-		Process tempProcess = new Process(null, null, null, null);
+		Process tempProcess = new Process(null, null, null, null, null);
 		boolean okClicked = app.showCreateProcess(tempProcess);
 
 		if (okClicked) {
-	        app.getProcessList().agregarFinal(tempProcess);
-	        processTable.getItems().add(tempProcess);
+			app.getProcessList().addEnd(tempProcess);
+			processTable.getItems().add(tempProcess);
 		}
 	}
 
+	/**
+	 * 
+	 * Method that
+	 *
+	 * @param event
+	 */
 	@FXML
 	void updateProcessEvent(ActionEvent event) {
 		Process selectProcess = processTable.getSelectionModel().getSelectedItem();
 		if (selectProcess != null) {
+			@SuppressWarnings("unused")
 			boolean okClicked = app.showCreateProcess(selectProcess);
 		} else {
 			Alert alert = new Alert(AlertType.WARNING);
@@ -79,13 +92,19 @@ public class ProcessViewController {
 		}
 	}
 
+	/**
+	 * 
+	 * Method that
+	 *
+	 * @param event
+	 */
 	@FXML
 	void deleteProcessEvent(ActionEvent event) {
 		int selectedIndex = processTable.getSelectionModel().getSelectedIndex();
 
 		if (selectedIndex >= 0) {
 			processTable.getItems().remove(selectedIndex);
-			app.getProcessList().eliminarNodo(selectedIndex);
+			app.getProcessList().deleteNode(selectedIndex);
 		} else {
 			// Nada seleccionado
 
@@ -99,6 +118,12 @@ public class ProcessViewController {
 		}
 	}
 
+	/**
+	 * 
+	 * Method that
+	 *
+	 * @param event
+	 */
 	@FXML
 	void visualizeProcessEvent(ActionEvent event) {
 		Process selectProcess = processTable.getSelectionModel().getSelectedItem();
@@ -107,7 +132,8 @@ public class ProcessViewController {
 
 			App.setCurrentProcess(selectProcess);
 
-			boolean okClicked = app.showActivitiesView(selectProcess);
+			@SuppressWarnings("unused")
+			boolean okClicked = app.showProcessView(selectProcess);
 		} else {
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.initOwner(app.getPrimaryStage());
@@ -119,37 +145,54 @@ public class ProcessViewController {
 		}
 	}
 
+	/**
+	 * 
+	 * Method that
+	 *
+	 * @param event
+	 */
 	@FXML
 	void logOutProcessEvent(ActionEvent event) {
 		app.showLogin();
 	}
 
+	/**
+	 * 
+	 * Method that
+	 *
+	 * @param app
+	 */
 	public void setAplicacion(App app) {
 		this.app = app;
-		
-		
-        // Convierte la lista enlazada simple en una lista convencional
-        List<Process> processList = new ArrayList<>(app.getProcessList().convertArraylist(app.getProcessList()));
 
-        // Crea un ObservableList a partir de la lista convencional
-        ObservableList<Process> process = FXCollections.observableArrayList(processList);
+		// Convierte la lista enlazada simple en una lista convencional
+		List<Process> processList = new ArrayList<>(app.getProcessList().convertArraylist(app.getProcessList()));
 
-        // Asigna la lista de procesos al TableView
-        processTable.setItems(process);
+		// Crea un ObservableList a partir de la lista convencional
+		ObservableList<Process> process = FXCollections.observableArrayList(processList);
+
+		// Asigna la lista de procesos al TableView
+		processTable.setItems(process);
 	}
 
+	/**
+	 * 
+	 * Method that
+	 *
+	 */
 	@FXML
 	void initialize() {
 		// Tabla de procesos
 		idColProcess.setCellValueFactory(cellData -> cellData.getValue().idProperty());
 		nameColProcess.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
-		
+		stateColProcess.setCellValueFactory(cellData -> cellData.getValue().stateProperty());
+
 		if (App.getCurrentUser().getRol().equals(Rol.User)) {
 			btnCreateProcess.setDisable(true);
 			btnUpdateProcess.setDisable(true);
 			btnDelete.setDisable(true);
 		}
-		
+
 	}
 
 	/**

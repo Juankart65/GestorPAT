@@ -1,13 +1,6 @@
 package controller;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
-import javax.swing.JOptionPane;
-
 import application.App;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -16,11 +9,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.image.ImageView;
 import model.Activity;
 import model.Process;
+import model.State;
 
 public class ActivitiesViewController {
+
+	// Attribute declaration
 
 	@FXML
 	private TableView<Activity> activitiesTable;
@@ -59,7 +54,7 @@ public class ActivitiesViewController {
 	private Label txtIdProcess;
 
 	@FXML
-	private TableColumn<?, ?> stateCol;
+	private TableColumn<Activity, State> stateCol;
 
 	@FXML
 	private Label txtNameProcess;
@@ -75,7 +70,7 @@ public class ActivitiesViewController {
 	 */
 	@FXML
 	void refreshEvent(ActionEvent event) {
-		app.showActivitiesView(App.getCurrentProcess());
+		app.showActivitiesView(Process.getCurrentActivity());
 	}
 
 	/**
@@ -86,7 +81,7 @@ public class ActivitiesViewController {
 	 */
 	@FXML
 	void backEvent(ActionEvent event) {
-		app.showProcessView(App.getCurrentUser());
+		app.showMainView(App.getCurrentUser());
 	}
 
 	/**
@@ -97,12 +92,12 @@ public class ActivitiesViewController {
 	 */
 	@FXML
 	void createActivityEvent(ActionEvent event) {
-		Activity tempActivity = new Activity(null, null, null, null);
+		Activity tempActivity = new Activity(null, null, null, null, null, null);
 		boolean okClicked = app.showCreateActivities(tempActivity);
 
 		if (okClicked) {
-	        App.getCurrentProcess().getActivities().agregarFinal(tempActivity);
-	        activitiesTable.getItems().add(tempActivity);
+			App.getCurrentProcess().getActivities().addEnd(tempActivity);
+			activitiesTable.getItems().add(tempActivity);
 		}
 	}
 
@@ -116,6 +111,7 @@ public class ActivitiesViewController {
 	void updateActivityEvent(ActionEvent event) {
 		Activity selectActivity = activitiesTable.getSelectionModel().getSelectedItem();
 		if (selectActivity != null) {
+			@SuppressWarnings("unused")
 			boolean okClicked = app.showCreateActivities(selectActivity);
 		} else {
 			Alert alert = new Alert(AlertType.WARNING);
@@ -140,7 +136,7 @@ public class ActivitiesViewController {
 
 		if (selectedIndex >= 0) {
 			activitiesTable.getItems().remove(selectedIndex);
-			App.getCurrentProcess().getActivities().eliminarNodo(selectedIndex);
+			App.getCurrentProcess().getActivities().deleteNode(selectedIndex);
 		} else {
 			// Nada seleccionado
 
@@ -166,9 +162,10 @@ public class ActivitiesViewController {
 
 		if (selectActivity != null) {
 
-//			App.setCurrentProcess(selectActivity);
+			Process.setCurrentActivity(selectActivity);
 
-//			boolean okClicked = app.showActivitiesView(selectActivity);
+			@SuppressWarnings("unused")
+			boolean okClicked = app.showActivitiesView(selectActivity);
 		} else {
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.initOwner(app.getPrimaryStage());
@@ -188,17 +185,18 @@ public class ActivitiesViewController {
 	public void setAplicacion(App app) {
 		this.app = app;
 	}
-	
+
 	@FXML
 	void initialize() {
 
-		//	Activity table
-//		idCol.setCellValueFactory(cellData -> cellData.getValue().idProperty());
-//		nameCol.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+		// Activity table
+		idCol.setCellValueFactory(cellData -> cellData.getValue().idProperty());
+		nameCol.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+		stateCol.setCellValueFactory(cellData -> cellData.getValue().stateProperty());
 	}
 
 	/**
-	 * Method that 
+	 * Method that
 	 *
 	 * @param currentProcess
 	 */
@@ -208,9 +206,10 @@ public class ActivitiesViewController {
 		txtDescriptionProcess.setText(currentProcess.getDescription());
 		txtOwnerProcess.setText(currentProcess.getOwner().getName());
 	}
-	
+
 	/**
-	 * Metodo que dice si el boton de aceptar fue pulsado
+	 * 
+	 * Method that tells if the accept button was pressed
 	 * 
 	 * @return
 	 */

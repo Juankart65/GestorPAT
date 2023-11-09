@@ -2,14 +2,20 @@ package model;
 
 import java.util.Objects;
 
-import dataStructures.ListaDobleCircular;
+import dataStructures.DoubleCircularList;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 public class Activity {
 
-	private ListaDobleCircular<Task> tasks = new ListaDobleCircular<Task>();
-	private String name;
-	private String description;
-	private String id;
+	private DoubleCircularList<Task> tasks = new DoubleCircularList<Task>();
+	private StringProperty name;
+	private StringProperty description;
+	private StringProperty id;
+	private ObjectProperty<State> state;
+	private User owner;
 
 	/**
 	 * 
@@ -20,12 +26,54 @@ public class Activity {
 	 * @param description
 	 * @param id
 	 */
-	public Activity(ListaDobleCircular<Task> tasks, String name, String description, String id) {
+	public Activity(DoubleCircularList<Task> tasks, String name, String description, String id, User owner, State state) {
 		super();
 		this.tasks = tasks;
-		this.name = name;
-		this.description = description;
-		this.id = id;
+		this.name = new SimpleStringProperty(name);
+		this.description = new SimpleStringProperty(description);
+		this.id = new SimpleStringProperty(id);
+		this.owner = owner;
+		this.state = new SimpleObjectProperty<State>(state);
+	}
+	
+	public ObjectProperty<State> stateProperty(){
+		return state;
+	}
+
+	/**
+	 * Getter of state 
+	 *
+	 * @return the state
+	 */
+	public State getState() {
+		return state.get();
+	}
+
+	/**
+	 * Setter of state
+	 *
+	 * @param object the state to set
+	 */
+	public void setState(Object object) {
+		this.state.set((State) object);
+	}
+
+	/**
+	 * Getter of owner
+	 *
+	 * @return the owner
+	 */
+	public User getOwner() {
+		return owner;
+	}
+
+	/**
+	 * Setter of owner
+	 *
+	 * @param owner the owner to set
+	 */
+	public void setOwner(User owner) {
+		this.owner = owner;
 	}
 
 	/**
@@ -33,8 +81,11 @@ public class Activity {
 	 *
 	 * @return the tasks
 	 */
-	public ListaDobleCircular<Task> getTasks() {
-		return tasks;
+	public DoubleCircularList<Task> getTasks() {
+	    if (tasks == null) {
+	        tasks = new DoubleCircularList<Task>();
+	    }
+	    return tasks;
 	}
 
 	/**
@@ -42,8 +93,18 @@ public class Activity {
 	 *
 	 * @param tasks the tasks to set
 	 */
-	public void setTasks(ListaDobleCircular<Task> tasks) {
+	public void setTasks(DoubleCircularList<Task> tasks) {
 		this.tasks = tasks;
+	}
+
+	/**
+	 * 
+	 * Method that
+	 *
+	 * @return
+	 */
+	public StringProperty nameProperty() {
+		return name;
 	}
 
 	/**
@@ -52,7 +113,7 @@ public class Activity {
 	 * @return the name
 	 */
 	public String getName() {
-		return name;
+		return name.get();
 	}
 
 	/**
@@ -61,7 +122,12 @@ public class Activity {
 	 * @param name the name to set
 	 */
 	public void setName(String name) {
-		this.name = name;
+		this.name.set(name);
+		;
+	}
+
+	public StringProperty descriptionProperty() {
+		return description;
 	}
 
 	/**
@@ -70,7 +136,7 @@ public class Activity {
 	 * @return the description
 	 */
 	public String getDescription() {
-		return description;
+		return description.get();
 	}
 
 	/**
@@ -79,7 +145,12 @@ public class Activity {
 	 * @param description the description to set
 	 */
 	public void setDescription(String description) {
-		this.description = description;
+		this.description.set(description);
+		;
+	}
+
+	public StringProperty idProperty() {
+		return id;
 	}
 
 	/**
@@ -88,7 +159,7 @@ public class Activity {
 	 * @return the id
 	 */
 	public String getId() {
-		return id;
+		return id.get();
 	}
 
 	/**
@@ -97,7 +168,8 @@ public class Activity {
 	 * @param id the id to set
 	 */
 	public void setId(String id) {
-		this.id = id;
+		this.id.set(id);
+		;
 	}
 
 	/**

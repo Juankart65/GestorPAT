@@ -2,18 +2,21 @@ package model;
 
 import java.util.Objects;
 
-import dataStructures.ListaSimple;
+import dataStructures.SimpleList;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Process {
 
-	private ListaSimple<Activity> activities = new ListaSimple<Activity>();
+	private SimpleList<Activity> activities = new SimpleList<Activity>();
 	private StringProperty name;
 	private StringProperty description;
 	private StringProperty id;
-	private State state;
+	private ObjectProperty<State> state;
 	private User owner;
+	private static Activity currentActivity;
 
 	/**
 	 * 
@@ -24,12 +27,32 @@ public class Process {
 	 * @param description
 	 * @param id
 	 */
-	public Process(ListaSimple<Activity> activities, String name, String description, String id) {
+	public Process(SimpleList<Activity> activities, String name, String description, String id, State state) {
 		super();
 		this.activities = activities;
 		this.name = new SimpleStringProperty(name);
 		this.description = new SimpleStringProperty(description);
 		this.id = new SimpleStringProperty(id);
+		this.state = new SimpleObjectProperty<State>(state);
+		getActivities();
+	}
+
+	/**
+	 * Getter of currentActivity
+	 *
+	 * @return the currentActivity
+	 */
+	public static Activity getCurrentActivity() {
+		return currentActivity;
+	}
+
+	/**
+	 * Setter of currentActivity
+	 *
+	 * @param currentActivity the currentActivity to set
+	 */
+	public static void setCurrentActivity(Activity currentActivity) {
+		Process.currentActivity = currentActivity;
 	}
 
 	/**
@@ -37,8 +60,11 @@ public class Process {
 	 *
 	 * @return the activities
 	 */
-	public ListaSimple<Activity> getActivities() {
-		return activities;
+	public SimpleList<Activity> getActivities() {
+	    if (activities == null) {
+	        activities = new SimpleList<Activity>();
+	    }
+	    return activities;
 	}
 
 	/**
@@ -46,8 +72,12 @@ public class Process {
 	 *
 	 * @param activities the activities to set
 	 */
-	public void setActivities(ListaSimple<Activity> activities) {
+	public void setActivities(SimpleList<Activity> activities) {
 		this.activities = activities;
+	}
+
+	public ObjectProperty<State> stateProperty() {
+		return state;
 	}
 
 	/**
@@ -56,7 +86,7 @@ public class Process {
 	 * @return the state
 	 */
 	public State getState() {
-		return state;
+		return state.get();
 	}
 
 	/**
@@ -65,7 +95,8 @@ public class Process {
 	 * @param state the state to set
 	 */
 	public void setState(State state) {
-		this.state = state;
+		this.state.set(state);
+		;
 	}
 
 	/**
