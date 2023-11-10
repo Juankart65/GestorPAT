@@ -1,5 +1,7 @@
 package dataStructures;
 
+import java.io.Serializable;
+
 /**
  * Node class applying Generics
  * 
@@ -7,8 +9,12 @@ package dataStructures;
  * 
  **/
 
-public class Node<T> {
+public class Node<T> implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Node<T> nextNode;
 	private T valueNode;
 
@@ -19,6 +25,10 @@ public class Node<T> {
 	 */
 	public Node(T valueNode) {
 		this.valueNode = valueNode;
+	}
+
+	public Node() {
+		super();
 	}
 
 	/**

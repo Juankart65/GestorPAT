@@ -1,0 +1,2 @@
+nov. 09, 2023 7:34:20 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: signUp,A user has been created,2023-11-09

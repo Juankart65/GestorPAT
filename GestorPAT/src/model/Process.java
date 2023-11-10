@@ -1,5 +1,9 @@
 package model;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.Objects;
 
 import dataStructures.SimpleList;
@@ -8,13 +12,20 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class Process {
+public class Process implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
+	 * 
+	 */
 	private SimpleList<Activity> activities = new SimpleList<Activity>();
-	private StringProperty name;
-	private StringProperty description;
-	private StringProperty id;
-	private ObjectProperty<State> state;
+	private transient StringProperty name;
+	private transient StringProperty description;
+	private transient StringProperty id;
+	private transient ObjectProperty<State> state;
 	private User owner;
 	private static Activity currentActivity;
 
@@ -37,7 +48,9 @@ public class Process {
 		getActivities();
 	}
 
-
+	public Process() {
+		super();
+	}
 
 	/**
 	 * Getter of currentActivity
@@ -63,10 +76,10 @@ public class Process {
 	 * @return the activities
 	 */
 	public SimpleList<Activity> getActivities() {
-	    if (activities == null) {
-	        activities = new SimpleList<Activity>();
-	    }
-	    return activities;
+		if (activities == null) {
+			activities = new SimpleList<Activity>();
+		}
+		return activities;
 	}
 
 	/**
@@ -229,5 +242,23 @@ public class Process {
 		return "Process [activities=" + activities + ", name=" + name + ", description=" + description + ", id=" + id
 				+ "]";
 	}
+	
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        out.defaultWriteObject();
+        out.writeObject(name.get());
+        out.writeObject(description.get());
+        out.writeObject(id.get());
+        out.writeObject(state.get());
+        out.writeObject(owner);
+    }
+
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        in.defaultReadObject();
+        name = new SimpleStringProperty((String) in.readObject());
+        description = new SimpleStringProperty((String) in.readObject());
+        id = new SimpleStringProperty((String) in.readObject());
+        state = new SimpleObjectProperty<>((State) in.readObject());
+        owner = (User) in.readObject();
+    }
 
 }

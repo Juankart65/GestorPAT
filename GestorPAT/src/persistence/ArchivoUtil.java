@@ -7,7 +7,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
@@ -17,7 +16,6 @@ import java.util.logging.SimpleFormatter;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import controller.ModelFactoryController;
 import dataStructures.SimpleList;
 import model.Activity;
 import model.Handler;
@@ -82,8 +80,9 @@ public class ArchivoUtil {
 
 			Process proceso = new Process(name, description, id, state, userProcess1);
 
-			while (indexRow < sheet.getPhysicalNumberOfRows()) {
-				row = sheet.getRow(indexRow++);
+			int indexRowAct = 3;
+			while (indexRowAct < sheet.getPhysicalNumberOfRows()) {
+				row = sheet.getRow(indexRowAct++);
 				String activityId = row.getCell(0).getStringCellValue();
 				String activityName = row.getCell(1).getStringCellValue();
 				String activityDescription = row.getCell(2).getStringCellValue();
@@ -133,6 +132,7 @@ public class ArchivoUtil {
 	 * @throws IOException
 	 */
 	public static void saveProcessesInExcel(String ruta, SimpleList<Process> listProcess) throws IOException {
+		@SuppressWarnings("resource")
 		Workbook workbook = new XSSFWorkbook();
 
 		for (Process process : listProcess) {
@@ -177,7 +177,7 @@ public class ArchivoUtil {
 		outputStream.close();
 	}
 
-	public static void guardarRegistroLog(String mensajeLog, int nivel, String accion, String rutaArchivo) {
+	public static void saveLogRegister(String mensajeLog, int nivel, String accion, String rutaArchivo) {
 		@SuppressWarnings("unused")
 		String log = "";
 		Logger LOGGER = Logger.getLogger(accion);
@@ -211,7 +211,6 @@ public class ArchivoUtil {
 			LOGGER.log(Level.SEVERE, e.getMessage());
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			LOGGER.log(Level.SEVERE, e.getMessage());
 			e.printStackTrace();
 		} finally {
@@ -325,6 +324,7 @@ public class ArchivoUtil {
 	 */
 	public static void saveUsersInExcel(String usersFilePath, SimpleList<User> users) {
 		// Crear un nuevo libro de trabajo XLSX
+		@SuppressWarnings("resource")
 		Workbook workbook = new XSSFWorkbook();
 
 		// Crear una hoja en el libro

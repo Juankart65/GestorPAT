@@ -1,8 +1,14 @@
 package dataStructures;
 
-public class DoubleCircularList<T> {
+import java.io.Serializable;
 
-    private DoubleNode<T> nodoPrimero;
+public class DoubleCircularList<T> implements Serializable{
+
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private DoubleNode<T> nodoPrimero;
     private DoubleNode<T> nodoUltimo;
     private int tamanio;
 

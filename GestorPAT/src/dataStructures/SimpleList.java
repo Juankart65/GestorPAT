@@ -1,5 +1,6 @@
 package dataStructures;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -11,8 +12,12 @@ import java.util.Iterator;
  * 
  **/
 
-public class SimpleList<T> implements Iterable<T> {
+public class SimpleList<T> implements Iterable<T>, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Node<T> nodeFirst;
 	private Node<T> nodeLast;
 	private int size;
@@ -67,7 +72,7 @@ public class SimpleList<T> implements Iterable<T> {
 
 	/**
 	 * 
-	 * Add to the end of the list 
+	 * Add to the end of the list
 	 *
 	 * @param nodeValue
 	 */
@@ -86,7 +91,7 @@ public class SimpleList<T> implements Iterable<T> {
 
 	/**
 	 * 
-	 * Get Node the value of a Node 
+	 * Get Node the value of a Node
 	 *
 	 * @param index
 	 * @return
@@ -199,7 +204,7 @@ public class SimpleList<T> implements Iterable<T> {
 
 	/**
 	 * 
-	 * Remove the first node from the list 
+	 * Remove the first node from the list
 	 *
 	 * @return
 	 */
@@ -351,7 +356,7 @@ public class SimpleList<T> implements Iterable<T> {
 	public void setSize(int size) {
 		this.size = size;
 	}
-	
+
 	/**
 	 * 
 	 * Method that converts a SimpleList into an ArrayList
@@ -361,50 +366,50 @@ public class SimpleList<T> implements Iterable<T> {
 	 * @return
 	 */
 	public <T> ArrayList<T> convertArraylist(SimpleList<T> simpleList) {
-	    ArrayList<T> arrayList = new ArrayList<T>();
+		ArrayList<T> arrayList = new ArrayList<T>();
 
-	    for (T item : simpleList) {
-	        arrayList.add(item);
-	    }
+		for (T item : simpleList) {
+			arrayList.add(item);
+		}
 
-	    return arrayList;
+		return arrayList;
 	}
-	
+
 	/**
 	 * 
-	 * Method that eliminates a node using an index 
+	 * Method that eliminates a node using an index
 	 *
 	 * @param index
 	 */
 	public void deleteNode(int index) {
-	    if (itsEmpty()) {
-	        return; // The list is empty, there is nothing to delete.
-	    }
+		if (itsEmpty()) {
+			return; // The list is empty, there is nothing to delete.
+		}
 
-	    if (index == 0) {
-	        // If the index is 0, delete the first node
-	        deleteFirst();
-	        return;
-	    }
+		if (index == 0) {
+			// If the index is 0, delete the first node
+			deleteFirst();
+			return;
+		}
 
-	    if (index >= size || index < 0) {
-	        throw new IllegalArgumentException("Invalid index");
-	    }
+		if (index >= size || index < 0) {
+			throw new IllegalArgumentException("Invalid index");
+		}
 
-	    Node<T> currentNode = nodeFirst;
-	    Node<T> nodePrevious = null;
-	    int robin = 0;
+		Node<T> currentNode = nodeFirst;
+		Node<T> nodePrevious = null;
+		int robin = 0;
 
-	    while (robin < index) {
-	        nodePrevious = currentNode;
-	        currentNode = currentNode.getSiguienteNodo();
-	        robin++;
-	    }
+		while (robin < index) {
+			nodePrevious = currentNode;
+			currentNode = currentNode.getSiguienteNodo();
+			robin++;
+		}
 
-	    // At this point, currentnode points to the node we want to delete
-	    // and nodePrevious points to the node before it
+		// At this point, currentnode points to the node we want to delete
+		// and nodePrevious points to the node before it
 
-	    nodePrevious.setSiguienteNodo(currentNode.getSiguienteNodo());
-	    size--;
+		nodePrevious.setSiguienteNodo(currentNode.getSiguienteNodo());
+		size--;
 	}
 }

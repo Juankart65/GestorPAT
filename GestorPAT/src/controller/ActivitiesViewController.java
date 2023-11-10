@@ -96,7 +96,7 @@ public class ActivitiesViewController {
 		boolean okClicked = app.showCreateActivities(tempActivity);
 
 		if (okClicked) {
-			App.getCurrentProcess().getActivities().addEnd(tempActivity);
+			ModelFactoryController.getInstance().activities().addEnd(tempActivity);
 			activitiesTable.getItems().add(tempActivity);
 		}
 	}
@@ -193,6 +193,10 @@ public class ActivitiesViewController {
 		idCol.setCellValueFactory(cellData -> cellData.getValue().idProperty());
 		nameCol.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
 		stateCol.setCellValueFactory(cellData -> cellData.getValue().stateProperty());
+		
+		for (Activity activity : ModelFactoryController.getInstance().activities()) {
+			activitiesTable.getItems().add(activity);
+		}
 	}
 
 	/**

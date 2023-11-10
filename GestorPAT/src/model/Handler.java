@@ -3,15 +3,21 @@
  */
 package model;
 
+import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import dataStructures.SimpleList;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 /**
  * 
  */
-public class Handler {
+public class Handler implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private SimpleList<User> userList = new SimpleList<User>();
 	private SimpleList<Process> processList = new SimpleList<Process>();
 
@@ -37,7 +43,7 @@ public class Handler {
 	 */
 	public boolean verifyUser(String user, String pw) {
 		for (User user1 : userList) {
-			if (user1.getName().equals(user) && user1.getPassword().equals(pw)) {
+			if (user1.getName().equals(user) && verifyPassword(pw, user1.getPassword())) {
 				return true;
 			}
 		}
@@ -54,13 +60,13 @@ public class Handler {
 	 */
 	public User getUser(String user, String pw) {
 		for (User user1 : userList) {
-			if (user1.getName().equals(user) && user1.getPassword().equals(pw)) {
+			if (user1.getName().equals(user) && verifyPassword(pw, user1.getPassword())) {
 				return user1;
 			}
 		}
 		return null;
 	}
-	
+
 	/**
 	 * 
 	 * Method that obtains a user from the platform
@@ -93,5 +99,75 @@ public class Handler {
 	 */
 	public void setProcessList(SimpleList<Process> processList) {
 		this.processList = processList;
+	}
+
+	/**
+	 * 
+	 * Method that
+	 *
+	 * @param password
+	 * @return
+	 */
+	public String encryptPassword(String password) {
+		try {
+			MessageDigest digest = MessageDigest.getInstance("SHA-256");
+			byte[] encodedhash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
+
+			// Convertir el hash en una representación hexadecimal
+			StringBuilder hexString = new StringBuilder(2 * encodedhash.length);
+			for (byte b : encodedhash) {
+				String hex = Integer.toHexString(0xff & b);
+				if (hex.length() == 1) {
+					hexString.append('0');
+				}
+				hexString.append(hex);
+			}
+
+			return hexString.toString();
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	/**
+	 * 
+	 * Method that
+	 *
+	 * @param enteredPassword
+	 * @param storedHash
+	 * @return
+	 */
+	public static boolean verifyPassword(String enteredPassword, String storedHash) {
+		try {
+			MessageDigest digest = MessageDigest.getInstance("SHA-256");
+			byte[] enteredPasswordHash = digest.digest(enteredPassword.getBytes(StandardCharsets.UTF_8));
+
+			// Convierte el hash de la contraseña ingresada en una representación
+			// hexadecimal
+			StringBuilder hexString = new StringBuilder(2 * enteredPasswordHash.length);
+			for (byte b : enteredPasswordHash) {
+				String hex = Integer.toHexString(0xff & b);
+				if (hex.length() == 1) {
+					hexString.append('0');
+				}
+				hexString.append(hex);
+			}
+
+			// Compara el hash de la contraseña ingresada con el hash almacenado
+			return hexString.toString().equals(storedHash);
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	/**
+	 * Method that
+	 *
+	 * @param user
+	 */
+	public void createUser(User user) {
+		getUserList().addEnd(user);
 	}
 }

@@ -1,5 +1,6 @@
 package dataStructures;
 
+import java.io.Serializable;
 import java.util.Iterator;
 
 /**
@@ -9,8 +10,12 @@ import java.util.Iterator;
  *
  * **/
 
-public class DoubleList<T> implements Iterable<T> {
+public class DoubleList<T> implements Iterable<T>, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private DoubleNode<T> nodoPrimero;
 	private DoubleNode<T> nodoUltimo;
 	private int tamanio;

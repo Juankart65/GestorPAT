@@ -97,9 +97,9 @@ public class LoginController {
 		boolean okClicked = aplicacion.showSignUp(tempUser);
 
 		if (okClicked) {
+			ModelFactoryController.getInstance().createUser(tempUser);
 			ModelFactoryController.getInstance().getHandler().getUserList().addEnd(tempUser);
 			txtUser.setText(tempUser.getName());
-			txtPassword.setText(tempUser.getPassword());
 			btnLogin.setDisable(false);
 		}
 	}

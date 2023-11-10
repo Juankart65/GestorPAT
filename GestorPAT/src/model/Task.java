@@ -1,5 +1,8 @@
 package model;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.time.Duration;
 import java.util.Objects;
 
@@ -12,12 +15,12 @@ import javafx.beans.property.StringProperty;
 
 public class Task {
 
-	private StringProperty description;
-	private ObjectProperty<Duration> duration;
-	private BooleanProperty mandatoryTask;
-	private StringProperty id;
-	private StringProperty name;
-	private ObjectProperty<State> state;
+	private transient StringProperty description;
+	private transient ObjectProperty<Duration> duration;
+	private transient BooleanProperty mandatoryTask;
+	private transient StringProperty id;
+	private transient StringProperty name;
+	private transient ObjectProperty<State> state;
 	private User owner;
 
 	/**
@@ -27,7 +30,8 @@ public class Task {
 	 * @param duration
 	 * @param mandatoryTask
 	 */
-	public Task(String id, String description, Duration duration, boolean mandatoryTask, State state, User owner, String name) {
+	public Task(String id, String description, Duration duration, boolean mandatoryTask, State state, User owner,
+			String name) {
 		super();
 		this.id = new SimpleStringProperty(id);
 		this.description = new SimpleStringProperty(description);
@@ -38,19 +42,22 @@ public class Task {
 		this.name = new SimpleStringProperty(name);
 	}
 
-	public ObjectProperty<State> stateProperty(){
+	public Task() {
+		super();
+	}
+
+	public ObjectProperty<State> stateProperty() {
 		return state;
 	}
-	
+
 	/**
-	 * Getter of state 
+	 * Getter of state
 	 *
 	 * @return the state
 	 */
 	public State getState() {
 		return state.get();
 	}
-
 
 	/**
 	 * Setter of state
@@ -61,16 +68,14 @@ public class Task {
 		this.state.set(state);
 	}
 
-
 	/**
-	 * Getter of owner 
+	 * Getter of owner
 	 *
 	 * @return the owner
 	 */
 	public User getOwner() {
 		return owner;
 	}
-
 
 	/**
 	 * Setter of owner
@@ -86,14 +91,13 @@ public class Task {
 	}
 
 	/**
-	 * Getter of name 
+	 * Getter of name
 	 *
 	 * @return the name
 	 */
 	public String getName() {
 		return name.get();
 	}
-
 
 	/**
 	 * Setter of name
@@ -103,7 +107,6 @@ public class Task {
 	public void setName(String name) {
 		this.name.set(name);
 	}
-
 
 	public StringProperty descriptionProperty() {
 		return description;
@@ -127,9 +130,10 @@ public class Task {
 		this.description.set(description);
 	}
 
-	public ObjectProperty<Duration> durationProperty(){
+	public ObjectProperty<Duration> durationProperty() {
 		return duration;
 	}
+
 	/**
 	 * Getter of duration
 	 *
@@ -147,7 +151,7 @@ public class Task {
 	public void setDuration(Duration duration) {
 		this.duration.set(duration);
 	}
-	
+
 	public BooleanProperty mandatoryProperty() {
 		return mandatoryTask;
 	}
@@ -169,7 +173,7 @@ public class Task {
 	public void setMandatoryTask(boolean mandatoryTask) {
 		this.mandatoryTask.set(mandatoryTask);
 	}
-	
+
 	public StringProperty idProperty() {
 		return id;
 	}
@@ -224,5 +228,27 @@ public class Task {
 		return "Task [description=" + description + ", duration=" + duration + ", mandatoryTask=" + mandatoryTask
 				+ ", id=" + id + "]";
 	}
+	
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        out.defaultWriteObject();
+        out.writeObject(description.get());
+        out.writeObject(duration.get());
+        out.writeBoolean(mandatoryTask.get());
+        out.writeObject(id.get());
+        out.writeObject(name.get());
+        out.writeObject(state.get());
+        out.writeObject(owner);
+    }
+
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        in.defaultReadObject();
+        description = new SimpleStringProperty((String) in.readObject());
+        duration = new SimpleObjectProperty<>((Duration) in.readObject());
+        mandatoryTask = new SimpleBooleanProperty(in.readBoolean());
+        id = new SimpleStringProperty((String) in.readObject());
+        name = new SimpleStringProperty((String) in.readObject());
+        state = new SimpleObjectProperty<>((State) in.readObject());
+        owner = (User) in.readObject();
+    }
 
 }

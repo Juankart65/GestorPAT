@@ -48,7 +48,7 @@ public class SignUpController {
     void acceptUserEvent(ActionEvent event) {
     	if(isInputValid()) {
     		user.setName(txtCreateUser.getText());
-    		user.setPassword(txtPassword.getText());
+    		user.setPassword(ModelFactoryController.getInstance().getHandler().encryptPassword(txtPassword.getText()));
     		
 			switch (cbxRol.getValue().name()) {
 			case "Admin":

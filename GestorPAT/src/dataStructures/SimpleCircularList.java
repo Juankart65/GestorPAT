@@ -1,5 +1,6 @@
 package dataStructures;
 
+import java.io.Serializable;
 import java.util.Iterator;
 
 /**
@@ -10,8 +11,12 @@ import java.util.Iterator;
  * 
  **/
 
-public class SimpleCircularList<T> implements Iterable<T> {
+public class SimpleCircularList<T> implements Iterable<T>, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Node<T> nodoPrimero;
 	private Node<T> nodoUltimo;
 	private int tamanio;

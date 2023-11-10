@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -10,8 +11,12 @@ import java.util.Objects;
  * @author Jose Taborda
  * 
  */
-public class User {
+public class User implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String id;
 	private String name;
 	private String password;
@@ -45,6 +50,12 @@ public class User {
 		super();
 		this.name = name;
 		this.password = password;
+	}
+	
+	
+
+	public User() {
+		super();
 	}
 
 	/**
