@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,9 +13,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import model.Handler;
 import model.Process;
 import model.Rol;
 import model.State;
+import persistence.Persistencia;
 import javafx.scene.control.Alert.AlertType;
 
 public class ProcessViewController {
@@ -60,10 +63,11 @@ public class ProcessViewController {
 	 */
 	@FXML
 	void createProcessEvent(ActionEvent event) {
-		Process tempProcess = new Process(null, null, null, null, null);
+		Process tempProcess = new Process(null, null, Handler.generateRandomIdAsString(), null, null);
 		boolean okClicked = app.showCreateProcess(tempProcess);
 
 		if (okClicked) {
+			ModelFactoryController.getInstance().createProcess(tempProcess);
 			ModelFactoryController.getInstance().getHandler().getProcessList().addEnd(tempProcess);
 			processTable.getItems().add(tempProcess);
 		}
@@ -81,6 +85,13 @@ public class ProcessViewController {
 		if (selectProcess != null) {
 			@SuppressWarnings("unused")
 			boolean okClicked = app.showCreateProcess(selectProcess);
+			try {
+				Persistencia.saveProcess(ModelFactoryController.getInstance().getHandler().getProcessList());
+				Persistencia.guardaRegistroLog("The process was updated", 1, "updateProcess");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} else {
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.initOwner(app.getPrimaryStage());
@@ -105,6 +116,13 @@ public class ProcessViewController {
 		if (selectedIndex >= 0) {
 			processTable.getItems().remove(selectedIndex);
 			ModelFactoryController.getInstance().getHandler().getProcessList().deleteNode(selectedIndex);
+			try {
+				Persistencia.saveProcess(ModelFactoryController.getInstance().getHandler().getProcessList());
+				Persistencia.guardaRegistroLog("The process was deleted", 1, "deleteProcess");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} else {
 			// Nada seleccionado
 
@@ -134,6 +152,7 @@ public class ProcessViewController {
 
 			@SuppressWarnings("unused")
 			boolean okClicked = app.showProcessView(selectProcess);
+			Persistencia.guardaRegistroLog("Window changed", 1, "visualizeProcess");
 		} else {
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.initOwner(app.getPrimaryStage());

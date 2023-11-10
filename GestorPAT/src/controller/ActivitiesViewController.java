@@ -1,5 +1,7 @@
 package controller;
 
+import java.io.IOException;
+
 import application.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,8 +12,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
 import model.Activity;
+import model.Handler;
 import model.Process;
 import model.State;
+import persistence.Persistencia;
 
 public class ActivitiesViewController {
 
@@ -92,10 +96,11 @@ public class ActivitiesViewController {
 	 */
 	@FXML
 	void createActivityEvent(ActionEvent event) {
-		Activity tempActivity = new Activity(null, null, null, null, null, null);
+		Activity tempActivity = new Activity(null, null, Handler.generateRandomIdAsString(), null, null);
 		boolean okClicked = app.showCreateActivities(tempActivity);
 
 		if (okClicked) {
+			ModelFactoryController.getInstance().createActivity(tempActivity);
 			ModelFactoryController.getInstance().activities().addEnd(tempActivity);
 			activitiesTable.getItems().add(tempActivity);
 		}
@@ -113,6 +118,13 @@ public class ActivitiesViewController {
 		if (selectActivity != null) {
 			@SuppressWarnings("unused")
 			boolean okClicked = app.showCreateActivities(selectActivity);
+			try {
+				Persistencia.saveProcess(ModelFactoryController.getInstance().getHandler().getProcessList());
+				Persistencia.guardaRegistroLog("The activity was updated", 1, "updateActivity");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} else {
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.initOwner(app.getPrimaryStage());
@@ -137,6 +149,13 @@ public class ActivitiesViewController {
 		if (selectedIndex >= 0) {
 			activitiesTable.getItems().remove(selectedIndex);
 			App.getCurrentProcess().getActivities().deleteNode(selectedIndex);
+			try {
+				Persistencia.saveProcess(ModelFactoryController.getInstance().getHandler().getProcessList());
+				Persistencia.guardaRegistroLog("The activity was deleted", 1, "deleteActivity");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} else {
 			// Nada seleccionado
 
@@ -166,6 +185,7 @@ public class ActivitiesViewController {
 
 			@SuppressWarnings("unused")
 			boolean okClicked = app.showActivitiesView(selectActivity);
+			Persistencia.guardaRegistroLog("Window changed", 1, "visualizeActivity");
 		} else {
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.initOwner(app.getPrimaryStage());

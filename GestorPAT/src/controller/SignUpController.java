@@ -11,6 +11,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import model.Handler;
 import model.Rol;
 import model.User;
 
@@ -47,6 +48,7 @@ public class SignUpController {
 	@FXML
     void acceptUserEvent(ActionEvent event) {
     	if(isInputValid()) {
+    		user.setId(Handler.generateRandomIdAsString());
     		user.setName(txtCreateUser.getText());
     		user.setPassword(ModelFactoryController.getInstance().getHandler().encryptPassword(txtPassword.getText()));
     		

@@ -59,6 +59,15 @@ public class User implements Serializable{
 	}
 
 	/**
+	 * Class constructor
+	 *
+	 * @param string
+	 */
+	public User(String name) {
+		this.name = name;
+	}
+
+	/**
 	 * Getter of id
 	 *
 	 * @return the id

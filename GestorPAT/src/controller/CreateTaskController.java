@@ -156,9 +156,9 @@ public class CreateTaskController {
 	public void showTask(Task task) {
 		this.task = task;
 
-//		txtIdTask.setText(task.getId());
-//		txtNameTask.setText(task.getName());
-//		txtDescriptionTask.setText(task.getDescription());
+		txtIdTask.setText(task.getId());
+		txtNameTask.setText(task.getName());
+		txtDescriptionTask.setText(task.getDescription());
 	}
 
 	/**

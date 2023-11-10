@@ -3,6 +3,10 @@ package dataStructures;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Objects;
+import java.util.function.BooleanSupplier;
+
+import model.Activity;
 
 /**
  * 
@@ -69,6 +73,49 @@ public class SimpleList<T> implements Iterable<T>, Serializable {
 
 		return robin;
 	}
+	
+    public void moveUp(int index) {
+        if (index > 0 && index < getSize()) {
+            Node<T> current = getNode(index);
+            Node<T> previous = getNode(index - 1);
+            
+            // Desconecta el nodo actual.
+            if (current != null && previous != null) {
+                @SuppressWarnings("unused")
+				Node<T> next = current.getSiguienteNodo();
+                previous.setSiguienteNodo(current.getSiguienteNodo());
+                
+                // Conecta el nodo actual por encima del nodo anterior.
+                current.setSiguienteNodo(previous);
+                
+                // Actualiza el encabezado si es necesario.
+                if (index == 1) {
+                    nodeFirst = current;
+                }
+            }
+        }
+    }
+
+    public void moveDown(int index) {
+        if (index >= 0 && index < getSize() - 1) {
+        	Node<T> current = getNode(index);
+        	Node<T> next = getNode(index + 1);
+            
+            if (current != null && next != null) {
+                // Desconecta el nodo actual.
+                if (index == 0) {
+                    nodeFirst = next;
+                } else {
+                	Node<T> previous = getNode(index - 1);
+                    previous.setSiguienteNodo(next);
+                }
+                
+                // Conecta el nodo actual debajo del nodo siguiente.
+                current.setSiguienteNodo(next.getSiguienteNodo());
+                next.setSiguienteNodo(current);
+            }
+        }
+    }
 
 	/**
 	 * 
@@ -412,4 +459,24 @@ public class SimpleList<T> implements Iterable<T>, Serializable {
 		nodePrevious.setSiguienteNodo(currentNode.getSiguienteNodo());
 		size--;
 	}
+
+	/**
+	 * Method that 
+	 *
+	 * @param activity1
+	 * @return
+	 */
+	public boolean contains(T data) {
+	    Node<T> current = nodeFirst;
+
+	    while (current != null) {
+	        if (Objects.equals(current.getValorNodo(), data)) {
+	            return true;
+	        }
+	        current = current.getSiguienteNodo();
+	    }
+
+	    return false;
+	}
+
 }

@@ -9,6 +9,7 @@ import model.Handler;
 import model.Process;
 import model.Rol;
 import model.State;
+import model.Task;
 import model.User;
 import persistence.Persistencia;
 
@@ -37,7 +38,6 @@ public class ModelFactoryController {
 		// 2. Cargar los datos de los archivos
 		cargarDatosDesdeArchivos();
 
-
 //		 Siempre se debe verificar si la raiz del recurso es null
 //		if (handler == null) {
 //			System.out.println("es null");
@@ -52,25 +52,7 @@ public class ModelFactoryController {
 //		}
 	}
 
-	/**
-	 * Method that 
-	 *
-	 */
-	private void cargarResourceBinario() {
-		Persistencia.loadResourceHandlerBinary();
-		
-	}
-
-	/**
-	 * Method that
-	 *
-	 */
-	private void guardarResourceBinario() {
-		Persistencia.saveHandlerBinary(getHandler());
-	}
-
 	private void cargarDatosDesdeArchivos() {
-
 		handler = new Handler();
 		try {
 
@@ -86,10 +68,15 @@ public class ModelFactoryController {
 			e.printStackTrace();
 		}
 	}
-	
-	public SimpleList<Activity> activities(){
+
+	public SimpleList<Activity> activities() {
 		return App.currentProcess.getActivities();
 	}
+	
+	public SimpleList<Task> tasks() {
+		return Process.getCurrentActivity().getTasks();
+	}
+
 
 	@SuppressWarnings("unused")
 	private void inicializarDatos() {
@@ -126,6 +113,12 @@ public class ModelFactoryController {
 		this.handler = handler;
 	}
 
+	/**
+	 * 
+	 * Method that creates a user and adds it to the .xlsx file
+	 *
+	 * @param user
+	 */
 	public void createUser(User user) {
 		try {
 			getHandler().createUser(user);
@@ -136,6 +129,57 @@ public class ModelFactoryController {
 			e.printStackTrace();
 		}
 
+	}
+
+	/**
+	 * Method that creates a process and adds it to the .xlsx file
+	 *
+	 * @param process
+	 */
+	public void createProcess(Process process) {
+		try {
+			getHandler().createProcess(process);
+			Persistencia.saveProcess(getHandler().getProcessList());
+			Persistencia.guardaRegistroLog("A process has been created", 1, "createProcess");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	
+	/**
+	 * Method that creates an activity and adds it to the .xlsx file
+	 *
+	 * @param activity
+	 */
+	public void createActivity(Activity activity) {
+		try {
+			App.currentProcess.createActivity(activity);
+			Persistencia.saveProcess(getHandler().getProcessList());
+			Persistencia.guardaRegistroLog("An activity has been created", 1, "createActivity");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	/**
+	 * Method that 
+	 *
+	 * @param tempTask
+	 */
+	public void createTask(Task task) {
+		try {
+			Process.getCurrentActivity().createTask(task);
+			Persistencia.saveProcess(getHandler().getProcessList());
+			Persistencia.guardaRegistroLog("A task has been created", 1, "createTask");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 }

@@ -57,7 +57,7 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                               </GridPane>
-                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="146.0" layoutY="26.0" prefHeight="43.0" prefWidth="315.0" styleClass="txtPrincipal" text="Activity Info" textFill="#14a7d0">
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="304.0" layoutY="33.0" prefHeight="39.0" prefWidth="204.0" styleClass="txtPrincipal" text="Activity Info" textFill="#14a7d0">
                                  <font>
                                     <Font name="System Bold Italic" size="29.0" />
                                  </font>
@@ -70,6 +70,11 @@
                                     <Button fx:id="btnBack" layoutX="378.0" layoutY="381.0" mnemonicParsing="false" onAction="#backEvent" text="back" textFill="#14a7d0" />
                                  </children>
                               </HBox>
+                              <ImageView fitHeight="45.0" fitWidth="49.0" layoutX="194.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../resources/crucigrama.png" />
+                                 </image>
+                              </ImageView>
                            </children>
                         </AnchorPane>
                      </content>
@@ -90,21 +95,27 @@
                                     <TableColumn fx:id="mandatoryCol" prefWidth="75.0" text="Mandatory" />
                                  </columns>
                               </TableView>
-                              <HBox layoutX="32.0" layoutY="447.0" spacing="90.0">
+                              <HBox layoutX="52.0" layoutY="450.0" spacing="30.0" AnchorPane.leftAnchor="52.0" AnchorPane.rightAnchor="52.0">
                                  <children>
                                     <Button fx:id="btnCreateTask" layoutX="88.0" layoutY="286.0" mnemonicParsing="false" onAction="#createTaskEvent" text="Create" textFill="#14a7d0" />
                                     <Button fx:id="btnUpdateTask" layoutX="274.0" layoutY="286.0" mnemonicParsing="false" onAction="#updateTaskEvent" text="Update" textFill="#14a7d0" />
                                     <Button fx:id="btnDeleteTask" layoutX="445.0" layoutY="286.0" mnemonicParsing="false" onAction="#deleteTaskEvent" text="Delete" textFill="#14a7d0" />
-                                    <Button fx:id="btnVisualizeTask" layoutX="322.0" layoutY="10.0" mnemonicParsing="false" onAction="#visualizeTaskEvent" text="Visualize" textFill="#14a7d0" />
+                                    <Button fx:id="btnMoveUp" layoutX="163.0" layoutY="10.0" mnemonicParsing="false" onAction="#moveTaskUpEvent" text="Move Up" textFill="#14a7d0" />
+                                    <Button fx:id="btnMoveDown" layoutX="403.0" layoutY="10.0" mnemonicParsing="false" onAction="#moveTaskDownEvent" text="Move Down" textFill="#14a7d0" />
                                  </children>
                               </HBox>
-                              <Label alignment="CENTER" layoutX="163.0" layoutY="55.0" prefHeight="45.0" prefWidth="281.0" styleClass="txtPrincipal" text="Activity Task" textAlignment="RIGHT" textFill="#14a7d0">
+                              <Label alignment="CENTER" layoutX="303.0" layoutY="62.0" prefHeight="45.0" prefWidth="222.0" styleClass="txtPrincipal" text="Activity Task" textAlignment="RIGHT" textFill="#14a7d0">
                                  <font>
                                     <Font name="System Bold Italic" size="30.0" />
                                  </font>
                               </Label>
                               <Separator layoutX="26.0" layoutY="115.0" prefHeight="0.0" prefWidth="551.0" />
                               <Separator layoutX="33.0" layoutY="421.0" prefHeight="0.0" prefWidth="538.0" />
+                              <ImageView fitHeight="62.0" fitWidth="63.0" layoutX="174.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../resources/tarea.png" />
+                                 </image>
+                              </ImageView>
                            </children>
                         </AnchorPane>
                      </content>

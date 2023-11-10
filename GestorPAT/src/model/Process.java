@@ -210,18 +210,22 @@ public class Process implements Serializable{
 		this.id.set(id);
 	}
 
+
+
+
+
 	/**
 	 * @return
-	 **/
+	**/
 	@Override
 	public int hashCode() {
-		return Objects.hash(id);
+		return Objects.hash(id, name);
 	}
 
 	/**
 	 * @param obj
 	 * @return
-	 **/
+	**/
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -231,7 +235,7 @@ public class Process implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Process other = (Process) obj;
-		return id == other.id;
+		return Objects.equals(id, other.id) && Objects.equals(name, other.name);
 	}
 
 	/**
@@ -260,5 +264,15 @@ public class Process implements Serializable{
         state = new SimpleObjectProperty<>((State) in.readObject());
         owner = (User) in.readObject();
     }
+
+	/**
+	 * Method that 
+	 *
+	 * @param activity
+	 */
+	public void createActivity(Activity activity) {
+		getActivities().addEnd(activity);
+		
+	}
 
 }

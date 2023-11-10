@@ -143,4 +143,20 @@ public class DoubleCircularList<T> implements Serializable{
 
         tamanio--;
     }
+    
+    public void iterarLista() {
+        if (estaVacia()) {
+            System.out.println("La lista está vacía.");
+        } else {
+            DoubleNode<T> actual = nodoPrimero;
+            int contador = 0;
+            do {
+                System.out.println("Elemento en el índice " + contador + ": " + actual.getValorNodo());
+                actual = actual.getSiguienteNodo();
+                contador++;
+            } while (actual != nodoPrimero);
+        }
+    }
+
+
 }

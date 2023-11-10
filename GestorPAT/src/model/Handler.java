@@ -7,12 +7,14 @@ import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Random;
+
 import dataStructures.SimpleList;
 
 /**
  * 
  */
-public class Handler implements Serializable{
+public class Handler implements Serializable {
 
 	/**
 	 * 
@@ -162,6 +164,20 @@ public class Handler implements Serializable{
 		}
 	}
 
+	public static String generateRandomIdAsString() {
+		Random random = new Random();
+		int minId = 1;
+		int maxId = 2000;
+
+		// La expresión (maxId - minId + 1) genera un número aleatorio en el rango de
+		// [minId, maxId].
+		int randomId = random.nextInt(maxId - minId + 1) + minId;
+
+		// Convertir el número entero a una cadena
+		String randomIdAsString = String.valueOf(randomId);
+		return randomIdAsString;
+	}
+
 	/**
 	 * Method that
 	 *
@@ -169,5 +185,14 @@ public class Handler implements Serializable{
 	 */
 	public void createUser(User user) {
 		getUserList().addEnd(user);
+	}
+
+	/**
+	 * Method that
+	 *
+	 * @param process
+	 */
+	public void createProcess(Process process) {
+		getProcessList().addEnd(process);
 	}
 }

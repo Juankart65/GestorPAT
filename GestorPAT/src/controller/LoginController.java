@@ -12,6 +12,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import model.User;
+import persistence.Persistencia;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
@@ -125,6 +126,7 @@ public class LoginController {
 			if (validUser) {
 				User currentUser = ModelFactoryController.getInstance().getHandler().getUser(user, password);
 				App.setCurrentUser(currentUser);
+				Persistencia.guardaRegistroLog("User " + App.getCurrentUser() + " login", 1, "loginAction");
 				aplicacion.showMainView(App.getCurrentUser());
 			} else {
 				txtUser.setText("");

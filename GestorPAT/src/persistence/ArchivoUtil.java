@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.time.Duration;
 import java.util.Calendar;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
@@ -22,6 +23,7 @@ import model.Handler;
 import model.Process;
 import model.Rol;
 import model.State;
+import model.Task;
 import model.User;
 
 /**
@@ -36,13 +38,6 @@ public class ArchivoUtil {
 
 	static String fechaSistema = "";
 
-	/**
-	 * Método para leer una lista de procesos desde un archivo Excel.
-	 *
-	 * @param ruta La ruta del archivo Excel.
-	 * @return La lista de procesos leída desde el archivo.
-	 * @throws IOException Si ocurre un error de E/S.
-	 */
 	public static SimpleList<Process> leerProcesosDesdeExcel(String ruta, Handler handler) throws IOException {
 		SimpleList<Process> procesos = new SimpleList<Process>();
 
@@ -53,68 +48,134 @@ public class ArchivoUtil {
 			Sheet sheet = workbook.getSheetAt(i);
 
 			int indexRow = 1;
-			Row row = sheet.getRow(indexRow++);
-			String id = row.getCell(0).getStringCellValue();
-			String name = row.getCell(1).getStringCellValue();
-			String description = row.getCell(2).getStringCellValue();
-			State state = null;
-			switch (row.getCell(3).getStringCellValue()) {
-			case "Ready":
-				state = State.Ready;
-				break;
-			case "Blocked":
-				state = State.Blocked;
-				break;
-			case "Running":
-				state = State.Running;
-				break;
-			case "Exit":
-				state = State.Exit;
-				break;
+			Row row;
+			while ((row = sheet.getRow(indexRow)) != null) {
+				// Leer las celdas de la fila y procesarlas.
 
-			default:
-				break;
-			}
-			String userProcess = row.getCell(4).getStringCellValue();
-			User userProcess1 = handler.getUser(userProcess);
-
-			Process proceso = new Process(name, description, id, state, userProcess1);
-
-			int indexRowAct = 3;
-			while (indexRowAct < sheet.getPhysicalNumberOfRows()) {
-				row = sheet.getRow(indexRowAct++);
-				String activityId = row.getCell(0).getStringCellValue();
-				String activityName = row.getCell(1).getStringCellValue();
-				String activityDescription = row.getCell(2).getStringCellValue();
-				State activityState = null;
-
-				switch (row.getCell(3).getStringCellValue()) {
-				case "Ready":
-					activityState = State.Ready;
-					break;
-				case "Blocked":
-					activityState = State.Blocked;
-					break;
-				case "Running":
-					activityState = State.Running;
-					break;
-				case "Exit":
-					activityState = State.Exit;
-					break;
-
-				default:
+				Cell headerCell = row.getCell(0);
+				if (headerCell != null && headerCell.getStringCellValue().equals("Activity ID")) {
 					break;
 				}
+				if (row.getPhysicalNumberOfCells() >= 5) {
+					// Comprobar si la fila tiene al menos 5 celdas para procesarla como una fila
+					// válida.
+					String id = row.getCell(0).getStringCellValue();
+					String name = row.getCell(1).getStringCellValue();
+					String description = row.getCell(2).getStringCellValue();
+					State state = null;
+					switch (row.getCell(3).getStringCellValue()) {
+					case "Ready":
+						state = State.Ready;
+						break;
+					case "Blocked":
+						state = State.Blocked;
+						break;
+					case "Running":
+						state = State.Running;
+						break;
+					case "Exit":
+						state = State.Exit;
+						break;
+					default:
+						break;
+					}
+					String userProcess = row.getCell(4).getStringCellValue();
+					User userProcess1 = handler.getUser(userProcess);
+					Process proceso = new Process(name, description, id, state, userProcess1);
 
-				String userActivity = row.getCell(4).getStringCellValue();
-				User userActivity1 = handler.getUser(userActivity);
+					// Ahora, verifica si hay actividades y procesa las actividades y tareas.
+					int indexRowAct = indexRow + 2;
+					Row activityRow;
+					while ((activityRow = sheet.getRow(indexRowAct)) != null
+							&& activityRow.getPhysicalNumberOfCells() >= 5) {
+						String activityId = activityRow.getCell(0).getStringCellValue();
+						String activityName = activityRow.getCell(1).getStringCellValue();
+						String activityDescription = activityRow.getCell(2).getStringCellValue();
+						State activityState = null;
+						switch (activityRow.getCell(3).getStringCellValue()) {
+						case "Ready":
+							activityState = State.Ready;
+							break;
+						case "Blocked":
+							activityState = State.Blocked;
+							break;
+						case "Running":
+							activityState = State.Running;
+							break;
+						case "Exit":
+							activityState = State.Exit;
+							break;
+						default:
+							break;
+						}
+						String userActivity = activityRow.getCell(4).getStringCellValue();
+						User userActivity1 = handler.getUser(userActivity);
+						Activity activity = new Activity(activityName, activityDescription, activityId, userActivity1,
+								activityState);
+						proceso.getActivities().addEnd(activity);
 
-				Activity activity = new Activity(activityName, activityDescription, activityId, userActivity1,
-						activityState);
-				proceso.getActivities().addEnd(activity);
+						// Avanzar al siguiente índice de fila.
+						indexRowAct++;
+
+						// Verificar y procesar las tareas (si las hay).
+						Row taskRow;
+
+						while ((taskRow = sheet.getRow(indexRowAct)) != null) {
+							if (taskRow.getPhysicalNumberOfCells() < 7) {
+								// La fila no cumple con los requisitos mínimos para ser una fila de tarea, sal
+								// del bucle.
+								break;
+							}
+							
+						    // Comprueba si esta fila es una tarea y no una actividad.
+						    Cell cell0 = taskRow.getCell(0);
+						    if (cell0 != null && cell0.getStringCellValue().equals("Task ID")) {
+						        // Es un encabezado de tarea, salta al siguiente índice de fila.
+						        indexRowAct++;
+						        continue;
+						    }
+
+							String taskId = taskRow.getCell(0).getStringCellValue();
+							String taskName = taskRow.getCell(1).getStringCellValue();
+							String taskDescription = taskRow.getCell(2).getStringCellValue();
+							State taskState = null;
+							switch (taskRow.getCell(3).getStringCellValue()) {
+							case "Ready":
+								taskState = State.Ready;
+								break;
+							case "Blocked":
+								taskState = State.Blocked;
+								break;
+							case "Running":
+								taskState = State.Running;
+								break;
+							case "Exit":
+								taskState = State.Exit;
+								break;
+							default:
+								break;
+							}
+							String taskOwner = taskRow.getCell(4).getStringCellValue();
+							User taskOwner1 = handler.getUser(taskOwner);
+							String taskDuration = taskRow.getCell(5).getStringCellValue();
+							Duration duration = Duration.parse(taskDuration);
+							boolean isMandatory = "Yes".equalsIgnoreCase(taskRow.getCell(6).getStringCellValue());
+
+							Task task = new Task(taskId, taskDescription, duration, isMandatory, taskState, taskOwner1,
+									taskName);
+							activity.getTasks().addEnd(task);
+
+							// Avanzar al siguiente índice de fila.
+							indexRowAct++;
+						}
+					}
+
+					procesos.addEnd(proceso);
+				}
+
+				// Avanzar al siguiente índice de fila.
+				indexRow++;
 			}
-
-			procesos.addEnd(proceso);
 		}
 
 		workbook.close();
@@ -123,52 +184,65 @@ public class ArchivoUtil {
 		return procesos;
 	}
 
-	/**
-	 * 
-	 * Method that
-	 *
-	 * @param ruta
-	 * @param listProcess
-	 * @throws IOException
-	 */
 	public static void saveProcessesInExcel(String ruta, SimpleList<Process> listProcess) throws IOException {
 		@SuppressWarnings("resource")
 		Workbook workbook = new XSSFWorkbook();
 
 		for (Process process : listProcess) {
-			Sheet sheet = workbook.createSheet(process.getName());
+			Sheet processSheet = workbook.createSheet(process.getName());
 
-			int indexRow = 0;
-			Row row = sheet.createRow(indexRow++);
-			row.createCell(0).setCellValue("ID");
-			row.createCell(1).setCellValue("Name");
-			row.createCell(2).setCellValue("Description");
-			row.createCell(3).setCellValue("State");
-			row.createCell(4).setCellValue("Owner");
+			int rowIndex = 0;
+			Row processRow = processSheet.createRow(rowIndex++);
+			processRow.createCell(0).setCellValue("ID");
+			processRow.createCell(1).setCellValue("Name");
+			processRow.createCell(2).setCellValue("Description");
+			processRow.createCell(3).setCellValue("State");
+			processRow.createCell(4).setCellValue("Owner");
 
 			// Agregar los atributos del proceso
-			row = sheet.createRow(indexRow++);
-			row.createCell(0).setCellValue(process.getId());
-			row.createCell(1).setCellValue(process.getName());
-			row.createCell(2).setCellValue(process.getDescription());
-			row.createCell(3).setCellValue(process.getState().name());
-			row.createCell(4).setCellValue(process.getOwner().getName());
+			processRow = processSheet.createRow(rowIndex++);
+			processRow.createCell(0).setCellValue(process.getId());
+			processRow.createCell(1).setCellValue(process.getName());
+			processRow.createCell(2).setCellValue(process.getDescription());
+			processRow.createCell(3).setCellValue(process.getState().name());
+			processRow.createCell(4).setCellValue(process.getOwner().getName());
 
 			// Encabezado para las actividades
-			row = sheet.createRow(indexRow++);
-			row.createCell(0).setCellValue("Activity ID");
-			row.createCell(1).setCellValue("Activity Name");
-			row.createCell(2).setCellValue("Activity Description");
-			row.createCell(3).setCellValue("Activity State");
-			row.createCell(4).setCellValue("Activity Owner");
+			Row activityHeaderRow = processSheet.createRow(rowIndex++);
+			activityHeaderRow.createCell(0).setCellValue("Activity ID");
+			activityHeaderRow.createCell(1).setCellValue("Activity Name");
+			activityHeaderRow.createCell(2).setCellValue("Activity Description");
+			activityHeaderRow.createCell(3).setCellValue("Activity State");
+			activityHeaderRow.createCell(4).setCellValue("Activity Owner");
 
 			for (Activity activity : process.getActivities()) {
-				row = sheet.createRow(indexRow++);
-				row.createCell(0).setCellValue(activity.getId());
-				row.createCell(1).setCellValue(activity.getName());
-				row.createCell(2).setCellValue(activity.getDescription());
-				row.createCell(3).setCellValue(activity.getState().name());
-				row.createCell(4).setCellValue(activity.getOwner().getName());
+				Row activityRow = processSheet.createRow(rowIndex++);
+				activityRow.createCell(0).setCellValue(activity.getId());
+				activityRow.createCell(1).setCellValue(activity.getName());
+				activityRow.createCell(2).setCellValue(activity.getDescription());
+				activityRow.createCell(3).setCellValue(activity.getState().name());
+				activityRow.createCell(4).setCellValue(activity.getOwner().getName());
+
+				// Encabezado para las tareas
+				Row taskHeaderRow = processSheet.createRow(rowIndex++);
+				taskHeaderRow.createCell(0).setCellValue("Task ID");
+				taskHeaderRow.createCell(1).setCellValue("Task Name");
+				taskHeaderRow.createCell(2).setCellValue("Task Description");
+				taskHeaderRow.createCell(3).setCellValue("Task State");
+				taskHeaderRow.createCell(4).setCellValue("Task Owner");
+				taskHeaderRow.createCell(5).setCellValue("Task Duration");
+				taskHeaderRow.createCell(6).setCellValue("Mandatory");
+
+				for (Task task : activity.getTasks()) {
+					Row taskRow = processSheet.createRow(rowIndex++);
+					taskRow.createCell(0).setCellValue(task.getId());
+					taskRow.createCell(1).setCellValue(task.getName());
+					taskRow.createCell(2).setCellValue(task.getDescription());
+					taskRow.createCell(3).setCellValue(task.getState().name());
+					taskRow.createCell(4).setCellValue(task.getOwner().getName());
+					taskRow.createCell(5).setCellValue(task.getDuration().toString());
+					taskRow.createCell(6).setCellValue(task.isMandatoryTask() ? "Yes" : "No");
+				}
 			}
 		}
 

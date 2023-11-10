@@ -34,7 +34,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="txtIdActivity" styleClass="textField" GridPane.columnIndex="1" />
+                  <TextField fx:id="txtIdActivity" editable="false" styleClass="textField" GridPane.columnIndex="1" />
                   <TextField fx:id="txtNameActivity" styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <ComboBox fx:id="cbxStateActivity" prefHeight="39.0" prefWidth="289.0" promptText="Select..." styleClass="comboBox" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <TextArea fx:id="txtDescriptionActivity" prefHeight="200.0" prefWidth="200.0" styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="3" />

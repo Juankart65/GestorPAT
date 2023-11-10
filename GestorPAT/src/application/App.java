@@ -83,6 +83,7 @@ public class App extends Application {
 	 */
 	@Override
 	public void start(Stage primaryStage) {
+		System.setProperty("log4j2.disable.jmx", "true");
 		this.primaryStage = primaryStage;
 		this.primaryStage.initStyle(StageStyle.TRANSPARENT);
 		this.primaryStage.centerOnScreen();

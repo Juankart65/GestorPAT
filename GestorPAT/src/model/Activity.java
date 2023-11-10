@@ -1,24 +1,21 @@
 package model;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Objects;
 
-import dataStructures.DoubleCircularList;
+import dataStructures.SimpleList;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class Activity implements Serializable{
+public class Activity implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private DoubleCircularList<Task> tasks = new DoubleCircularList<Task>();
+	private SimpleList<Task> tasks = new SimpleList<Task>();
 	private transient StringProperty name;
 	private transient StringProperty description;
 	private transient StringProperty id;
@@ -34,8 +31,7 @@ public class Activity implements Serializable{
 	 * @param description
 	 * @param id
 	 */
-	public Activity(DoubleCircularList<Task> tasks, String name, String description, String id, User owner,
-			State state) {
+	public Activity(SimpleList<Task> tasks, String name, String description, String id, User owner, State state) {
 		super();
 		this.tasks = tasks;
 		this.name = new SimpleStringProperty(name);
@@ -112,9 +108,9 @@ public class Activity implements Serializable{
 	 *
 	 * @return the tasks
 	 */
-	public DoubleCircularList<Task> getTasks() {
+	public SimpleList<Task> getTasks() {
 		if (tasks == null) {
-			tasks = new DoubleCircularList<Task>();
+			tasks = new SimpleList<Task>();
 		}
 		return tasks;
 	}
@@ -124,7 +120,7 @@ public class Activity implements Serializable{
 	 *
 	 * @param tasks the tasks to set
 	 */
-	public void setTasks(DoubleCircularList<Task> tasks) {
+	public void setTasks(SimpleList<Task> tasks) {
 		this.tasks = tasks;
 	}
 
@@ -234,25 +230,15 @@ public class Activity implements Serializable{
 	public String toString() {
 		return "Activity [tasks=" + tasks + ", name=" + name + ", description=" + description + ", id=" + id + "]";
 	}
-	
-    private void writeObject(ObjectOutputStream out) throws IOException {
-        out.defaultWriteObject();
-        out.writeObject(name.get());
-        out.writeObject(description.get());
-        out.writeObject(id.get());
-        out.writeObject(state.get());
-        out.writeObject(owner);
-        out.writeObject(tasks);
-    }
 
-    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
-        in.defaultReadObject();
-        name = new SimpleStringProperty((String) in.readObject());
-        description = new SimpleStringProperty((String) in.readObject());
-        id = new SimpleStringProperty((String) in.readObject());
-        state = new SimpleObjectProperty<>((State) in.readObject());
-        owner = (User) in.readObject();
-        tasks = (DoubleCircularList<Task>) in.readObject();
-    }
+	/**
+	 * Method that
+	 *
+	 * @param task
+	 */
+	public void createTask(Task task) {
+		getTasks().addEnd(task);
+
+	}
 
 }

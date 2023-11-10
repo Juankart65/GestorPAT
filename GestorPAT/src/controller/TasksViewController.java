@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.IOException;
 import java.time.Duration;
 import application.App;
 import javafx.event.ActionEvent;
@@ -11,9 +12,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
 import model.Activity;
+import model.Handler;
 import model.Process;
 import model.State;
 import model.Task;
+import persistence.Persistencia;
 
 public class TasksViewController {
 
@@ -50,6 +53,12 @@ public class TasksViewController {
 	private Button btnRefresh;
 
 	@FXML
+	private Button btnMoveUp;
+
+	@FXML
+	private Button btnMoveDown;
+
+	@FXML
 	private TableColumn<Task, String> idCol;
 
 	@FXML
@@ -57,16 +66,16 @@ public class TasksViewController {
 
 	@FXML
 	private TableColumn<Task, State> stateCol;
-	
+
 	@FXML
 	private TableColumn<Task, Duration> durationCol;
-	
+
 	@FXML
 	private TableColumn<Task, Boolean> mandatoryCol;
 
 	@FXML
 	private Label txtNameActivity;
-	
+
 	private App app;
 	private boolean okClicked = false;
 
@@ -82,11 +91,12 @@ public class TasksViewController {
 
 	@FXML
 	void createTaskEvent(ActionEvent event) {
-		Task tempTask = new Task(null, null, null, false, null, null, null);
+		Task tempTask = new Task(Handler.generateRandomIdAsString(), null, null, okClicked, null, null, null);
 		boolean okClicked = app.showCreateTask(tempTask);
 
 		if (okClicked) {
-			Process.getCurrentActivity().getTasks().agregarFinal(tempTask);
+			ModelFactoryController.getInstance().createTask(tempTask);
+			Process.getCurrentActivity().getTasks().addEnd(tempTask);
 			taskTable.getItems().add(tempTask);
 		}
 	}
@@ -97,6 +107,14 @@ public class TasksViewController {
 		if (selectTask != null) {
 			@SuppressWarnings("unused")
 			boolean okClicked = app.showCreateTask(selectTask);
+			try {
+				Persistencia.saveProcess(ModelFactoryController.getInstance().getHandler().getProcessList());
+				Persistencia.guardaRegistroLog("The task was updated", 1, "updateTask");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 		} else {
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.initOwner(app.getPrimaryStage());
@@ -114,7 +132,14 @@ public class TasksViewController {
 
 		if (selectedIndex >= 0) {
 			taskTable.getItems().remove(selectedIndex);
-			Process.getCurrentActivity().getTasks().eliminarPorIndice(selectedIndex);
+			try {
+				Process.getCurrentActivity().getTasks().deleteNode(selectedIndex);
+				Persistencia.saveProcess(ModelFactoryController.getInstance().getHandler().getProcessList());
+				Persistencia.guardaRegistroLog("The task was deleted", 1, "deleteTask");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} else {
 			// Nada seleccionado
 
@@ -129,8 +154,59 @@ public class TasksViewController {
 	}
 
 	@FXML
-	void visualizeTaskEvent(ActionEvent event) {
+	void moveTaskUpEvent(ActionEvent event) {
+		Task selectedTask = taskTable.getSelectionModel().getSelectedItem();
+		if (selectedTask != null) {
+			int selectedIndex = taskTable.getSelectionModel().getSelectedIndex();
+			if (selectedIndex > 0) {
+				// Obtén la tarea que está arriba de la tarea seleccionada.
+				Task taskAbove = taskTable.getItems().get(selectedIndex - 1);
 
+				// Intercambia las tareas en la lista.
+				taskTable.getItems().set(selectedIndex - 1, selectedTask);
+				taskTable.getItems().set(selectedIndex, taskAbove);
+
+				// Intercambia las tareas en la lista de tareas de la actividad.
+				Process.getCurrentActivity().getTasks().moveUp(selectedIndex);
+				try {
+					Persistencia.saveProcess(ModelFactoryController.getInstance().getHandler().getProcessList());
+					Persistencia.guardaRegistroLog("Task "
+							+ Process.getCurrentActivity().getTasks().getNode(selectedIndex).getValorNodo().getName()
+							+ " changed position", 1, "moveUp");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
+	@FXML
+	void moveTaskDownEvent(ActionEvent event) {
+		Task selectedTask = taskTable.getSelectionModel().getSelectedItem();
+		if (selectedTask != null) {
+			int selectedIndex = taskTable.getSelectionModel().getSelectedIndex();
+			if (selectedIndex < taskTable.getItems().size() - 1) {
+				// Obtén la tarea que está abajo de la tarea seleccionada.
+				Task taskBelow = taskTable.getItems().get(selectedIndex + 1);
+
+				// Intercambia las tareas en la lista.
+				taskTable.getItems().set(selectedIndex + 1, selectedTask);
+				taskTable.getItems().set(selectedIndex, taskBelow);
+
+				// Intercambia las tareas en la lista de tareas de la actividad.
+				Process.getCurrentActivity().getTasks().moveDown(selectedIndex);
+				try {
+					Persistencia.saveProcess(ModelFactoryController.getInstance().getHandler().getProcessList());
+					Persistencia.guardaRegistroLog("Task "
+							+ Process.getCurrentActivity().getTasks().getNode(selectedIndex).getValorNodo().getName()
+							+ " changed position", 1, "moveDown");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 
 	/**
@@ -151,6 +227,12 @@ public class TasksViewController {
 		stateCol.setCellValueFactory(cellData -> cellData.getValue().stateProperty());
 		durationCol.setCellValueFactory(cellData -> cellData.getValue().durationProperty());
 		mandatoryCol.setCellValueFactory(cellData -> cellData.getValue().mandatoryProperty());
+
+		for (Task task : ModelFactoryController.getInstance().tasks()) {
+			if (task != null) {
+				taskTable.getItems().add(task);
+			}
+		}
 	}
 
 	/**
