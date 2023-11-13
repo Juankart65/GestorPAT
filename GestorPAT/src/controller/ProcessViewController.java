@@ -1,8 +1,11 @@
 package controller;
 
 import java.io.IOException;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.JOptionPane;
 
 import application.App;
 import javafx.collections.FXCollections;
@@ -13,6 +16,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import model.Activity;
 import model.Handler;
 import model.Process;
 import model.Rol;
@@ -50,6 +54,9 @@ public class ProcessViewController {
 
 	@FXML
 	private Button btnUpdateProcess;
+
+	@FXML
+	private Button btnTimeProcess;
 
 	private App app;
 
@@ -163,6 +170,16 @@ public class ProcessViewController {
 		}
 	}
 
+	@FXML
+	void timeProcessEvent(ActionEvent event) {
+
+		Process selectProcess = processTable.getSelectionModel().getSelectedItem();
+
+		String durationProces = selectProcess.getDuration();
+
+		JOptionPane.showMessageDialog(null, "The duration of the process is: " + durationProces);
+	}
+
 	/**
 	 * 
 	 * Method that
@@ -184,7 +201,8 @@ public class ProcessViewController {
 		this.app = app;
 
 		// Convierte la lista enlazada simple en una lista convencional
-		List<Process> processList = new ArrayList<>(ModelFactoryController.getInstance().getHandler().getProcessList().convertArraylist(ModelFactoryController.getInstance().getHandler().getProcessList()));
+		List<Process> processList = new ArrayList<>(ModelFactoryController.getInstance().getHandler().getProcessList()
+				.convertArraylist(ModelFactoryController.getInstance().getHandler().getProcessList()));
 
 		// Crea un ObservableList a partir de la lista convencional
 		ObservableList<Process> process = FXCollections.observableArrayList(processList);

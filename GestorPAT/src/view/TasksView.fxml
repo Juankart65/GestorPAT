@@ -99,8 +99,6 @@
                                     <Button fx:id="btnCreateTask" layoutX="88.0" layoutY="286.0" mnemonicParsing="false" onAction="#createTaskEvent" text="Create" textFill="#14a7d0" />
                                     <Button fx:id="btnUpdateTask" layoutX="274.0" layoutY="286.0" mnemonicParsing="false" onAction="#updateTaskEvent" text="Update" textFill="#14a7d0" />
                                     <Button fx:id="btnDeleteTask" layoutX="445.0" layoutY="286.0" mnemonicParsing="false" onAction="#deleteTaskEvent" text="Delete" textFill="#14a7d0" />
-                                    <Button fx:id="btnMoveUp" layoutX="163.0" layoutY="10.0" mnemonicParsing="false" onAction="#moveTaskUpEvent" text="Move Up" textFill="#14a7d0" />
-                                    <Button fx:id="btnMoveDown" layoutX="403.0" layoutY="10.0" mnemonicParsing="false" onAction="#moveTaskDownEvent" text="Move Down" textFill="#14a7d0" />
                                  </children>
                               </HBox>
                               <Label alignment="CENTER" layoutX="303.0" layoutY="62.0" prefHeight="45.0" prefWidth="222.0" styleClass="txtPrincipal" text="Activity Task" textAlignment="RIGHT" textFill="#14a7d0">

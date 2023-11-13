@@ -4,17 +4,18 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.time.Duration;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 import application.App;
-import controller.ModelFactoryController;
 import dataStructures.SimpleList;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class Process implements Serializable{
+public class Process implements Serializable {
 
 	/**
 	 * 
@@ -212,13 +213,9 @@ public class Process implements Serializable{
 		this.id.set(id);
 	}
 
-
-
-
-
 	/**
 	 * @return
-	**/
+	 **/
 	@Override
 	public int hashCode() {
 		return Objects.hash(id, name);
@@ -227,7 +224,7 @@ public class Process implements Serializable{
 	/**
 	 * @param obj
 	 * @return
-	**/
+	 **/
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -248,33 +245,56 @@ public class Process implements Serializable{
 		return "Process [activities=" + activities + ", name=" + name + ", description=" + description + ", id=" + id
 				+ "]";
 	}
-	
-    private void writeObject(ObjectOutputStream out) throws IOException {
-        out.defaultWriteObject();
-        out.writeObject(name.get());
-        out.writeObject(description.get());
-        out.writeObject(id.get());
-        out.writeObject(state.get());
-        out.writeObject(owner);
-    }
 
-    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
-        in.defaultReadObject();
-        name = new SimpleStringProperty((String) in.readObject());
-        description = new SimpleStringProperty((String) in.readObject());
-        id = new SimpleStringProperty((String) in.readObject());
-        state = new SimpleObjectProperty<>((State) in.readObject());
-        owner = (User) in.readObject();
-    }
+	private void writeObject(ObjectOutputStream out) throws IOException {
+		out.defaultWriteObject();
+		out.writeObject(name.get());
+		out.writeObject(description.get());
+		out.writeObject(id.get());
+		out.writeObject(state.get());
+		out.writeObject(owner);
+	}
+
+	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+		in.defaultReadObject();
+		name = new SimpleStringProperty((String) in.readObject());
+		description = new SimpleStringProperty((String) in.readObject());
+		id = new SimpleStringProperty((String) in.readObject());
+		state = new SimpleObjectProperty<>((State) in.readObject());
+		owner = (User) in.readObject();
+	}
 
 	/**
-	 * Method that 
+	 * Method that
 	 *
 	 * @param activity
 	 */
 	public void createActivity(Activity activity) {
 		App.currentProcess.getActivities().addEnd(activity);
-		
+
 	}
 
+	public String getDuration() {
+
+		Duration duration = Duration.ZERO;
+		Duration durationSuma = Duration.ZERO;
+		for (Activity activity : getActivities()) {
+			for (Task task : activity.getTasks()) {
+				duration = task.getDuration();
+				durationSuma = durationSuma.plus(duration);
+			}
+		}
+
+		return formatDuration(durationSuma);
+	}
+
+	// Método para formatear la duración en horas:minutos:segundos
+	private static String formatDuration(Duration duration) {
+		long hours = duration.toHours();
+		long minutes = duration.minusHours(hours).toMinutes();
+		long seconds = duration.minusHours(hours).minusMinutes(minutes).getSeconds();
+
+		// Utilizar String.format para formatear la duración
+		return String.format("%d:%02d:%02d", hours, minutes, seconds);
+	}
 }

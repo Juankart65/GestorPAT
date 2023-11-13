@@ -6,6 +6,7 @@ import java.io.ObjectOutputStream;
 import java.time.Duration;
 import java.util.Objects;
 
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -40,6 +41,7 @@ public class Task {
 		this.state = new SimpleObjectProperty<State>(state);
 		this.owner = owner;
 		this.name = new SimpleStringProperty(name);
+
 	}
 
 	public Task() {
@@ -228,27 +230,24 @@ public class Task {
 		return "Task [description=" + description + ", duration=" + duration + ", mandatoryTask=" + mandatoryTask
 				+ ", id=" + id + "]";
 	}
-	
-    private void writeObject(ObjectOutputStream out) throws IOException {
-        out.defaultWriteObject();
-        out.writeObject(description.get());
-        out.writeObject(duration.get());
-        out.writeBoolean(mandatoryTask.get());
-        out.writeObject(id.get());
-        out.writeObject(name.get());
-        out.writeObject(state.get());
-        out.writeObject(owner);
-    }
 
-    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
-        in.defaultReadObject();
-        description = new SimpleStringProperty((String) in.readObject());
-        duration = new SimpleObjectProperty<>((Duration) in.readObject());
-        mandatoryTask = new SimpleBooleanProperty(in.readBoolean());
-        id = new SimpleStringProperty((String) in.readObject());
-        name = new SimpleStringProperty((String) in.readObject());
-        state = new SimpleObjectProperty<>((State) in.readObject());
-        owner = (User) in.readObject();
-    }
+	public StringProperty formattedDurationProperty() {
+		StringProperty formattedDurationProperty = new SimpleStringProperty();
+
+		// Vincular la propiedad formateada a la propiedad de duración
+		formattedDurationProperty.bind(Bindings.createStringBinding(() -> formatDuration(duration.get()), duration));
+
+		return formattedDurationProperty;
+	}
+
+	// Método para formatear la duración en horas:minutos:segundos
+	private static String formatDuration(Duration duration) {
+		long hours = duration.toHours();
+		long minutes = duration.minusHours(hours).toMinutes();
+		long seconds = duration.minusHours(hours).minusMinutes(minutes).getSeconds();
+
+		// Utilizar String.format para formatear la duración
+		return String.format("%d:%02d:%02d", hours, minutes, seconds);
+	}
 
 }

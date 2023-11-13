@@ -5,10 +5,17 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.Activity;
 import model.Process;
+import model.State;
 import model.Task;
 import model.User;
+import persistence.Persistencia;
 
 import java.io.IOException;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.stream.Collectors;
 
 import controller.CreateProcessController;
 import controller.CreateTaskController;
@@ -20,8 +27,13 @@ import controller.ProcessViewController;
 import controller.SignUpController;
 import controller.TasksViewController;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 
@@ -37,6 +49,8 @@ public class App extends Application {
 	private Stage primaryStage;
 	public static User currentUser;
 	public static Process currentProcess;
+	private boolean notificationShown = false;
+	private long previousLowestDuration = Long.MAX_VALUE;
 
 	/**
 	 * 
@@ -91,6 +105,21 @@ public class App extends Application {
 		showLogin();
 		ModelFactoryController.getInstance().getHandler().getUserList();
 		ModelFactoryController.getInstance().getHandler().getProcessList();
+
+		Timer timer = new Timer(true);
+		timer.scheduleAtFixedRate(new TimerTask() {
+			@Override
+			public void run() {
+				updateTaskDurations();
+				try {
+					Persistencia.saveProcess(ModelFactoryController.getInstance().getHandler().getProcessList());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}, 1000, 1000);
+
 	}
 
 	/**
@@ -411,121 +440,75 @@ public class App extends Application {
 			return false;
 		}
 	}
-//
-//	/**
-//	 * Obtiene la ultima ruta que visit� el usuario
-//	 * 
-//	 * @return
-//	 */
-//	public File getUserFilePath() {
-//		Preferences prefs = Preferences.userNodeForPackage(Aplicacion.class);
-//		String filePath = prefs.get("filePath", null);
-//		if (filePath != null) {
-//			return new File(filePath);
-//		} else {
-//			return null;
-//		}
-//	}
-//
-//	/**
-//	 * 
-//	 * @param file
-//	 */
-//	public void setUserFilePath(File file) {
-//		Preferences prefs = Preferences.userNodeForPackage(Aplicacion.class);
-//		if (file != null) {
-//			prefs.put("filePath", file.getPath());
-//
-//			primaryStage.setTitle("CampApp - " + file.getName());
-//		} else {
-//			prefs.remove("filePath");
-//
-//			primaryStage.setTitle("CamApp");
-//		}
-//	}
 
-//	/**
-//	 * Muestra la ventana para crear o editar personas
-//	 * 
-//	 * @param persona
-//	 * @return
-//	 */
-//	public boolean mostrarVentanaEditarPersonas(Persona persona) {
-//		try {
-//			FXMLLoader loader = new FXMLLoader();
-//			loader.setLocation(Aplicacion.class.getResource("../views/EditarCrearTrabajadores.fxml"));
-//
-//			AnchorPane page = (AnchorPane) loader.load();
-//
-//			Stage dialogStage = new Stage();
-//			dialogStage.setTitle("Editar o Crear Personal");
-//			dialogStage.initModality(Modality.WINDOW_MODAL);
-//			dialogStage.initOwner(primaryStage);
-//			dialogStage.initStyle(StageStyle.TRANSPARENT);
-//			dialogStage.centerOnScreen();
-//
-//			Scene scene = new Scene(page);
-//			// Establecer el color de relleno del Scene a transparente
-//	        scene.setFill(Color.TRANSPARENT);
-//	        // Agregar el archivo de estilos style.css
-//	        scene.getStylesheets().add(getClass().getResource("../resource/Styles.css").toString());
-//			dialogStage.setScene(scene);
-//
-//			EditarCrearTrabajadoresController editarCrearTrabajadoresController = loader.getController();
-//			editarCrearTrabajadoresController.mostrarDialogStage(dialogStage);
-//			editarCrearTrabajadoresController.mostrarPersona(persona);
-//
-//			dialogStage.showAndWait();
-//
-//			return editarCrearTrabajadoresController.isOkClicked();
-//
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//			return false;
-//		}
-//	}
-//
+	private void updateTaskDurations() {
+		ObservableList<Task> tasks = getTask();
 
-//
+		// Actualizar la duración de cada tarea
+		for (Task task : tasks) {
+			if (task.getState() == State.Running) {
+				if (task.getDuration().getSeconds() > 0) {
+					task.setDuration(task.getDuration().minusSeconds(1));
+				} else {
+					// La tarea ha finalizado, cambia el estado a State.Exit
+					task.setState(State.Finished);
+					Persistencia.guardaRegistroLog("The task '" + task.getName() + "' is finished", 1, "Finished");
+					try {
+						Persistencia.saveProcess(ModelFactoryController.getInstance().getHandler().getProcessList());
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		}
 
-//
-//	public boolean mostrarVentanaEditarLabor(Labor labor) {
-//
-//		try {
-//			FXMLLoader loader = new FXMLLoader();
-//			loader.setLocation(Aplicacion.class.getResource("../views/EditarCrearLabores.fxml"));
-//
-//			AnchorPane page = (AnchorPane) loader.load();
-//
-//			Stage dialogStage = new Stage();
-//			dialogStage.setTitle("Registrar Usuario");
-//			dialogStage.initModality(Modality.WINDOW_MODAL);
-//			dialogStage.initOwner(primaryStage);
-//			dialogStage.initStyle(StageStyle.TRANSPARENT);
-//			dialogStage.centerOnScreen();
-//
-//			Scene scene = new Scene(page);
-//			// Establecer el color de relleno del Scene a transparente
-//	        scene.setFill(Color.TRANSPARENT);
-//	        // Agregar el archivo de estilos style.css
-//	        scene.getStylesheets().add(getClass().getResource("../resource/Styles.css").toString());
-//			dialogStage.setScene(scene);
-//
-//			EditarCrearLaboresController editarCrearLaboresController = loader.getController();
-//			editarCrearLaboresController.mostrarDialogStage(dialogStage);
-//			editarCrearLaboresController.mostrarLabor(labor);
-//
-//			dialogStage.showAndWait();
-//
-//			return editarCrearLaboresController.isOkClicked();
-//
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//			return false;
-//		}
-//	}
+		List<Task> tasksWithLowestDuration = getTasksWithLowestDuration(tasks);
+		if (!tasksWithLowestDuration.isEmpty() && tasksWithLowestDuration.get(0).getDuration().getSeconds() <= 300
+				&& tasksWithLowestDuration.get(0).getDuration().getSeconds() > 299 && !notificationShown) {
+			long currentLowestDuration = tasksWithLowestDuration.get(0).getDuration().getSeconds();
+
+			// Mostrar la notificación solo si la duración más baja cambió y la tarea está
+			// en estado Running
+			if (currentLowestDuration != previousLowestDuration
+					&& tasksWithLowestDuration.get(0).getState() == State.Running) {
+				Platform.runLater(() -> {
+					for (Task task : tasksWithLowestDuration) {
+						Alert alert = new Alert(AlertType.INFORMATION);
+						alert.setTitle("Task about to finish");
+						alert.setHeaderText(null);
+						alert.setContentText("Task '" + task.getName() + "' is about to end.");
+
+						alert.showAndWait();
+					}
+					notificationShown = true; // Marcar que la notificación se ha mostrado
+					previousLowestDuration = currentLowestDuration; // Actualizar la duración más baja anterior
+				});
+			}
+		}
+	}
+
+	private List<Task> getTasksWithLowestDuration(ObservableList<Task> tasks) {
+		// Encontrar todas las tareas con la duración más baja
+		long lowestDuration = tasks.stream().filter(task -> task.getDuration().getSeconds() > 0)
+				.mapToLong(task -> task.getDuration().getSeconds()).min().orElse(Long.MAX_VALUE);
+
+		return tasks.stream().filter(task -> task.getDuration().getSeconds() == lowestDuration)
+				.collect(Collectors.toList());
+	}
+
+	private ObservableList<Task> getTask() {
+		ObservableList<Task> tasks = FXCollections.observableArrayList();
+
+		for (Process process : ModelFactoryController.getInstance().getHandler().getProcessList()) {
+			for (Activity actividad : process.getActivities()) {
+				for (Task task : actividad.getTasks()) {
+					tasks.add(task);
+				}
+			}
+		}
+		return tasks;
+	}
 
 	/**
 	 * Main method of the project

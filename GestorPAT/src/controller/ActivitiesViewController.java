@@ -20,6 +20,7 @@ import model.Handler;
 import model.Process;
 import model.Rol;
 import model.State;
+import model.Task;
 import persistence.Persistencia;
 
 public class ActivitiesViewController {
@@ -48,6 +49,12 @@ public class ActivitiesViewController {
 	private Button btnback;
 
 	@FXML
+	private Button btnDownActivity;
+
+	@FXML
+	private Button btnUpActivity;
+
+	@FXML
 	private TableColumn<Activity, String> idCol;
 
 	@FXML
@@ -67,14 +74,14 @@ public class ActivitiesViewController {
 
 	@FXML
 	private Label txtNameProcess;
-	
-    @FXML
-    private TextField txtSearchActivity;
-    
-    @FXML
-    private Button btnSearchActivity;
-    
-    private ObservableList<Activity> allActivities;
+
+	@FXML
+	private TextField txtSearchActivity;
+
+	@FXML
+	private Button btnSearchActivity;
+
+	private ObservableList<Activity> allActivities;
 
 	private App app;
 	private boolean okClicked = false;
@@ -89,31 +96,26 @@ public class ActivitiesViewController {
 	void refreshEvent(ActionEvent event) {
 		app.showActivitiesView(Process.getCurrentActivity());
 	}
-	
-    @FXML
-    void searchActivity(ActionEvent event) {
-        // Obtener el texto de búsqueda
-        String searchText = txtSearchActivity.getText();
 
-        // Filtrar la lista de actividades
-        ObservableList<Activity> filteredActivities;
+	@FXML
+	void searchActivity(ActionEvent event) {
+		// Obtener el texto de búsqueda
+		String searchText = txtSearchActivity.getText();
 
-        if (searchText.isEmpty()) {
-            // Si el campo de búsqueda está vacío, mostrar todas las actividades
-            filteredActivities = allActivities;
-        } else {
-            // Filtrar las actividades por nombre
-            filteredActivities = allActivities.filtered(activity ->
-                    activity.getName().equalsIgnoreCase(searchText)
-            );
-        }
+		// Filtrar la lista de actividades
+		ObservableList<Activity> filteredActivities;
 
-        // Actualizar la tabla con las actividades filtradas o todas las actividades
-        activitiesTable.setItems(filteredActivities);
-    }
+		if (searchText.isEmpty()) {
+			// Si el campo de búsqueda está vacío, mostrar todas las actividades
+			filteredActivities = allActivities;
+		} else {
+			// Filtrar las actividades por nombre
+			filteredActivities = allActivities.filtered(activity -> activity.getName().contains(searchText));
+		}
 
-
-
+		// Actualizar la tabla con las actividades filtradas o todas las actividades
+		activitiesTable.setItems(filteredActivities);
+	}
 
 	/**
 	 * 
@@ -250,17 +252,18 @@ public class ActivitiesViewController {
 		idCol.setCellValueFactory(cellData -> cellData.getValue().idProperty());
 		nameCol.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
 		stateCol.setCellValueFactory(cellData -> cellData.getValue().stateProperty());
-		
+
 //		for (Activity activity : ModelFactoryController.getInstance().activities()) {
 //			activitiesTable.getItems().add(activity);
 //		}
-		
-        // Obtener la lista de actividades completa y almacenarla en la variable
-        allActivities = FXCollections.observableArrayList(App.currentProcess.getActivities().convertArraylist(App.currentProcess.getActivities()));
-        
-        // Configurar la tabla con la lista completa de actividades
-        activitiesTable.setItems(allActivities);
-        
+
+		// Obtener la lista de actividades completa y almacenarla en la variable
+		allActivities = FXCollections.observableArrayList(
+				App.currentProcess.getActivities().convertArraylist(App.currentProcess.getActivities()));
+
+		// Configurar la tabla con la lista completa de actividades
+		activitiesTable.setItems(allActivities);
+
 		if (App.getCurrentUser().getRol().equals(Rol.User)) {
 			btnCreateActivity.setDisable(true);
 			btnUpdateActivty.setDisable(true);
@@ -288,6 +291,63 @@ public class ActivitiesViewController {
 	 */
 	public boolean isOkClicked() {
 		return okClicked;
+	}
+
+	@FXML
+	void upActivityEvent(ActionEvent event) {
+		Activity selectedActivity = activitiesTable.getSelectionModel().getSelectedItem();
+		if (selectedActivity != null) {
+			int selectedIndex = activitiesTable.getSelectionModel().getSelectedIndex();
+			if (selectedIndex > 0) {
+				// Obtén la tarea que está arriba de la tarea seleccionada.
+				Activity activityAbove = activitiesTable.getItems().get(selectedIndex - 1);
+
+				// Intercambia las tareas en la lista.
+				activitiesTable.getItems().set(selectedIndex - 1, selectedActivity);
+				activitiesTable.getItems().set(selectedIndex, activityAbove);
+
+				// Intercambia las tareas en la lista de tareas de la actividad.
+				App.getCurrentProcess().getActivities().moveUp(selectedIndex);
+				try {
+					Persistencia.saveProcess(ModelFactoryController.getInstance().getHandler().getProcessList());
+					Persistencia
+							.guardaRegistroLog(
+									"Activity " + App.getCurrentProcess().getActivities()
+											.getNodeValue(selectedIndex - 1).getName() + " changed position",
+									1, "moveUp");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
+	@FXML
+	void downActivityEvent(ActionEvent event) {
+		Activity selectActivity = activitiesTable.getSelectionModel().getSelectedItem();
+		if (selectActivity != null) {
+			int selectedIndex = activitiesTable.getSelectionModel().getSelectedIndex();
+			if (selectedIndex < activitiesTable.getItems().size() - 1) {
+				// Obtén la actividad que está abajo de la tarea seleccionada.
+				Activity activityBelow = activitiesTable.getItems().get(selectedIndex + 1);
+
+				// Intercambia las tareas en la lista.
+				activitiesTable.getItems().set(selectedIndex + 1, selectActivity);
+				activitiesTable.getItems().set(selectedIndex, activityBelow);
+
+				// Intercambia las actividades en la lista de actividades del proceso.
+				App.getCurrentProcess().getActivities().moveDown(selectedIndex);
+				try {
+					Persistencia.saveProcess(ModelFactoryController.getInstance().getHandler().getProcessList());
+					Persistencia.guardaRegistroLog("Activity " + App.getCurrentProcess().getActivities()
+							.getNode(selectedIndex + 1).getValorNodo().getName() + " changed position", 1, "moveDown");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 
 }

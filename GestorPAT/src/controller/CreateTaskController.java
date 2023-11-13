@@ -1,6 +1,7 @@
 package controller;
 
 import java.time.Duration;
+import java.time.format.DateTimeParseException;
 
 import application.App;
 import javafx.collections.FXCollections;
@@ -49,6 +50,9 @@ public class CreateTaskController {
 	@FXML
 	private TextField txtNameTask;
 
+	@FXML
+	private TextField txtDuration;
+
 	private Stage dialogStage;
 	private Task task;
 	private boolean okClicked = false;
@@ -60,7 +64,12 @@ public class CreateTaskController {
 			task.setState(cbxStateTask.getValue());
 			task.setName(txtNameTask.getText());
 			task.setDescription(txtDescriptionTask.getText());
-			task.setDuration(cbxDurationTask.getValue());
+
+			if (cbxDurationTask.getValue() == null && txtDuration.getText().matches("\\d+")) {
+				task.setDuration(Duration.parse("PT" + txtDuration.getText() + "M"));
+			} else {
+				task.setDuration(cbxDurationTask.getValue());
+			}
 			task.setMandatoryTask(cbxMandatoryTask.getValue());
 			task.setOwner(App.getCurrentUser());
 
@@ -99,7 +108,7 @@ public class CreateTaskController {
 	private void initialize() {
 		fillComboBox();
 	}
-	
+
 	/**
 	 * Method to check that the text fields are correct
 	 * 
@@ -119,9 +128,15 @@ public class CreateTaskController {
 		if (txtDescriptionTask == null || txtDescriptionTask.getText().length() == 0) {
 			errorMensaje += "The description is not valid!\n";
 		}
-		
+
 		if (cbxStateTask.getValue() == null || cbxStateTask.getValue().name().length() == 0) {
-			errorMensaje += "The rol is not valid!\n";
+			errorMensaje += "The state is not valid!\n";
+		}
+		if (cbxMandatoryTask.getValue() == null) {
+			errorMensaje += "The mandatory is not valid!\n";
+		}
+		if (cbxDurationTask.getValue() == null && txtDuration.getText().length() == 0) {
+			errorMensaje += "The duration is not valid!\n";
 		}
 
 		if (errorMensaje.length() == 0) {

@@ -29,15 +29,15 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <Label alignment="CENTER" prefHeight="55.0" prefWidth="140.0" text="Description" textFill="#14a7d0" underline="true" GridPane.rowIndex="5">
+                  <Label alignment="CENTER" prefHeight="55.0" prefWidth="140.0" text="Description" textFill="#14a7d0" underline="true" GridPane.rowIndex="6">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
                   <TextField fx:id="txtIdTask" editable="false" styleClass="textField" GridPane.columnIndex="1" />
-                  <TextField fx:id="txtNameTask" styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="txtNameTask" promptText="Write the name " styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <ComboBox fx:id="cbxStateTask" prefHeight="39.0" prefWidth="289.0" promptText="Select..." styleClass="comboBox" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <TextArea fx:id="txtDescriptionTask" prefHeight="200.0" prefWidth="200.0" styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <TextArea fx:id="txtDescriptionTask" prefHeight="54.0" prefWidth="227.0" promptText="Write the description" styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                   <Label alignment="CENTER" prefHeight="56.0" prefWidth="131.0" text="Mandatory" textFill="#14a7d0" underline="true" GridPane.rowIndex="3">
                      <font>
                         <Font name="System Bold" size="12.0" />
@@ -49,13 +49,20 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="cbxDurationTask" prefHeight="39.0" prefWidth="289.0" promptText="Select..." styleClass="comboBox" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <ComboBox fx:id="cbxDurationTask" onAction="#durationComboBoxChanged" prefHeight="39.0" prefWidth="289.0" promptText="Select..." styleClass="comboBox" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <Label alignment="CENTER" layoutX="10.0" layoutY="179.0" prefHeight="42.0" prefWidth="168.0" text="Custom duration" textFill="#14a7d0" underline="true" GridPane.rowIndex="5">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtDuration" onAction="#customDurationChanged" prefHeight="35.0" prefWidth="263.0" promptText="(Optional) Minutes" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                </children>
                <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="188.0" minWidth="10.0" prefWidth="123.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="263.0" minWidth="10.0" prefWidth="263.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="188.0" minWidth="10.0" prefWidth="166.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="263.0" minWidth="10.0" prefWidth="227.0" />
                </columnConstraints>
                <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />

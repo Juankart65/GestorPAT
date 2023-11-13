@@ -2,7 +2,12 @@ package controller;
 
 import java.io.IOException;
 import java.time.Duration;
+import java.util.Comparator;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import application.App;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -34,9 +39,9 @@ public class TasksViewController {
 
 	@FXML
 	private Label txtIdActivity;
-	
-    @FXML
-    private TextField txtSearchTask;
+
+	@FXML
+	private TextField txtSearchTask;
 
 	@FXML
 	private Button btnVisualizeTask;
@@ -64,9 +69,9 @@ public class TasksViewController {
 
 	@FXML
 	private Button btnMoveDown;
-	
-    @FXML
-    private Button btnSearchTask;
+
+	@FXML
+	private Button btnSearchTask;
 
 	@FXML
 	private TableColumn<Task, String> idCol;
@@ -78,15 +83,15 @@ public class TasksViewController {
 	private TableColumn<Task, State> stateCol;
 
 	@FXML
-	private TableColumn<Task, Duration> durationCol;
+	private TableColumn<Task, String> durationCol;
 
 	@FXML
 	private TableColumn<Task, Boolean> mandatoryCol;
 
 	@FXML
 	private Label txtNameActivity;
-	
-    private ObservableList<Task> allTask;
+
+	private ObservableList<Task> allTask;
 
 	private App app;
 	private boolean okClicked = false;
@@ -182,9 +187,8 @@ public class TasksViewController {
 				Process.getCurrentActivity().getTasks().moveUp(selectedIndex);
 				try {
 					Persistencia.saveProcess(ModelFactoryController.getInstance().getHandler().getProcessList());
-					Persistencia.guardaRegistroLog("Task "
-							+ Process.getCurrentActivity().getTasks().getNode(selectedIndex-1).getValorNodo().getName()
-							+ " changed position", 1, "moveUp");
+					Persistencia.guardaRegistroLog("Task " + Process.getCurrentActivity().getTasks()
+							.getNode(selectedIndex - 1).getValorNodo().getName() + " changed position", 1, "moveUp");
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -239,7 +243,7 @@ public class TasksViewController {
 		idCol.setCellValueFactory(cellData -> cellData.getValue().idProperty());
 		nameCol.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
 		stateCol.setCellValueFactory(cellData -> cellData.getValue().stateProperty());
-		durationCol.setCellValueFactory(cellData -> cellData.getValue().durationProperty());
+		durationCol.setCellValueFactory(cellData -> cellData.getValue().formattedDurationProperty());
 		mandatoryCol.setCellValueFactory(cellData -> cellData.getValue().mandatoryProperty());
 
 		for (Task task : ModelFactoryController.getInstance().tasks()) {
@@ -247,19 +251,20 @@ public class TasksViewController {
 				taskTable.getItems().add(task);
 			}
 		}
-		
-        // Obtener la lista de actividades completa y almacenarla en la variable
-        allTask = FXCollections.observableArrayList(Process.getCurrentActivity().getTasks().convertArraylist(Process.getCurrentActivity().getTasks()));
-        
-        // Configurar la tabla con la lista completa de actividades
-        taskTable.setItems(allTask);
-        
-        
+
+		// Obtener la lista de actividades completa y almacenarla en la variable
+		allTask = FXCollections.observableArrayList(
+				Process.getCurrentActivity().getTasks().convertArraylist(Process.getCurrentActivity().getTasks()));
+
+		// Configurar la tabla con la lista completa de actividades
+		taskTable.setItems(allTask);
+
 		if (App.getCurrentUser().getRol().equals(Rol.User)) {
 			btnCreateTask.setDisable(true);
 			btnUpdateTask.setDisable(true);
 			btnDeleteTask.setDisable(true);
 		}
+
 	}
 
 	/**
@@ -283,28 +288,25 @@ public class TasksViewController {
 	public boolean isOkClicked() {
 		return okClicked;
 	}
-	
 
-    @FXML
-    void searchTask(ActionEvent event) {
-        // Obtener el texto de búsqueda
-        String searchText = txtSearchTask.getText();
+	@FXML
+	void searchTask(ActionEvent event) {
+		// Obtener el texto de búsqueda
+		String searchText = txtSearchTask.getText();
 
-        // Filtrar la lista de actividades
-        ObservableList<Task> fliteredTask;
+		// Filtrar la lista de actividades
+		ObservableList<Task> fliteredTask;
 
-        if (searchText.isEmpty()) {
-            // Si el campo de búsqueda está vacío, mostrar todas las actividades
-            fliteredTask = allTask;
-        } else {
-            // Filtrar las actividades por nombre
-            fliteredTask = allTask.filtered(task ->
-                    task.getName().equalsIgnoreCase(searchText)
-            );
-        }
+		if (searchText.isEmpty()) {
+			// Si el campo de búsqueda está vacío, mostrar todas las actividades
+			fliteredTask = allTask;
+		} else {
+			// Filtrar las actividades por nombre
+			fliteredTask = allTask.filtered(task -> task.getName().contains(searchText));
+		}
 
-        // Actualizar la tabla con las actividades filtradas o todas las actividades
-        taskTable.setItems(fliteredTask);
-    }
+		// Actualizar la tabla con las actividades filtradas o todas las actividades
+		taskTable.setItems(fliteredTask);
+	}
 
 }

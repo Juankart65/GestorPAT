@@ -8,5 +8,5 @@ package model;
  */
 public enum State {
 
-	Ready, Running, Blocked, Exit;
+	Ready, Running, Blocked, Finished;
 }
