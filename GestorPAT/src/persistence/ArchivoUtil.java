@@ -120,20 +120,21 @@ public class ArchivoUtil {
 						// Verificar y procesar las tareas (si las hay).
 						Row taskRow;
 
-						while ((taskRow = sheet.getRow(indexRowAct)) != null) {
-							if (taskRow.getPhysicalNumberOfCells() < 7) {
-								// La fila no cumple con los requisitos mínimos para ser una fila de tarea, sal
-								// del bucle.
-								break;
-							}
-							
-						    // Comprueba si esta fila es una tarea y no una actividad.
-						    Cell cell0 = taskRow.getCell(0);
-						    if (cell0 != null && cell0.getStringCellValue().equals("Task ID")) {
-						        // Es un encabezado de tarea, salta al siguiente índice de fila.
-						        indexRowAct++;
-						        continue;
-						    }
+					    do {
+					        taskRow = sheet.getRow(indexRowAct);
+
+					        if (taskRow == null || taskRow.getPhysicalNumberOfCells() < 7) {
+					            // La fila no cumple con los requisitos mínimos para ser una fila de tarea, sal del bucle.
+					            break;
+					        }
+
+					        // Comprueba si esta fila es una tarea y no una actividad.
+					        Cell cell0 = taskRow.getCell(0);
+					        if (cell0 != null && cell0.getStringCellValue().equals("Task ID")) {
+					            // Es un encabezado de tarea, salta al siguiente índice de fila.
+					            indexRowAct++;
+					            continue;
+					        }
 
 							String taskId = taskRow.getCell(0).getStringCellValue();
 							String taskName = taskRow.getCell(1).getStringCellValue();
@@ -165,9 +166,9 @@ public class ArchivoUtil {
 									taskName);
 							activity.getTasks().addEnd(task);
 
-							// Avanzar al siguiente índice de fila.
-							indexRowAct++;
-						}
+					        // Avanzar al siguiente índice de fila.
+					        indexRowAct++;
+					    } while (taskRow != null);
 					}
 
 					procesos.addEnd(proceso);

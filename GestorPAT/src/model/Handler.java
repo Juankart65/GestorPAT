@@ -9,6 +9,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 
+import controller.ModelFactoryController;
 import dataStructures.SimpleList;
 
 /**
@@ -184,7 +185,7 @@ public class Handler implements Serializable {
 	 * @param user
 	 */
 	public void createUser(User user) {
-		getUserList().addEnd(user);
+		ModelFactoryController.getInstance().getHandler().getUserList().addEnd(user);
 	}
 
 	/**
@@ -193,6 +194,6 @@ public class Handler implements Serializable {
 	 * @param process
 	 */
 	public void createProcess(Process process) {
-		getProcessList().addEnd(process);
+		ModelFactoryController.getInstance().getHandler().getProcessList().addEnd(process);
 	}
 }

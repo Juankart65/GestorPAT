@@ -3,6 +3,8 @@ package controller;
 import java.io.IOException;
 import java.time.Duration;
 import application.App;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -10,10 +12,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import model.Activity;
 import model.Handler;
 import model.Process;
+import model.Rol;
 import model.State;
 import model.Task;
 import persistence.Persistencia;
@@ -30,6 +34,9 @@ public class TasksViewController {
 
 	@FXML
 	private Label txtIdActivity;
+	
+    @FXML
+    private TextField txtSearchTask;
 
 	@FXML
 	private Button btnVisualizeTask;
@@ -57,6 +64,9 @@ public class TasksViewController {
 
 	@FXML
 	private Button btnMoveDown;
+	
+    @FXML
+    private Button btnSearchTask;
 
 	@FXML
 	private TableColumn<Task, String> idCol;
@@ -75,6 +85,8 @@ public class TasksViewController {
 
 	@FXML
 	private Label txtNameActivity;
+	
+    private ObservableList<Task> allTask;
 
 	private App app;
 	private boolean okClicked = false;
@@ -171,7 +183,7 @@ public class TasksViewController {
 				try {
 					Persistencia.saveProcess(ModelFactoryController.getInstance().getHandler().getProcessList());
 					Persistencia.guardaRegistroLog("Task "
-							+ Process.getCurrentActivity().getTasks().getNode(selectedIndex).getValorNodo().getName()
+							+ Process.getCurrentActivity().getTasks().getNode(selectedIndex-1).getValorNodo().getName()
 							+ " changed position", 1, "moveUp");
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -194,8 +206,10 @@ public class TasksViewController {
 				taskTable.getItems().set(selectedIndex + 1, selectedTask);
 				taskTable.getItems().set(selectedIndex, taskBelow);
 
+				System.out.println(Process.getCurrentActivity().getTasks().iterator());
 				// Intercambia las tareas en la lista de tareas de la actividad.
 				Process.getCurrentActivity().getTasks().moveDown(selectedIndex);
+				System.out.println(Process.getCurrentActivity().getTasks().iterator());
 				try {
 					Persistencia.saveProcess(ModelFactoryController.getInstance().getHandler().getProcessList());
 					Persistencia.guardaRegistroLog("Task "
@@ -233,6 +247,19 @@ public class TasksViewController {
 				taskTable.getItems().add(task);
 			}
 		}
+		
+        // Obtener la lista de actividades completa y almacenarla en la variable
+        allTask = FXCollections.observableArrayList(Process.getCurrentActivity().getTasks().convertArraylist(Process.getCurrentActivity().getTasks()));
+        
+        // Configurar la tabla con la lista completa de actividades
+        taskTable.setItems(allTask);
+        
+        
+		if (App.getCurrentUser().getRol().equals(Rol.User)) {
+			btnCreateTask.setDisable(true);
+			btnUpdateTask.setDisable(true);
+			btnDeleteTask.setDisable(true);
+		}
 	}
 
 	/**
@@ -256,5 +283,28 @@ public class TasksViewController {
 	public boolean isOkClicked() {
 		return okClicked;
 	}
+	
+
+    @FXML
+    void searchTask(ActionEvent event) {
+        // Obtener el texto de búsqueda
+        String searchText = txtSearchTask.getText();
+
+        // Filtrar la lista de actividades
+        ObservableList<Task> fliteredTask;
+
+        if (searchText.isEmpty()) {
+            // Si el campo de búsqueda está vacío, mostrar todas las actividades
+            fliteredTask = allTask;
+        } else {
+            // Filtrar las actividades por nombre
+            fliteredTask = allTask.filtered(task ->
+                    task.getName().equalsIgnoreCase(searchText)
+            );
+        }
+
+        // Actualizar la tabla con las actividades filtradas o todas las actividades
+        taskTable.setItems(fliteredTask);
+    }
 
 }

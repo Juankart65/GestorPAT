@@ -3,6 +3,9 @@ package controller;
 import java.io.IOException;
 
 import application.App;
+import dataStructures.SimpleList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -10,10 +13,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import model.Activity;
 import model.Handler;
 import model.Process;
+import model.Rol;
 import model.State;
 import persistence.Persistencia;
 
@@ -62,6 +67,14 @@ public class ActivitiesViewController {
 
 	@FXML
 	private Label txtNameProcess;
+	
+    @FXML
+    private TextField txtSearchActivity;
+    
+    @FXML
+    private Button btnSearchActivity;
+    
+    private ObservableList<Activity> allActivities;
 
 	private App app;
 	private boolean okClicked = false;
@@ -76,6 +89,31 @@ public class ActivitiesViewController {
 	void refreshEvent(ActionEvent event) {
 		app.showActivitiesView(Process.getCurrentActivity());
 	}
+	
+    @FXML
+    void searchActivity(ActionEvent event) {
+        // Obtener el texto de búsqueda
+        String searchText = txtSearchActivity.getText();
+
+        // Filtrar la lista de actividades
+        ObservableList<Activity> filteredActivities;
+
+        if (searchText.isEmpty()) {
+            // Si el campo de búsqueda está vacío, mostrar todas las actividades
+            filteredActivities = allActivities;
+        } else {
+            // Filtrar las actividades por nombre
+            filteredActivities = allActivities.filtered(activity ->
+                    activity.getName().equalsIgnoreCase(searchText)
+            );
+        }
+
+        // Actualizar la tabla con las actividades filtradas o todas las actividades
+        activitiesTable.setItems(filteredActivities);
+    }
+
+
+
 
 	/**
 	 * 
@@ -101,7 +139,6 @@ public class ActivitiesViewController {
 
 		if (okClicked) {
 			ModelFactoryController.getInstance().createActivity(tempActivity);
-			ModelFactoryController.getInstance().activities().addEnd(tempActivity);
 			activitiesTable.getItems().add(tempActivity);
 		}
 	}
@@ -214,8 +251,20 @@ public class ActivitiesViewController {
 		nameCol.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
 		stateCol.setCellValueFactory(cellData -> cellData.getValue().stateProperty());
 		
-		for (Activity activity : ModelFactoryController.getInstance().activities()) {
-			activitiesTable.getItems().add(activity);
+//		for (Activity activity : ModelFactoryController.getInstance().activities()) {
+//			activitiesTable.getItems().add(activity);
+//		}
+		
+        // Obtener la lista de actividades completa y almacenarla en la variable
+        allActivities = FXCollections.observableArrayList(App.currentProcess.getActivities().convertArraylist(App.currentProcess.getActivities()));
+        
+        // Configurar la tabla con la lista completa de actividades
+        activitiesTable.setItems(allActivities);
+        
+		if (App.getCurrentUser().getRol().equals(Rol.User)) {
+			btnCreateActivity.setDisable(true);
+			btnUpdateActivty.setDisable(true);
+			btnDeleteActivity.setDisable(true);
 		}
 	}
 

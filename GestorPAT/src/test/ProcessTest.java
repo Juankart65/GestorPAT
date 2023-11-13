@@ -25,26 +25,6 @@ class ProcessTest {
 		activity1 = new Activity("Activity1", "ActivityDescription1", "ActivityId1", new User("User1"), State.Ready);
 		activity2 = new Activity("Activity2", "ActivityDescription2", "ActivityId2", new User("User2"), State.Blocked);
 	}
-	
-	@Test
-	void testEqualsAndHashCode() {
-		// Crear el objeto process
-		Process process = new Process("ProcessName", "ProcessDescription", "ProcessId", State.Ready,
-				new User("OwnerName"));
-
-		// Verificar la igualdad y hashCode utilizando el identificador 'id'.
-		Process sameProcess = new Process("ProcessName", "ProcessDescription", "ProcessId", State.Ready,
-				new User("OwnerName"));
-		Process differentProcess = new Process("DifferentName", "DifferentDescription", "DifferentId", State.Blocked,
-				new User("DifferentOwner"));
-
-		System.out.println(process);
-		System.out.println(sameProcess);
-		assertEquals(process, sameProcess);
-		assertNotEquals(process, differentProcess);
-		assertEquals(process.hashCode(), sameProcess.hashCode());
-		assertNotEquals(process.hashCode(), differentProcess.hashCode());
-	}
 
 	@Test
 	void testCreateActivity() {

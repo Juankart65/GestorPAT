@@ -78,32 +78,32 @@ public class ModelFactoryController {
 	}
 
 
-	@SuppressWarnings("unused")
-	private void inicializarDatos() {
-
-		handler = new Handler();
-		String pwdEncrypt = handler.encryptPassword("123");
-
-		User user = new User("01", "Juan", pwdEncrypt, Rol.Admin);
-		handler.getUserList().addEnd(user);
-
-		Activity activity = new Activity("Activity 1", "Testing activity 1", "01", user, State.Ready);
-
-		Process process1 = new Process("Process 1", "Testing process 1", "01", State.Ready, user);
-		process1.getActivities().addEnd(activity);
-		handler.getProcessList().addEnd(process1);
-
-		Process process2 = new Process("Process 2", "Testing process 2", "02", State.Blocked, user);
-		handler.getProcessList().addEnd(process2);
-
-		Process process3 = new Process("Process 3", "Testing process 3", "03", State.Running, user);
-		handler.getProcessList().addEnd(process3);
-
-		Process process4 = new Process("Process 4", "Testing process 4", "04", State.Exit, user);
-		handler.getProcessList().addEnd(process4);
-
-		System.out.println("Handler started " + handler);
-	}
+//	@SuppressWarnings("unused")
+//	private void inicializarDatos() {
+//
+//		handler = new Handler();
+//		String pwdEncrypt = handler.encryptPassword("123");
+//
+//		User user = new User("01", "Juan", pwdEncrypt, Rol.Admin);
+//		handler.getUserList().addEnd(user);
+//
+//		Activity activity = new Activity("Activity 1", "Testing activity 1", "01", user, State.Ready);
+//
+//		Process process1 = new Process("Process 1", "Testing process 1", "01", State.Ready, user);
+//		process1.getActivities().addEnd(activity);
+//		handler.getProcessList().addEnd(process1);
+//
+//		Process process2 = new Process("Process 2", "Testing process 2", "02", State.Blocked, user);
+//		handler.getProcessList().addEnd(process2);
+//
+//		Process process3 = new Process("Process 3", "Testing process 3", "03", State.Running, user);
+//		handler.getProcessList().addEnd(process3);
+//
+//		Process process4 = new Process("Process 4", "Testing process 4", "04", State.Exit, user);
+//		handler.getProcessList().addEnd(process4);
+//
+//		System.out.println("Handler started " + handler);
+//	}
 
 	public Handler getHandler() {
 		return handler;
@@ -139,7 +139,7 @@ public class ModelFactoryController {
 	public void createProcess(Process process) {
 		try {
 			getHandler().createProcess(process);
-			Persistencia.saveProcess(getHandler().getProcessList());
+			Persistencia.saveProcess(getInstance().getHandler().getProcessList());
 			Persistencia.guardaRegistroLog("A process has been created", 1, "createProcess");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -156,7 +156,7 @@ public class ModelFactoryController {
 	public void createActivity(Activity activity) {
 		try {
 			App.currentProcess.createActivity(activity);
-			Persistencia.saveProcess(getHandler().getProcessList());
+			Persistencia.saveProcess(getInstance().getHandler().getProcessList());
 			Persistencia.guardaRegistroLog("An activity has been created", 1, "createActivity");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

@@ -16,3 +16,553 @@ nov. 09, 2023 11:40:11 P. M. persistence.ArchivoUtil saveLogRegister
 INFORMACIÓN: createTask,A task has been created,2023-11-09
 nov. 09, 2023 11:40:35 P. M. persistence.ArchivoUtil saveLogRegister
 INFORMACIÓN: createTask,A task has been created,2023-11-09
+nov. 10, 2023 11:58:30 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: loginAction,User User [id=01, name=Juan, password=a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3, rol=Admin] login,2023-11-10
+nov. 10, 2023 11:58:55 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-10
+nov. 10, 2023 11:59:01 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-10
+nov. 11, 2023 12:08:00 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: loginAction,User User [id=01, name=Juan, password=a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3, rol=Admin] login,2023-11-11
+nov. 11, 2023 12:08:03 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-11
+nov. 11, 2023 12:08:07 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 12:08:34 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: createTask,A task has been created,2023-11-11
+nov. 11, 2023 12:10:15 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: loginAction,User User [id=01, name=Juan, password=a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3, rol=Admin] login,2023-11-11
+nov. 11, 2023 12:10:19 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-11
+nov. 11, 2023 12:10:22 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 12:10:33 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: createTask,A task has been created,2023-11-11
+nov. 11, 2023 12:11:45 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: loginAction,User User [id=01, name=Juan, password=a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3, rol=Admin] login,2023-11-11
+nov. 11, 2023 12:11:47 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-11
+nov. 11, 2023 12:11:51 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 12:18:10 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: loginAction,User User [id=01, name=Juan, password=a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3, rol=Admin] login,2023-11-11
+nov. 11, 2023 12:18:13 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-11
+nov. 11, 2023 12:18:17 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 12:18:53 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: createTask,A task has been created,2023-11-11
+nov. 11, 2023 12:21:07 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 12:24:50 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: loginAction,User User [id=01, name=Juan, password=a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3, rol=Admin] login,2023-11-11
+nov. 11, 2023 12:24:53 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-11
+nov. 11, 2023 12:24:56 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 12:25:24 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: createTask,A task has been created,2023-11-11
+nov. 11, 2023 12:25:48 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: createTask,A task has been created,2023-11-11
+nov. 11, 2023 12:28:45 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: loginAction,User User [id=01, name=Juan, password=a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3, rol=Admin] login,2023-11-11
+nov. 11, 2023 12:28:47 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-11
+nov. 11, 2023 12:28:51 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 12:29:13 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: createTask,A task has been created,2023-11-11
+nov. 11, 2023 12:29:35 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: createTask,A task has been created,2023-11-11
+nov. 11, 2023 12:31:22 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: loginAction,User User [id=01, name=Juan, password=a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3, rol=Admin] login,2023-11-11
+nov. 11, 2023 12:31:25 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-11
+nov. 11, 2023 12:31:29 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 12:31:55 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: createTask,A task has been created,2023-11-11
+nov. 11, 2023 12:32:13 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: createTask,A task has been created,2023-11-11
+nov. 11, 2023 12:34:05 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: loginAction,User User [id=01, name=Juan, password=a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3, rol=Admin] login,2023-11-11
+nov. 11, 2023 12:34:08 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-11
+nov. 11, 2023 12:34:11 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 12:34:31 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: createTask,A task has been created,2023-11-11
+nov. 11, 2023 12:35:00 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: createTask,A task has been created,2023-11-11
+nov. 11, 2023 12:36:17 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: loginAction,User User [id=01, name=Juan, password=a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3, rol=Admin] login,2023-11-11
+nov. 11, 2023 12:36:20 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-11
+nov. 11, 2023 12:36:24 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 12:36:42 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: createTask,A task has been created,2023-11-11
+nov. 11, 2023 12:38:30 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: loginAction,User User [id=01, name=Juan, password=a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3, rol=Admin] login,2023-11-11
+nov. 11, 2023 12:38:32 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-11
+nov. 11, 2023 12:38:35 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 12:38:53 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: deleteTask,The task was deleted,2023-11-11
+nov. 11, 2023 12:39:09 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: createTask,A task has been created,2023-11-11
+nov. 11, 2023 12:39:38 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: createTask,A task has been created,2023-11-11
+nov. 11, 2023 12:41:01 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: loginAction,User User [id=01, name=Juan, password=a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3, rol=Admin] login,2023-11-11
+nov. 11, 2023 12:41:05 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-11
+nov. 11, 2023 12:41:08 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 12:41:24 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: deleteTask,The task was deleted,2023-11-11
+nov. 11, 2023 12:41:32 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 12:42:01 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: createTask,A task has been created,2023-11-11
+nov. 11, 2023 12:42:20 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: createTask,A task has been created,2023-11-11
+nov. 11, 2023 12:45:40 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: loginAction,User User [id=01, name=Juan, password=a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3, rol=Admin] login,2023-11-11
+nov. 11, 2023 12:45:43 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-11
+nov. 11, 2023 12:45:46 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 12:45:57 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: createTask,A task has been created,2023-11-11
+nov. 11, 2023 12:46:33 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: createTask,A task has been created,2023-11-11
+nov. 11, 2023 12:50:17 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: loginAction,User User [id=01, name=Juan, password=a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3, rol=Admin] login,2023-11-11
+nov. 11, 2023 12:50:20 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-11
+nov. 11, 2023 12:50:23 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 12:50:30 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: deleteTask,The task was deleted,2023-11-11
+nov. 11, 2023 12:50:50 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: createTask,A task has been created,2023-11-11
+nov. 11, 2023 12:51:10 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: createTask,A task has been created,2023-11-11
+nov. 11, 2023 12:51:12 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: moveUp,Task Task 1 changed position,2023-11-11
+nov. 11, 2023 12:51:21 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 12:52:45 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: loginAction,User User [id=01, name=Juan, password=a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3, rol=Admin] login,2023-11-11
+nov. 11, 2023 12:52:48 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-11
+nov. 11, 2023 12:52:52 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 12:52:56 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: moveUp,Task Task 1 changed position,2023-11-11
+nov. 11, 2023 12:53:11 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 12:53:21 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: moveDown,Task Task 1 changed position,2023-11-11
+nov. 11, 2023 12:53:29 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 12:54:04 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: createTask,A task has been created,2023-11-11
+nov. 11, 2023 12:54:30 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: createTask,A task has been created,2023-11-11
+nov. 11, 2023 12:54:32 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: moveUp,Task Task 1 changed position,2023-11-11
+nov. 11, 2023 12:54:34 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: moveDown,Task Task 3 changed position,2023-11-11
+nov. 11, 2023 12:54:53 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: moveUp,Task Task 4 changed position,2023-11-11
+nov. 11, 2023 12:54:58 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: moveUp,Task Task 2 changed position,2023-11-11
+nov. 11, 2023 12:55:16 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: moveUp,Task Task 4 changed position,2023-11-11
+nov. 11, 2023 12:57:30 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: loginAction,User User [id=01, name=Juan, password=a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3, rol=Admin] login,2023-11-11
+nov. 11, 2023 12:57:33 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-11
+nov. 11, 2023 12:57:36 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 1:03:36 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: loginAction,User User [id=01, name=Juan, password=a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3, rol=Admin] login,2023-11-11
+nov. 11, 2023 1:03:39 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-11
+nov. 11, 2023 1:03:42 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 1:05:05 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: loginAction,User User [id=01, name=Juan, password=a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3, rol=Admin] login,2023-11-11
+nov. 11, 2023 1:05:08 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-11
+nov. 11, 2023 1:05:11 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 1:05:14 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: moveUp,Task Task 1 changed position,2023-11-11
+nov. 11, 2023 1:05:21 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: moveDown,Task Task 1 changed position,2023-11-11
+nov. 11, 2023 1:05:27 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 1:06:05 A. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 6:35:21 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: loginAction,User User [id=01, name=Juan, password=a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3, rol=Admin] login,2023-11-11
+nov. 11, 2023 6:35:24 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-11
+nov. 11, 2023 6:35:27 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 6:35:54 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: createTask,A task has been created,2023-11-11
+nov. 11, 2023 6:35:57 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: moveDown,Task Task 2 changed position,2023-11-11
+nov. 11, 2023 6:39:07 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: loginAction,User User [id=01, name=Juan, password=a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3, rol=Admin] login,2023-11-11
+nov. 11, 2023 6:39:10 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-11
+nov. 11, 2023 6:39:13 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 6:39:17 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: deleteTask,The task was deleted,2023-11-11
+nov. 11, 2023 6:39:19 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: moveDown,Task Task 1 changed position,2023-11-11
+nov. 11, 2023 6:39:24 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 6:39:29 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: moveDown,Task Task 2 changed position,2023-11-11
+nov. 11, 2023 6:39:34 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 6:46:41 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: loginAction,User User [id=01, name=Juan, password=a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3, rol=Admin] login,2023-11-11
+nov. 11, 2023 6:46:43 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-11
+nov. 11, 2023 6:46:46 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 6:47:06 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: createTask,A task has been created,2023-11-11
+nov. 11, 2023 6:47:37 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 6:48:06 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: loginAction,User User [id=01, name=Juan, password=a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3, rol=Admin] login,2023-11-11
+nov. 11, 2023 6:48:08 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-11
+nov. 11, 2023 6:48:11 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 6:48:28 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: createTask,A task has been created,2023-11-11
+nov. 11, 2023 6:48:43 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: createTask,A task has been created,2023-11-11
+nov. 11, 2023 6:48:59 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: moveDown,Task Task 1 changed position,2023-11-11
+nov. 11, 2023 6:49:21 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: moveUp,Task Task 1 changed position,2023-11-11
+nov. 11, 2023 6:49:31 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: moveUp,Task Task 1 changed position,2023-11-11
+nov. 11, 2023 6:50:09 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: moveUp,Task Task 1 changed position,2023-11-11
+nov. 11, 2023 7:16:26 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: loginAction,User User [id=01, name=Juan, password=a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3, rol=Admin] login,2023-11-11
+nov. 11, 2023 7:16:29 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-11
+nov. 11, 2023 7:16:32 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 7:16:37 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: deleteTask,The task was deleted,2023-11-11
+nov. 11, 2023 7:16:39 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: deleteTask,The task was deleted,2023-11-11
+nov. 11, 2023 7:16:43 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: moveDown,Task Task 2 changed position,2023-11-11
+nov. 11, 2023 7:17:07 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 7:19:00 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: loginAction,User User [id=01, name=Juan, password=a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3, rol=Admin] login,2023-11-11
+nov. 11, 2023 7:19:03 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-11
+nov. 11, 2023 7:19:06 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 7:19:10 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: moveDown,Task Task 1 changed position,2023-11-11
+nov. 11, 2023 7:19:20 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 7:22:17 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: loginAction,User User [id=01, name=Juan, password=a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3, rol=Admin] login,2023-11-11
+nov. 11, 2023 7:22:20 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-11
+nov. 11, 2023 7:22:23 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 7:24:23 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: loginAction,User User [id=01, name=Juan, password=a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3, rol=Admin] login,2023-11-11
+nov. 11, 2023 7:24:26 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-11
+nov. 11, 2023 7:24:29 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 7:24:35 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: deleteTask,The task was deleted,2023-11-11
+nov. 11, 2023 7:24:41 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 7:25:01 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: createTask,A task has been created,2023-11-11
+nov. 11, 2023 7:25:22 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: createTask,A task has been created,2023-11-11
+nov. 11, 2023 7:25:25 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: moveUp,Task Task 1 changed position,2023-11-11
+nov. 11, 2023 7:25:53 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 7:27:49 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: deleteTask,The task was deleted,2023-11-11
+nov. 11, 2023 7:27:52 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: moveDown,Task Task 2 changed position,2023-11-11
+nov. 11, 2023 7:27:57 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 7:48:30 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: moveUp,Task Task 1 changed position,2023-11-11
+nov. 11, 2023 7:48:34 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: moveDown,Task Task 1 changed position,2023-11-11
+nov. 11, 2023 7:48:41 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 7:48:48 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: deleteTask,The task was deleted,2023-11-11
+nov. 11, 2023 7:55:19 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: loginAction,User User [id=01, name=Juan, password=a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3, rol=Admin] login,2023-11-11
+nov. 11, 2023 7:55:23 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-11
+nov. 11, 2023 7:55:27 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 7:55:52 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: createTask,A task has been created,2023-11-11
+nov. 11, 2023 7:56:11 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: createTask,A task has been created,2023-11-11
+nov. 11, 2023 7:56:14 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: moveDown,Task Task 1 changed position,2023-11-11
+nov. 11, 2023 7:56:21 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: moveDown,Task Task 1 changed position,2023-11-11
+nov. 11, 2023 7:56:57 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: loginAction,User User [id=01, name=Juan, password=a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3, rol=Admin] login,2023-11-11
+nov. 11, 2023 7:57:00 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-11
+nov. 11, 2023 7:57:04 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 7:57:09 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: deleteTask,The task was deleted,2023-11-11
+nov. 11, 2023 7:57:33 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: moveDown,Task Task 2 changed position,2023-11-11
+nov. 11, 2023 8:00:03 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: loginAction,User User [id=01, name=Juan, password=a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3, rol=Admin] login,2023-11-11
+nov. 11, 2023 8:00:08 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-11
+nov. 11, 2023 8:00:11 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 8:00:17 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: deleteTask,The task was deleted,2023-11-11
+nov. 11, 2023 8:00:42 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: createTask,A task has been created,2023-11-11
+nov. 11, 2023 8:01:02 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: createTask,A task has been created,2023-11-11
+nov. 11, 2023 8:01:19 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: moveUp,Task Task 1 changed position,2023-11-11
+nov. 11, 2023 8:01:29 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 8:01:39 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: moveUp,Task Task 2 changed position,2023-11-11
+nov. 11, 2023 8:01:44 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 8:01:51 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: moveUp,Task Task 2 changed position,2023-11-11
+nov. 11, 2023 8:01:59 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 8:02:02 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: deleteTask,The task was deleted,2023-11-11
+nov. 11, 2023 8:23:31 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: loginAction,User User [id=01, name=Juan, password=a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3, rol=Admin] login,2023-11-11
+nov. 11, 2023 8:23:34 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-11
+nov. 11, 2023 8:23:36 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 8:24:06 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: createTask,A task has been created,2023-11-11
+nov. 11, 2023 8:24:33 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: createTask,A task has been created,2023-11-11
+nov. 11, 2023 8:24:35 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: moveUp,Task Task 1 changed position,2023-11-11
+nov. 11, 2023 8:24:43 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 8:28:02 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: loginAction,User User [id=01, name=Juan, password=a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3, rol=Admin] login,2023-11-11
+nov. 11, 2023 8:28:09 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-11
+nov. 11, 2023 8:28:12 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 8:28:16 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: deleteTask,The task was deleted,2023-11-11
+nov. 11, 2023 8:28:21 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: deleteTask,The task was deleted,2023-11-11
+nov. 11, 2023 8:28:24 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: moveUp,Task Task 2 changed position,2023-11-11
+nov. 11, 2023 8:28:35 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 8:28:43 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: moveDown,Task Task 1 changed position,2023-11-11
+nov. 11, 2023 8:28:50 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 8:29:24 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: loginAction,User User [id=01, name=Juan, password=a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3, rol=Admin] login,2023-11-11
+nov. 11, 2023 8:29:27 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-11
+nov. 11, 2023 8:29:29 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 8:29:32 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: moveUp,Task Task 2 changed position,2023-11-11
+nov. 11, 2023 8:30:32 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: loginAction,User User [id=01, name=Juan, password=a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3, rol=Admin] login,2023-11-11
+nov. 11, 2023 8:30:37 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-11
+nov. 11, 2023 8:30:55 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: createActivity,An activity has been created,2023-11-11
+nov. 11, 2023 8:30:59 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 8:31:32 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: createTask,A task has been created,2023-11-11
+nov. 11, 2023 8:31:48 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: createTask,A task has been created,2023-11-11
+nov. 11, 2023 8:47:54 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: loginAction,User User [id=01, name=Juan, password=a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3, rol=Admin] login,2023-11-11
+nov. 11, 2023 8:47:57 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-11
+nov. 11, 2023 8:48:00 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: deleteActivity,The activity was deleted,2023-11-11
+nov. 11, 2023 8:48:15 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-11
+nov. 11, 2023 8:53:09 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: createActivity,An activity has been created,2023-11-11
+nov. 11, 2023 8:53:15 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-11
+nov. 11, 2023 9:16:59 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: loginAction,User User [id=01, name=Juan, password=a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3, rol=Admin] login,2023-11-11
+nov. 11, 2023 9:17:02 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-11
+nov. 11, 2023 9:17:11 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 9:17:14 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: deleteTask,The task was deleted,2023-11-11
+nov. 11, 2023 9:17:23 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-11
+nov. 11, 2023 9:17:27 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 9:17:32 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: moveUp,Task Task 2 changed position,2023-11-11
+nov. 11, 2023 9:17:42 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 9:18:49 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: loginAction,User User [id=01, name=Juan, password=a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3, rol=Admin] login,2023-11-11
+nov. 11, 2023 9:18:52 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-11
+nov. 11, 2023 9:19:06 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: createActivity,An activity has been created,2023-11-11
+nov. 11, 2023 9:19:20 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: updateActivity,The activity was updated,2023-11-11
+nov. 11, 2023 9:19:29 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 9:19:44 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: createTask,A task has been created,2023-11-11
+nov. 11, 2023 9:20:24 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: loginAction,User User [id=01, name=Juan, password=a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3, rol=Admin] login,2023-11-11
+nov. 11, 2023 9:20:28 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-11
+nov. 11, 2023 9:20:31 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: deleteActivity,The activity was deleted,2023-11-11
+nov. 11, 2023 9:29:07 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: loginAction,User User [id=01, name=Juan, password=a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3, rol=Admin] login,2023-11-11
+nov. 11, 2023 9:29:24 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: createProcess,A process has been created,2023-11-11
+nov. 11, 2023 9:29:34 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: loginAction,User User [id=01, name=Juan, password=a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3, rol=Admin] login,2023-11-11
+nov. 11, 2023 9:34:41 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: loginAction,User User [id=01, name=Juan, password=a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3, rol=Admin] login,2023-11-11
+nov. 11, 2023 9:34:54 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: createProcess,A process has been created,2023-11-11
+nov. 11, 2023 9:35:34 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-11
+nov. 11, 2023 9:35:50 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: createActivity,An activity has been created,2023-11-11
+nov. 11, 2023 9:37:08 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-11
+nov. 11, 2023 9:37:24 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: createTask,A task has been created,2023-11-11
+nov. 11, 2023 9:53:09 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: loginAction,User User [id=01, name=Juan, password=a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3, rol=Admin] login,2023-11-11
+nov. 11, 2023 9:53:12 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-11
+nov. 11, 2023 9:54:26 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: loginAction,User User [id=01, name=Juan, password=a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3, rol=Admin] login,2023-11-11
+nov. 11, 2023 9:54:29 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-11
+nov. 11, 2023 9:56:14 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: loginAction,User User [id=01, name=Juan, password=a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3, rol=Admin] login,2023-11-11
+nov. 11, 2023 9:56:16 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-11
+nov. 11, 2023 9:57:01 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: loginAction,User User [id=01, name=Juan, password=a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3, rol=Admin] login,2023-11-11
+nov. 11, 2023 9:57:07 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-11
+nov. 11, 2023 9:59:38 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: loginAction,User User [id=01, name=Juan, password=a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3, rol=Admin] login,2023-11-11
+nov. 11, 2023 9:59:41 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-11
+nov. 11, 2023 10:00:21 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-11
+nov. 11, 2023 10:02:07 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: loginAction,User User [id=01, name=Juan, password=a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3, rol=Admin] login,2023-11-11
+nov. 11, 2023 10:02:10 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-11
+nov. 11, 2023 10:07:50 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: loginAction,User User [id=01, name=Juan, password=a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3, rol=Admin] login,2023-11-11
+nov. 11, 2023 10:07:53 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-11
+nov. 11, 2023 10:10:47 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: loginAction,User User [id=01, name=Juan, password=a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3, rol=Admin] login,2023-11-11
+nov. 11, 2023 10:10:50 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-11
+nov. 11, 2023 10:11:11 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-11
+nov. 11, 2023 10:12:42 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: loginAction,User User [id=01, name=Juan, password=a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3, rol=Admin] login,2023-11-11
+nov. 11, 2023 10:12:45 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-11
+nov. 12, 2023 1:00:39 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: loginAction,User User [id=01, name=Juan, password=a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3, rol=Admin] login,2023-11-12
+nov. 12, 2023 1:00:41 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-12
+nov. 12, 2023 1:00:44 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-12
+nov. 12, 2023 1:05:30 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: moveUp,Task Task 1 changed position,2023-11-12
+nov. 12, 2023 1:18:47 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: loginAction,User User [id=01, name=Juan, password=a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3, rol=Admin] login,2023-11-12
+nov. 12, 2023 1:18:51 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-12
+nov. 12, 2023 1:19:01 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-12
+nov. 12, 2023 1:19:39 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: signUp,A user has been created,2023-11-12
+nov. 12, 2023 1:19:44 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: loginAction,User User [id=1748, name=Pepe, password=03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4, rol=User] login,2023-11-12
+nov. 12, 2023 1:19:47 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-12
+nov. 12, 2023 1:22:30 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: loginAction,User User [id=1748, name=Pepe, password=03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4, rol=User] login,2023-11-12
+nov. 12, 2023 1:22:34 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-12
+nov. 12, 2023 1:22:59 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-12
+nov. 12, 2023 1:23:32 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-12
+nov. 12, 2023 1:23:44 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeActivity,Window changed,2023-11-12
+nov. 12, 2023 1:34:10 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-12
+nov. 12, 2023 5:27:47 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: loginAction,User User [id=01, name=Juan, password=a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3, rol=Admin] login,2023-11-12
+nov. 12, 2023 5:27:50 P. M. persistence.ArchivoUtil saveLogRegister
+INFORMACIÓN: visualizeProcess,Window changed,2023-11-12

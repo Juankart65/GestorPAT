@@ -73,49 +73,77 @@ public class SimpleList<T> implements Iterable<T>, Serializable {
 
 		return robin;
 	}
-	
-    public void moveUp(int index) {
-        if (index > 0 && index < getSize()) {
-            Node<T> current = getNode(index);
-            Node<T> previous = getNode(index - 1);
-            
-            // Desconecta el nodo actual.
-            if (current != null && previous != null) {
-                @SuppressWarnings("unused")
-				Node<T> next = current.getSiguienteNodo();
-                previous.setSiguienteNodo(current.getSiguienteNodo());
-                
-                // Conecta el nodo actual por encima del nodo anterior.
-                current.setSiguienteNodo(previous);
-                
-                // Actualiza el encabezado si es necesario.
-                if (index == 1) {
-                    nodeFirst = current;
-                }
-            }
-        }
-    }
 
-    public void moveDown(int index) {
-        if (index >= 0 && index < getSize() - 1) {
-        	Node<T> current = getNode(index);
-        	Node<T> next = getNode(index + 1);
-            
-            if (current != null && next != null) {
-                // Desconecta el nodo actual.
-                if (index == 0) {
-                    nodeFirst = next;
-                } else {
-                	Node<T> previous = getNode(index - 1);
-                    previous.setSiguienteNodo(next);
-                }
-                
-                // Conecta el nodo actual debajo del nodo siguiente.
-                current.setSiguienteNodo(next.getSiguienteNodo());
-                next.setSiguienteNodo(current);
-            }
-        }
-    }
+	public void moveUp(int index) {
+	    if (index > 0 && index < getSize()) {
+	        // Obtener el nodo actual en la posición index
+	        Node<T> current = getNode(index);
+
+	        // Obtener el nodo anterior en la posición index - 1
+	        Node<T> previous = getNode(index - 1);
+
+	        // Verificar que los nodos no sean nulos
+	        if (current != null && previous != null) {
+	            // Obtener el nodo anterior al nodo anterior
+	            Node<T> previousPrevious = (index >= 2) ? getNode(index - 2) : null;
+
+	            // Desconectar el nodo actual de su posición
+	            Node<T> next = current.getSiguienteNodo();
+
+	            // Conectar el nodo actual por encima del nodo anterior
+	            current.setSiguienteNodo(previous);
+
+	            // Actualizar el nodo anterior para apuntar al nodo actual
+	            previous.setSiguienteNodo(next);
+
+	            // Actualizar el nodo anterior al nodo anterior para apuntar al nodo actual
+	            if (previousPrevious != null) {
+	                previousPrevious.setSiguienteNodo(current);
+	            } else {
+	                // Si el nodo actual estaba en la posición 1, actualizar la cabeza
+	                nodeFirst = current;
+	            }
+	        }
+	    }
+	}
+
+
+
+
+	public void moveDown(int index) {
+	    if (index >= 0 && index < getSize() - 1) {
+	        // Verificar que el índice esté dentro de los límites válidos
+
+	        // Obtener el nodo en la posición index
+	        Node<T> current = getNode(index);
+
+	        // Obtener el nodo en la posición index + 1
+	        Node<T> next = getNode(index + 1);
+
+	        // Si ambos nodos existen
+	        if (current != null && next != null) {
+	            // Desconectar el nodo actual de su posición
+	            Node<T> previous = getNode(index - 1);
+	            if (previous != null) {
+	                previous.setSiguienteNodo(next);
+	            } else {
+	                // Si el nodo actual está en la primera posición, actualizar la cabeza
+	                nodeFirst = next;
+	            }
+
+	            // Conectar el nodo actual debajo del siguiente nodo
+	            current.setSiguienteNodo(next.getSiguienteNodo());
+	            next.setSiguienteNodo(current);
+
+	            // Si el nodo actual es el último, actualizar la referencia al final de la lista
+	            if (current.getSiguienteNodo() == null) {
+	                nodeLast = current;
+	            }
+	        }
+	    }
+	}
+
+
 
 	/**
 	 * 
@@ -461,22 +489,22 @@ public class SimpleList<T> implements Iterable<T>, Serializable {
 	}
 
 	/**
-	 * Method that 
+	 * Method that
 	 *
 	 * @param activity1
 	 * @return
 	 */
 	public boolean contains(T data) {
-	    Node<T> current = nodeFirst;
+		Node<T> current = nodeFirst;
 
-	    while (current != null) {
-	        if (Objects.equals(current.getValorNodo(), data)) {
-	            return true;
-	        }
-	        current = current.getSiguienteNodo();
-	    }
+		while (current != null) {
+			if (Objects.equals(current.getValorNodo(), data)) {
+				return true;
+			}
+			current = current.getSiguienteNodo();
+		}
 
-	    return false;
+		return false;
 	}
 
 }

@@ -68,7 +68,6 @@ public class ProcessViewController {
 
 		if (okClicked) {
 			ModelFactoryController.getInstance().createProcess(tempProcess);
-			ModelFactoryController.getInstance().getHandler().getProcessList().addEnd(tempProcess);
 			processTable.getItems().add(tempProcess);
 		}
 	}

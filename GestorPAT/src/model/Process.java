@@ -6,6 +6,8 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Objects;
 
+import application.App;
+import controller.ModelFactoryController;
 import dataStructures.SimpleList;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -271,7 +273,7 @@ public class Process implements Serializable{
 	 * @param activity
 	 */
 	public void createActivity(Activity activity) {
-		getActivities().addEnd(activity);
+		App.currentProcess.getActivities().addEnd(activity);
 		
 	}
 
