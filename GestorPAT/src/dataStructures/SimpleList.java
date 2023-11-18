@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Objects;
 import java.util.function.BooleanSupplier;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import model.Activity;
 
@@ -52,7 +56,47 @@ public class SimpleList<T> implements Iterable<T>, Serializable {
 		}
 		size++;
 	}
+	
+	/**
+	 * Verifica si algún elemento de la lista cumple con la condición proporcionada por el predicado.
+	 *
+	 * @param predicate la condición a cumplir
+	 * @return true si al menos un elemento cumple con la condición, false de lo contrario
+	 */
+	public boolean anyMatch(Predicate<T> predicate) {
+	    Node<T> current = nodeFirst;
 
+	    while (current != null) {
+	        if (predicate.test(current.getValorNodo())) {
+	            return true;
+	        }
+	        current = current.getSiguienteNodo();
+	    }
+
+	    return false;
+	}
+	
+	/**
+	 * Obtiene el índice del primer nodo que contiene el valor dado en la lista.
+	 *
+	 * @param value el valor cuyo índice se debe obtener
+	 * @return el índice del nodo que contiene el valor, -1 si el valor no está en la lista
+	 */
+	public int indexOfValue(T value) {
+	    Node<T> current = nodeFirst;
+	    int index = 0;
+
+	    while (current != null) {
+	        if (Objects.equals(current.getValorNodo(), value)) {
+	            return index;
+	        }
+	        current = current.getSiguienteNodo();
+	        index++;
+	    }
+
+	    return -1; // El valor no está en la lista
+	}
+	
 	/**
 	 * 
 	 * Counts how many times a value is repeated in the list
@@ -107,7 +151,16 @@ public class SimpleList<T> implements Iterable<T>, Serializable {
 	    }
 	}
 
-
+    /**
+     * Devuelve una secuencia de elementos de esta lista.
+     *
+     * @return la secuencia de elementos
+     */
+    public Stream<T> stream() {
+        Iterator<T> iterator = iterator();
+        Iterable<T> iterable = () -> iterator;
+        return StreamSupport.stream(iterable.spliterator(), false);
+    }
 
 
 	public void moveDown(int index) {

@@ -1,7 +1,6 @@
 package test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
 import org.junit.Before;
@@ -21,7 +20,7 @@ public class ActivityTest {
     public void setUp() {
         owner = new User("John Doe", "23456");
         activity1 = new Activity("Activity 1", "Description 1", "1", owner, State.Blocked);
-        activity2 = new Activity("Activity 2", "Description 2", "2", owner, State.Exit);
+        activity2 = new Activity("Activity 2", "Description 2", "2", owner, State.Finished);
     }
 
     @Test

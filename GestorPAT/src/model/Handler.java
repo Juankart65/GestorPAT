@@ -3,6 +3,7 @@
  */
 package model;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -11,6 +12,10 @@ import java.util.Random;
 
 import controller.ModelFactoryController;
 import dataStructures.SimpleList;
+import javafx.application.Platform;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import persistence.Persistencia;
 
 /**
  * 
@@ -23,6 +28,7 @@ public class Handler implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private SimpleList<User> userList = new SimpleList<User>();
 	private SimpleList<Process> processList = new SimpleList<Process>();
+	private boolean notificationShown = false;
 
 	public SimpleList<User> getUserList() {
 		return userList;
@@ -195,5 +201,157 @@ public class Handler implements Serializable {
 	 */
 	public void createProcess(Process process) {
 		ModelFactoryController.getInstance().getHandler().getProcessList().addEnd(process);
+	}
+	
+	public void updateTaskDurations() {
+		SimpleList<Process> processes = ModelFactoryController.getInstance().getHandler().getProcessList();
+
+		for (Process process : processes) {
+			if (process.getState().equals(State.Running)) {
+				// Cambia el estado de las demás tareas a State.Waiting
+				for (Process process1 : processes) {
+					if (process1 != process && !process1.getState().equals(State.Finished)) {
+						process1.setState(State.Waiting);
+					}
+				}
+			}
+			if (!process.getState().equals(State.Running)) {
+				// Si el proceso no está en ejecución, continuar con el siguiente proceso
+				continue;
+			}
+
+			for (Activity activity : process.getActivities()) {
+				if (activity.getState().equals(State.Running)) {
+					// Cambia el estado de las demás actividades a State.Waiting
+					for (Activity activity1 : process.getActivities()) {
+						if (activity1 != activity && !activity1.getState().equals(State.Finished)) {
+							activity1.setState(State.Waiting);
+						}
+					}
+				}
+
+				// Verifica si la actividad está en espera y la actividad anterior ha finalizado
+				if (activity.getState().equals(State.Waiting)
+						&& isPreviousActivityFinished(process.getActivities(), activity)) {
+					// Si la actividad está en espera y la actividad anterior ha finalizado,
+					// cámbiela a ejecución (Running)
+					activity.setState(State.Running);
+				} else if (activity.getState().equals(State.Finished)) {
+					// Si la actividad está terminó, avanza a la siguiente actividad y cámbiala
+					// a ejecución (Running)
+					int index = process.getActivities().indexOfValue(activity);
+					if (index < process.getActivities().getSize() - 1) {
+						Activity nextActivity = process.getActivities().getNodeValue(index + 1);
+						if (!nextActivity.getState().equals(State.Finished)
+								&& isPreviousActivityFinished(process.getActivities(), nextActivity)) {
+							nextActivity.setState(State.Running);
+						}
+					}
+				}
+
+				if (activity.getState().equals(State.Running)) {
+					SimpleList<Task> tasks = activity.getTasks();
+
+					// Obtén la primera tarea en ejecución
+					Task runningTask = tasks.stream().filter(task -> task.getState() == State.Running).findFirst()
+							.orElse(null);
+
+					// Cambia el estado de las demás tareas a State.Waiting
+					for (Task task : tasks) {
+						if (task != null && task != runningTask && !task.getState().equals(State.Finished)) {
+							task.setState(State.Waiting);
+						}
+					}
+
+					// Si hay una tarea en ejecución, actualizar su duración y estado
+					if (runningTask != null) {
+					    if (runningTask.getState().equals(State.Waiting)) {
+					        // Cambia el estado de todas las tareas a State.Waiting
+					        for (Task task : tasks) {
+					            if (task != null && !task.getState().equals(State.Finished)) {
+					                task.setState(State.Waiting);
+					            }
+					        }
+
+					        // Cambia el estado de la tarea actual a State.Running
+					        runningTask.setState(State.Running);
+
+					    } else {
+
+					        if (runningTask.getDuration().getSeconds() > 0) {
+					            runningTask.setDuration(runningTask.getDuration().minusSeconds(1));
+					            try {
+					                Persistencia.saveProcess(processes);
+					            } catch (IOException e) {
+					                // TODO Auto-generated catch block
+					                e.printStackTrace();
+					            }
+
+					            // Verifica si la duración de la tarea está dentro del rango
+					            if (runningTask.getDuration().getSeconds() <= 60
+					                    && runningTask.getDuration().getSeconds() > 59 && !notificationShown) {
+					                // Muestra la notificación
+					                Platform.runLater(() -> {
+					                    Alert alert = new Alert(AlertType.INFORMATION);
+					                    alert.setTitle("Task about to finish");
+					                    alert.setHeaderText(null);
+					                    alert.setContentText("Task '" + runningTask.getName() + "' is about to end.");
+
+					                    alert.showAndWait();
+					                });
+					                notificationShown = true; // Marcar que la notificación se ha mostrado
+					            }
+					        } else {
+					            // La tarea ha finalizado, cambia el estado a State.Finished
+					            runningTask.setState(State.Finished);
+
+					            // Verifica si hay tareas pendientes
+					            int index = tasks.indexOfValue(runningTask);
+					            if (index < tasks.getSize() - 1) {
+					                Task nextTask = tasks.getNodeValue(index + 1);
+
+					                // Espera a que la tarea anterior haya terminado (State.Finished)
+					                while (!runningTask.getState().equals(State.Finished)) {
+					                    // Puedes agregar un breve tiempo de espera o realizar otras acciones según sea necesario
+					                }
+
+					                // Cambia el estado de la siguiente tarea a State.Running
+					                nextTask.setState(State.Running);
+					            }
+					        }
+					    }
+					}
+					// Verifica si todas las tareas de la actividad están en State.Finished
+					boolean allTasksFinished = tasks.stream().allMatch(task -> task.getState() == State.Finished);
+					if (allTasksFinished) {
+						// Cambia el estado de la actividad a State.Finished
+						activity.setState(State.Finished);
+					} else if (!activity.getState().equals(State.Waiting)) {
+						activity.setState(State.Running);
+					}
+				}
+
+			}
+
+			// Verifica si todas las actividades del proceso están en State.Finished
+			boolean allActivitiesFinished = process.getActivities().stream()
+					.allMatch(activity -> activity.getState() == State.Finished);
+			if (allActivitiesFinished) {
+				// Cambia el estado del proceso a State.Finished
+				process.setState(State.Finished);
+			} else if (!process.getState().equals(State.Waiting)) {
+				process.setState(State.Running);
+			}
+		}
+	}
+
+	// Método para verificar si la actividad anterior ha finalizado
+	private boolean isPreviousActivityFinished(SimpleList<Activity> activities, Activity currentActivity) {
+		int currentIndex = activities.indexOfValue(currentActivity);
+		if (currentIndex > 0) {
+			Activity previousActivity = activities.getNodeValue(currentIndex - 1);
+			return previousActivity.getState().equals(State.Finished);
+		}
+		return true; // Si no hay actividad anterior, se considera que ha finalizado.
 	}
 }

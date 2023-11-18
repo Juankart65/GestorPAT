@@ -5,17 +5,12 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.Activity;
 import model.Process;
-import model.State;
 import model.Task;
 import model.User;
-import persistence.Persistencia;
 
 import java.io.IOException;
-import java.util.Comparator;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.stream.Collectors;
 
 import controller.CreateProcessController;
 import controller.CreateTaskController;
@@ -27,13 +22,8 @@ import controller.ProcessViewController;
 import controller.SignUpController;
 import controller.TasksViewController;
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 
@@ -49,8 +39,7 @@ public class App extends Application {
 	private Stage primaryStage;
 	public static User currentUser;
 	public static Process currentProcess;
-	private boolean notificationShown = false;
-	private long previousLowestDuration = Long.MAX_VALUE;
+
 
 	/**
 	 * 
@@ -110,13 +99,7 @@ public class App extends Application {
 		timer.scheduleAtFixedRate(new TimerTask() {
 			@Override
 			public void run() {
-				updateTaskDurations();
-				try {
-					Persistencia.saveProcess(ModelFactoryController.getInstance().getHandler().getProcessList());
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				ModelFactoryController.getInstance().getHandler().updateTaskDurations();
 			}
 		}, 1000, 1000);
 
@@ -439,75 +422,6 @@ public class App extends Application {
 			e.printStackTrace();
 			return false;
 		}
-	}
-
-	private void updateTaskDurations() {
-		ObservableList<Task> tasks = getTask();
-
-		// Actualizar la duración de cada tarea
-		for (Task task : tasks) {
-			if (task.getState() == State.Running) {
-				if (task.getDuration().getSeconds() > 0) {
-					task.setDuration(task.getDuration().minusSeconds(1));
-				} else {
-					// La tarea ha finalizado, cambia el estado a State.Exit
-					task.setState(State.Finished);
-					Persistencia.guardaRegistroLog("The task '" + task.getName() + "' is finished", 1, "Finished");
-					try {
-						Persistencia.saveProcess(ModelFactoryController.getInstance().getHandler().getProcessList());
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-			}
-		}
-
-		List<Task> tasksWithLowestDuration = getTasksWithLowestDuration(tasks);
-		if (!tasksWithLowestDuration.isEmpty() && tasksWithLowestDuration.get(0).getDuration().getSeconds() <= 300
-				&& tasksWithLowestDuration.get(0).getDuration().getSeconds() > 299 && !notificationShown) {
-			long currentLowestDuration = tasksWithLowestDuration.get(0).getDuration().getSeconds();
-
-			// Mostrar la notificación solo si la duración más baja cambió y la tarea está
-			// en estado Running
-			if (currentLowestDuration != previousLowestDuration
-					&& tasksWithLowestDuration.get(0).getState() == State.Running) {
-				Platform.runLater(() -> {
-					for (Task task : tasksWithLowestDuration) {
-						Alert alert = new Alert(AlertType.INFORMATION);
-						alert.setTitle("Task about to finish");
-						alert.setHeaderText(null);
-						alert.setContentText("Task '" + task.getName() + "' is about to end.");
-
-						alert.showAndWait();
-					}
-					notificationShown = true; // Marcar que la notificación se ha mostrado
-					previousLowestDuration = currentLowestDuration; // Actualizar la duración más baja anterior
-				});
-			}
-		}
-	}
-
-	private List<Task> getTasksWithLowestDuration(ObservableList<Task> tasks) {
-		// Encontrar todas las tareas con la duración más baja
-		long lowestDuration = tasks.stream().filter(task -> task.getDuration().getSeconds() > 0)
-				.mapToLong(task -> task.getDuration().getSeconds()).min().orElse(Long.MAX_VALUE);
-
-		return tasks.stream().filter(task -> task.getDuration().getSeconds() == lowestDuration)
-				.collect(Collectors.toList());
-	}
-
-	private ObservableList<Task> getTask() {
-		ObservableList<Task> tasks = FXCollections.observableArrayList();
-
-		for (Process process : ModelFactoryController.getInstance().getHandler().getProcessList()) {
-			for (Activity actividad : process.getActivities()) {
-				for (Task task : actividad.getTasks()) {
-					tasks.add(task);
-				}
-			}
-		}
-		return tasks;
 	}
 
 	/**

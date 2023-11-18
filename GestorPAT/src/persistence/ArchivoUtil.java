@@ -73,8 +73,11 @@ public class ArchivoUtil {
 					case "Running":
 						state = State.Running;
 						break;
-					case "Exit":
-						state = State.Exit;
+					case "Finished":
+						state = State.Finished;
+						break;
+					case "Waiting":
+						state = State.Waiting;
 						break;
 					default:
 						break;
@@ -102,8 +105,11 @@ public class ArchivoUtil {
 						case "Running":
 							activityState = State.Running;
 							break;
-						case "Exit":
-							activityState = State.Exit;
+						case "Finished":
+							activityState = State.Finished;
+							break;
+						case "Waiting":
+							activityState = State.Waiting;
 							break;
 						default:
 							break;
@@ -120,21 +126,22 @@ public class ArchivoUtil {
 						// Verificar y procesar las tareas (si las hay).
 						Row taskRow;
 
-					    do {
-					        taskRow = sheet.getRow(indexRowAct);
+						do {
+							taskRow = sheet.getRow(indexRowAct);
 
-					        if (taskRow == null || taskRow.getPhysicalNumberOfCells() < 7) {
-					            // La fila no cumple con los requisitos mínimos para ser una fila de tarea, sal del bucle.
-					            break;
-					        }
+							if (taskRow == null || taskRow.getPhysicalNumberOfCells() < 7) {
+								// La fila no cumple con los requisitos mínimos para ser una fila de tarea, sal
+								// del bucle.
+								break;
+							}
 
-					        // Comprueba si esta fila es una tarea y no una actividad.
-					        Cell cell0 = taskRow.getCell(0);
-					        if (cell0 != null && cell0.getStringCellValue().equals("Task ID")) {
-					            // Es un encabezado de tarea, salta al siguiente índice de fila.
-					            indexRowAct++;
-					            continue;
-					        }
+							// Comprueba si esta fila es una tarea y no una actividad.
+							Cell cell0 = taskRow.getCell(0);
+							if (cell0 != null && cell0.getStringCellValue().equals("Task ID")) {
+								// Es un encabezado de tarea, salta al siguiente índice de fila.
+								indexRowAct++;
+								continue;
+							}
 
 							String taskId = taskRow.getCell(0).getStringCellValue();
 							String taskName = taskRow.getCell(1).getStringCellValue();
@@ -150,8 +157,11 @@ public class ArchivoUtil {
 							case "Running":
 								taskState = State.Running;
 								break;
-							case "Exit":
-								taskState = State.Exit;
+							case "Finished":
+								taskState = State.Finished;
+								break;
+							case "Waiting":
+								taskState = State.Waiting;
 								break;
 							default:
 								break;
@@ -166,9 +176,9 @@ public class ArchivoUtil {
 									taskName);
 							activity.getTasks().addEnd(task);
 
-					        // Avanzar al siguiente índice de fila.
-					        indexRowAct++;
-					    } while (taskRow != null);
+							// Avanzar al siguiente índice de fila.
+							indexRowAct++;
+						} while (taskRow != null);
 					}
 
 					procesos.addEnd(proceso);
