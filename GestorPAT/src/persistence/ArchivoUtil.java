@@ -252,7 +252,7 @@ public class ArchivoUtil {
 					taskRow.createCell(3).setCellValue(task.getState().name());
 					taskRow.createCell(4).setCellValue(task.getOwner().getName());
 					taskRow.createCell(5).setCellValue(task.getDuration().toString());
-					taskRow.createCell(6).setCellValue(task.isMandatoryTask() ? "Yes" : "No");
+					taskRow.createCell(6).setCellValue(task.getMandatoryTask() ? "Yes" : "No");
 				}
 			}
 		}

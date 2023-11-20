@@ -163,7 +163,7 @@ public class Task {
 	 *
 	 * @return the mandatoryTask
 	 */
-	public boolean isMandatoryTask() {
+	public boolean getMandatoryTask() {
 		return mandatoryTask.get();
 	}
 

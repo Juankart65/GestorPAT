@@ -114,7 +114,6 @@ public class Process implements Serializable {
 	 */
 	public void setState(State state) {
 		this.state.set(state);
-		;
 	}
 
 	/**
@@ -244,24 +243,6 @@ public class Process implements Serializable {
 	public String toString() {
 		return "Process [activities=" + activities + ", name=" + name + ", description=" + description + ", id=" + id
 				+ "]";
-	}
-
-	private void writeObject(ObjectOutputStream out) throws IOException {
-		out.defaultWriteObject();
-		out.writeObject(name.get());
-		out.writeObject(description.get());
-		out.writeObject(id.get());
-		out.writeObject(state.get());
-		out.writeObject(owner);
-	}
-
-	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
-		in.defaultReadObject();
-		name = new SimpleStringProperty((String) in.readObject());
-		description = new SimpleStringProperty((String) in.readObject());
-		id = new SimpleStringProperty((String) in.readObject());
-		state = new SimpleObjectProperty<>((State) in.readObject());
-		owner = (User) in.readObject();
 	}
 
 	/**

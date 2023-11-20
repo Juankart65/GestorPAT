@@ -237,7 +237,7 @@ public class Activity implements Serializable {
 	 * @param task
 	 */
 	public void createTask(Task task) {
-		Process.getCurrentActivity().getTasks();
+		Process.getCurrentActivity().getTasks().addEnd(task);
 
 	}
 

@@ -15,6 +15,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
+import model.Process;
 import model.State;
 import model.Task;
 
@@ -59,6 +60,7 @@ public class CreateTaskController {
 
 	@FXML
 	void acceptActivityEvent(ActionEvent event) {
+
 		if (isInputValid()) {
 			task.setId(txtIdTask.getText());
 			task.setState(cbxStateTask.getValue());
@@ -116,6 +118,7 @@ public class CreateTaskController {
 	 */
 	private boolean isInputValid() {
 		String errorMensaje = "";
+		int index = Process.getCurrentActivity().getTasks().getSize()-1;
 
 		if (txtIdTask == null || txtIdTask.getText().length() == 0) {
 			errorMensaje += "The ID is not valid!\n";
@@ -137,6 +140,9 @@ public class CreateTaskController {
 		}
 		if (cbxDurationTask.getValue() == null && txtDuration.getText().length() == 0) {
 			errorMensaje += "The duration is not valid!\n";
+		}
+		if (Process.getCurrentActivity().getTasks().getSize() > 1 && task.getMandatoryTask() == false && Process.getCurrentActivity().getTasks().getNodeValue(index).getMandatoryTask() == false) {
+			errorMensaje += "Can't do 2 task optional in the row";
 		}
 
 		if (errorMensaje.length() == 0) {

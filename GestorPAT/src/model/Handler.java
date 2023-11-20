@@ -203,10 +203,26 @@ public class Handler implements Serializable {
 		ModelFactoryController.getInstance().getHandler().getProcessList().addEnd(process);
 	}
 	
+	/**
+	 * 
+	 * Method that updates the time of the tasks and executes the tasks, activities 
+	 * and processes sequentially
+	 *
+	 */
 	public void updateTaskDurations() {
 		SimpleList<Process> processes = ModelFactoryController.getInstance().getHandler().getProcessList();
 
 		for (Process process : processes) {
+			
+			if (process.getState().equals(State.Finished)) {
+				
+			    // Verifica si al menos una tarea de la actividad está en ejecución (Running)
+			    boolean anyActivityRunning = process.getActivities().stream().anyMatch(activity -> activity.getState().equals(State.Running));
+			    if (anyActivityRunning) {
+			    	process.setState(State.Running);
+				}
+			}
+			
 			if (process.getState().equals(State.Running)) {
 				// Cambia el estado de las demás tareas a State.Waiting
 				for (Process process1 : processes) {
@@ -221,6 +237,16 @@ public class Handler implements Serializable {
 			}
 
 			for (Activity activity : process.getActivities()) {
+				
+				if (activity.getState().equals(State.Finished)) {
+					
+				    // Verifica si al menos una tarea de la actividad está en ejecución (Running)
+				    boolean anyTaskRunning = activity.getTasks().stream().anyMatch(task -> task.getState().equals(State.Running));
+				    if (anyTaskRunning) {
+						activity.setState(State.Running);
+					}
+				}
+				
 				if (activity.getState().equals(State.Running)) {
 					// Cambia el estado de las demás actividades a State.Waiting
 					for (Activity activity1 : process.getActivities()) {
@@ -288,8 +314,8 @@ public class Handler implements Serializable {
 					            }
 
 					            // Verifica si la duración de la tarea está dentro del rango
-					            if (runningTask.getDuration().getSeconds() <= 60
-					                    && runningTask.getDuration().getSeconds() > 59 && !notificationShown) {
+					            if (runningTask.getDuration().getSeconds() <= 30
+					                    && runningTask.getDuration().getSeconds() > 29 && !notificationShown) {
 					                // Muestra la notificación
 					                Platform.runLater(() -> {
 					                    Alert alert = new Alert(AlertType.INFORMATION);
@@ -298,6 +324,8 @@ public class Handler implements Serializable {
 					                    alert.setContentText("Task '" + runningTask.getName() + "' is about to end.");
 
 					                    alert.showAndWait();
+					                    
+					                    Persistencia.guardaRegistroLog("The task is about to finish", 1, "Finished");
 					                });
 					                notificationShown = true; // Marcar que la notificación se ha mostrado
 					            }
@@ -326,7 +354,7 @@ public class Handler implements Serializable {
 					if (allTasksFinished) {
 						// Cambia el estado de la actividad a State.Finished
 						activity.setState(State.Finished);
-					} else if (!activity.getState().equals(State.Waiting)) {
+					} else if (!activity.getState().equals(State.Waiting) && !allTasksFinished) {
 						activity.setState(State.Running);
 					}
 				}
@@ -339,7 +367,7 @@ public class Handler implements Serializable {
 			if (allActivitiesFinished) {
 				// Cambia el estado del proceso a State.Finished
 				process.setState(State.Finished);
-			} else if (!process.getState().equals(State.Waiting)) {
+			} else if (!process.getState().equals(State.Waiting) && !allActivitiesFinished) {
 				process.setState(State.Running);
 			}
 		}
