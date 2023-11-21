@@ -20,7 +20,7 @@ import model.State;
 import model.Task;
 
 /**
- * Este es el controlador de la ventana para crear o editar cultivos
+ * Este es el controlador de la ventana para crear o editar
  * 
  * @author USER
  *
